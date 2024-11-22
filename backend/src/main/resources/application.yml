@@ -11,6 +11,8 @@ spring:
     multipart:
       max-file-size: 3MB
       max-request-size: 3MB
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
 
 ## Application Configuration
