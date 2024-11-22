@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: backend
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  docker:
+    compose:
+      lifecycle-management: start_only
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 3MB
+
+
+## Application Configuration
+app:
+  error:
+    base-uri: https://api.domainplaceholder.com/errors/
+  cloudinary:
+    url: ${CLOUDINARY_URL}
