@@ -12,8 +12,8 @@ import java.util.Optional;
 public class JpaConfig {
 
     @Bean
-    public AuditorAware<String> auditorProvider(){
-        return ()-> Optional.of("SEGUNDAS_HUELLAS_SYSTEM");
+    public AuditorAware<String> auditorProvider() {
+        return () -> Optional.of("SEGUNDAS_HUELLAS_SYSTEM");
     }
 
 }
