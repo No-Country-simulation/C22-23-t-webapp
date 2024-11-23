@@ -1,68 +1,57 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/*
+    MARK: CSS RESET
+*/
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Simplifico la forma de aplicar tamaños */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Quito el espaciado predeterminado */
+* {
+    margin: 0;
+    padding: 0;
 }
 
+/* Aplico dark mode user-agent-styles */
+/* Mejoro la puntuación en los navegadores que lo soporten */
+html {
+    color-scheme: dark light;
+    hanging-punctuation: first last;
+}
+
+/* min body height para evitar problemas con display:flex */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    min-height: 100svh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* imágenes/videos responsive */
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Mejoro los títulos en los navegadores que lo soporten */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Mejoro la legibilidad con max-width en párrafos y listas */
+/* Prevengo palabras "huérfanas" en los navegadores que lo soporten */
+p,
+li {
+    max-width: 65ch;
+    text-wrap: pretty;
 }
+
+/* *********************************************************************************** */
