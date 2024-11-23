@@ -1,10 +1,11 @@
-import './App.css'
+import './App.css';
+import CardsPage from './components/cards/CardsPage';
 
 function App() {
   return (
-    <>
-      <h1>Segundas Huellas | NoCountry | equipo-c22-23-t-webapp</h1>
-    </>
+    <div>
+      <CardsPage />
+    </div>
   )
 }
 
