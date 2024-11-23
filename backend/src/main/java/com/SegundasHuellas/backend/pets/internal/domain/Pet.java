@@ -1,11 +1,15 @@
 package com.SegundasHuellas.backend.pets.internal.domain;
 
-import com.SegundasHuellas.backend.shared.audit.BaseEntity;
+import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
+import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
@@ -22,6 +26,9 @@ public class Pet extends BaseEntity {
     @Column(name = "name", nullable = false)
     @NotBlank(message = "Name is mandatory.")
     private String name;
+
+    @Embedded
+    private Image image;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "species", nullable = false)
