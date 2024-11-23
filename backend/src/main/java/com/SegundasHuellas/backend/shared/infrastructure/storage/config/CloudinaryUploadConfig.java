@@ -1,6 +1,5 @@
 package com.SegundasHuellas.backend.shared.infrastructure.storage.config;
 
-import lombok.Builder;
 import lombok.Value;
 
 import java.util.Map;
@@ -8,37 +7,29 @@ import java.util.Map;
 import static java.util.Objects.requireNonNull;
 
 @Value
-@Builder
 public class CloudinaryUploadConfig {
-    @Builder.Default
+
     private static final String resourceType = "auto";
 
-    @Builder.Default
     private static final String displayName = "uploaded-image";
 
-    @Builder.Default
-    private static final String assetFolder = "uploaded-images";
+    private static final String folder = "uploaded-images";
 
-    @Builder.Default
     private static final String quality = "auto";
 
-    @Builder.Default
     private static final String fetchFormat = "auto";
 
-    @Builder.Default
     private static final String format = "webp";
 
-    @Builder.Default
     private static final String compression = "low";
 
-    @Builder.Default
     private static final String flags = "lossy";
 
     public static Map<String, Object> defaultOptions() {
         return Map.of(
                 "resource_type", resourceType,
                 "display_name", displayName,
-                "asset_folder", assetFolder,
+                "folder", folder,
                 "quality", quality,
                 "fetch_format", fetchFormat,
                 "format", format,
