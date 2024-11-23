@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.shared.audit;
+package com.SegundasHuellas.backend.shared.domain.base;
 
 import jakarta.persistence.*;
 import lombok.*;

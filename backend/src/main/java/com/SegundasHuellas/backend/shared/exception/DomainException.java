@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.shared.error;
+package com.SegundasHuellas.backend.shared.exception;
 
 import org.springframework.http.HttpStatus;
 
