@@ -30,7 +30,7 @@ public class Pet extends BaseEntity {
     @Embedded
     private Image image;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     @Column(name = "species", nullable = false)
     @NotNull(message = "Species is mandatory.")
     private String species;//dog, cat, other.
