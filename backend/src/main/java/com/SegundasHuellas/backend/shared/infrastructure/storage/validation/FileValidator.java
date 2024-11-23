@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class FileValidator {
 
-    private static final long MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
+    private static final long MAX_FILE_SIZE = 1024 * 1024 * 3; // 3MB
     private static final List<String> ALLOWED_TYPES = List.of("image/jpeg", "image/png", "image/webp");
 
     public void validate(MultipartFile file) {
