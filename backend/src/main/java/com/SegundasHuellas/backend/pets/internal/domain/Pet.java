@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.pets.domain;
+package com.SegundasHuellas.backend.pets.internal.domain;
 
 import com.SegundasHuellas.backend.shared.audit.BaseEntity;
 import jakarta.persistence.Column;
