@@ -21,7 +21,7 @@ public class VaccinationStatus {
     @Column(name = "is_vaccinated")
     private boolean isVaccinated;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER) // Revisar luego si es necesario hacer eager fetch
     @CollectionTable(
             name = "pet_vaccines",
             joinColumns = @JoinColumn(name = "pet_id")

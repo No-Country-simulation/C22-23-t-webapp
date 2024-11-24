@@ -64,7 +64,7 @@ public class Pet extends BaseEntity {
 
 
     // Por ejemplo, podríamos usar este factory para crear una pet con solo los valores indispensables.
-    public static Pet createDefault(String petName, Species species) {
+    public static Pet withDefaults(String petName, Species species) {
         return Pet.builder()
                   .name(petName)
                   .species(species)
