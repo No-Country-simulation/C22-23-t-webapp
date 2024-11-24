@@ -60,7 +60,7 @@ class CloudinaryStorageServiceTest {
             Photo upload should return correct ImageMetadata when upload is successful
             """)
     void testUploadSuccess() throws IOException {
-        MultipartFile mockPhoto = createMockPhoto();
+        MockMultipartFile mockPhoto = createMockPhoto();
 
         UploadConfig uploadConfig = UploadConfig.builder()
                                                 .options(Map.of("folder", "test-folder"))
