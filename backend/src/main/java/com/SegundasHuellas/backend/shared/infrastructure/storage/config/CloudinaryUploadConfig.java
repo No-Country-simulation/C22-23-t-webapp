@@ -13,7 +13,7 @@ public class CloudinaryUploadConfig {
 
     private static final String displayName = "uploaded-image";
 
-    private static final String folder = "uploaded-images";
+    private static final String assetFolder = "uploaded-images";
 
     private static final String quality = "auto";
 
@@ -29,7 +29,7 @@ public class CloudinaryUploadConfig {
         return Map.of(
                 "resource_type", resourceType,
                 "display_name", displayName,
-                "folder", folder,
+                "asset_folder", assetFolder,
                 "quality", quality,
                 "fetch_format", fetchFormat,
                 "format", format,
