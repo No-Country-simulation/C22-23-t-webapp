@@ -46,7 +46,7 @@ class CloudinaryStorageServiceTest {
 
     @Test
     @DisplayName("""
-            Photo upload should return ImageMetadata when upload is successful
+            Photo upload should return correct ImageMetadata when upload is successful
             """)
     void testUploadSuccess() throws IOException {
         MultipartFile mockPhoto = new MockMultipartFile(
@@ -60,17 +60,9 @@ class CloudinaryStorageServiceTest {
                                                 .options(Map.of("folder", "test-folder"))
                                                 .build();
 
-        Map<String, Object> uploadResult = Map.of(
-                "public_id", "test-public-id",
-                "secure_url", "https://cloudinary.com/test-photo.jpg",
-                "width", 800,
-                "height", 600,
-                "bytes", 12345,
-                "format", "jpg"
 
-        );
-
-        when(uploader.upload(any(File.class), any(Map.class))).thenReturn(uploadResult);
+        when(uploader.upload(any(File.class), any(Map.class)))
+                .thenReturn(createValidCloudinaryResponse());
 
         ImageMetadata result = cloudinaryStorageService.upload(mockPhoto, uploadConfig);
 
@@ -80,10 +72,23 @@ class CloudinaryStorageServiceTest {
                     assertThat(metadata.url()).isEqualTo("https://cloudinary.com/test-photo.jpg");
                     assertThat(metadata.dimensions().width()).isEqualTo(800);
                     assertThat(metadata.dimensions().height()).isEqualTo(600);
-                    assertThat(metadata.bytes()).isEqualTo(12345);
+                    assertThat(metadata.bytes()).isEqualTo(12345L);
+                    assertThat(metadata.readableSize()).isEqualTo("12.06 KB");
                     assertThat(metadata.format()).isEqualTo(ImageMetadata.ImageFormat.JPG);
                 });
 
         verify(fileValidator).validate(mockPhoto);
+    }
+
+    private Map<String, Object> createValidCloudinaryResponse() {
+        return Map.of(
+                "public_id", "test-public-id",
+                "secure_url", "https://cloudinary.com/test-photo.jpg",
+                "width", 800,
+                "height", 600,
+                "bytes", 12345,
+                "format", "jpg"
+
+        );
     }
 }
