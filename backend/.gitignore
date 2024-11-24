@@ -1,3 +1,10 @@
+# Environment variables
+.env
+*.env
+!.env.example
+
+
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -18,6 +25,9 @@ target/
 *.iws
 *.iml
 *.ipr
+.idea/
+.idea_modules/
+out/
 
 ### NetBeans ###
 /nbproject/private/
