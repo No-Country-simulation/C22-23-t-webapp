@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.domain;
 
+import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import jakarta.persistence.*;
@@ -30,6 +31,7 @@ public class Pet extends BaseEntity {
     @Embedded
     private Image image;
 
+
 //    @Enumerated(EnumType.STRING)
     @Column(name = "species", nullable = false)
     @NotNull(message = "Species is mandatory.")
@@ -53,8 +55,8 @@ public class Pet extends BaseEntity {
     @NotNull(message = "Castrated status is mandatory.")
     private Boolean isCastrated;//si esta castrado o no.
 
-    @Column(name = "health_status", length = 500)
-    @Size(max = 500, message = "Health status must be 500 characters or less.")
+    @Column(name = "health_status", length = 500)//ultima linea de defensa contra el client.
+    @Size(max = 500, message = "Health status must be 500 characters or less.") //Redundant -> primera linea de defensa, debe ir en DTO.
     private String healthStatus;//aclarar cualquier cosa a tener en cuenta sobre su salud.
 
     @Column(name = "comments", length = 1000)
