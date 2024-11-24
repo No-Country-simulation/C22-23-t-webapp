@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "./Card";
 import Footer from "../footer/Footer";
+import Header from "../header/Header";
 
 function CardsPage() {
   return (
     <div className="wrapper">
-      <h1>Segundas Huellas | NoCountry | equipo-c22-23-t-webapp</h1>
+      <Header />
       <div className="App">
         <Card
           image="1"

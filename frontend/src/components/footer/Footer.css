@@ -1,10 +1,17 @@
 .footer-container {
-    width: 100%;
+    width: 80%;
     height: 80px;
+    margin: 0 auto;
+    margin-top: 25px;
     padding: 20px;
     display: flex;
     align-items: center;
-    background: #dee3e7;
+    background: #edeff0;
+}
+
+.footer-wrapper {
+    width: 100%;
+    background: #edeff0;
 }
 
 .fixed {
