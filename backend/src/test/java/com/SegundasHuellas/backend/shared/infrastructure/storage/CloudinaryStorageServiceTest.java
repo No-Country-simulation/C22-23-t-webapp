@@ -1,6 +1,7 @@
 package com.SegundasHuellas.backend.shared.infrastructure.storage;
 
 import com.SegundasHuellas.backend.shared.application.dto.ImageMetadata;
+import com.SegundasHuellas.backend.shared.exception.PhotoUploadException;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.config.UploadConfig;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.validation.FileValidator;
 import com.cloudinary.Cloudinary;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,6 +41,15 @@ class CloudinaryStorageServiceTest {
     @InjectMocks
     private CloudinaryStorageService cloudinaryStorageService;
 
+    private static MockMultipartFile createMockPhoto() {
+        return new MockMultipartFile(
+                "test-photo.jpg",
+                "test-photo.jpg",
+                "image/jpeg",
+                "some image content".getBytes()
+        );
+    }
+
     @BeforeEach
     void setUp() {
         when(cloudinary.uploader()).thenReturn(uploader);
@@ -49,12 +60,7 @@ class CloudinaryStorageServiceTest {
             Photo upload should return correct ImageMetadata when upload is successful
             """)
     void testUploadSuccess() throws IOException {
-        MultipartFile mockPhoto = new MockMultipartFile(
-                "test-photo.jpg",
-                "test-photo.jpg",
-                "image/jpeg",
-                "some image content".getBytes()
-        );
+        MultipartFile mockPhoto = createMockPhoto();
 
         UploadConfig uploadConfig = UploadConfig.builder()
                                                 .options(Map.of("folder", "test-folder"))
@@ -78,6 +84,23 @@ class CloudinaryStorageServiceTest {
                 });
 
         verify(fileValidator).validate(mockPhoto);
+    }
+
+    @Test
+    @DisplayName("""
+            Photo upload should throw a PhotoUploadException when upload fails
+            """)
+    void testUploadFailure() throws IOException {
+        MockMultipartFile mockPhoto = createMockPhoto();
+
+        UploadConfig uploadConfig = UploadConfig.builder().options(Map.of()).build();
+
+        when(uploader.upload(any(File.class), any(Map.class)))
+                .thenThrow(new IOException("Upload failed"));
+
+        assertThatThrownBy(() -> cloudinaryStorageService.upload(mockPhoto, uploadConfig))
+                .isInstanceOf(PhotoUploadException.class);
+
     }
 
     private Map<String, Object> createValidCloudinaryResponse() {
