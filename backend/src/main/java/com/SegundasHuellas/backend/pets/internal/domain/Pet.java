@@ -1,10 +1,11 @@
 package com.SegundasHuellas.backend.pets.internal.domain;
 
+import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
+import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.vo.Weight;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,46 +27,35 @@ import java.time.LocalDate;
 public class Pet extends BaseEntity {
 
     @Column(name = "name", nullable = false)
-    @NotBlank(message = "Name is mandatory.")
     private String name;
 
     @Embedded
-    private Image image;
+    private Image photo;
 
-//    @Enumerated(EnumType.STRING)
     @Column(name = "species", nullable = false)
-    @NotNull(message = "Species is mandatory.")
-    private String species;//dog, cat, other.
+    private Species species;//dog, cat, other.
 
-    @Column(name = "breed")
-    @Size(max = 50, message = "Breed must be 50 characters or less.")
-    private String breed;//Hacer lista de especies para cambiar esta propiedad por un enum.
+    @ManyToOne
+    @JoinColumn(name = "breed_id")
+    private Breed breed;//❓Como validar que la raza agregada pertenezca a la specie correcta.
 
-    @Column(name = "age_in_days", nullable = true)
-    private Integer age;//expresado en dias.
+    @Embedded
+    private Age age;//expresado en días.
 
-    @Column(name = "is_vaccinated", nullable = false)
-    @NotNull(message = "Vaccination status is mandatory.")
-    private Boolean isVaccinated;//se espera que se aclare en comments.
+    @Embedded
+    private VaccinationStatus vaccinationStatus;
 
-    @Column(name = "vaccines", nullable = true)
-    private String vaccines;//aclarar que tipo de vacunas tiene, si el boolean es false devuelve null y no se muestra en front.
+    @Embedded
+    private Weight weight;//en gramos.
 
     @Column(name = "is_castrated", nullable = false)
-    @NotNull(message = "Castrated status is mandatory.")
     private Boolean isCastrated;//si esta castrado o no.
 
-    @Column(name = "health_status", length = 500)
-    @Size(max = 500, message = "Health status must be 500 characters or less.")
+    @Column(name = "health_status", length = 500)//ultima linea de defensa contra el client.
     private String healthStatus;//aclarar cualquier cosa a tener en cuenta sobre su salud.
 
     @Column(name = "comments", length = 1000)
-    @Size(max = 1000, message = "Comments must be 1000 characters or less.")
     private String comments;
-
-    @Column(name = "photo_url", nullable = true)
-    private String photoUrl;//almacenado en base de datos url String,si se utiliza firebase para imagenes se modifica.
-
 
     @Column(name = "birth_date", nullable = true)
     private LocalDate birthDate;//se asume que el front maneja el valor default si es null.
@@ -72,15 +64,50 @@ public class Pet extends BaseEntity {
     @Column(name = "gender", nullable = true)
     private Gender gender;
 
-    @Column(name = "weight_in_grams", nullable = true)
-    private Integer weight;//en gramos.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private PetStatus status;
+
+    public void setBreed(Breed breed) {
+        if (breed != null && !breed.getSpecies().equals(this.species)) {
+            throw new IllegalArgumentException(
+                    "The breed's species (" + breed.getSpecies() +
+                            ") does not match the pet´s species (" + this.species + ")."
+            );
+        }
+        this.breed = breed;
+    }//Al usar el builder esta validacion no se usa. ❓Hacer customBuilder
+
+    // Por ejemplo, podríamos usar este factory para crear una pet con solo los valores indispensables.
+    public static Pet withDefaults(String petName, Species species) {
+        return Pet.builder()
+                  .name(petName)
+                  .species(species)
+                  .gender(Gender.UNDEFINED)
+//                .image(Image.placeholder()) // Esto todavía no lo implemento.
+                  .age(Age.ofDays(0))
+                  .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
+                  .weight(Weight.of(0))
+                  .isCastrated(false)//asumimos que no esta castrado
+                  .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
+                  .comments("")
+                  .birthDate(LocalDate.now()) // Deberia estar sincronizada con Age? Considerar pedir solo un campo, y derivar uno del otro. // check Age.fromDate()
+                  .breed(Breed.defaultBreed(species))// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
+//                .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
+                  .build();
+    }
 
     public enum Gender {//ver si no se sabe.
-        MALE, FEMALE
+        MALE, FEMALE, UNDEFINED
     }
+
 
     public enum Species {
         DOG, CAT, OTHER
     } //Desarrollar lista con variedad de especies ?
+
+    public enum PetStatus {
+        AVAILABLE, UNAVAILABLE, ADOPTED
+    }
 
 }

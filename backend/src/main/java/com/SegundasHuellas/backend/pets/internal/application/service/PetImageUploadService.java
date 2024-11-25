@@ -23,7 +23,7 @@ public class PetImageUploadService {
         Pet pet = new Pet(); //TODO: get pet from repo
 
         ImageMetadata uploadResults = storageService.upload(file, forPet(petId, pet.getName()));
-        pet.setImage(Image.fromUrl(uploadResults.url()));
+        pet.setPhoto(Image.fromUrl(uploadResults.url()));//cambie setImage por setPhoto
 
         return uploadResults;
     }
