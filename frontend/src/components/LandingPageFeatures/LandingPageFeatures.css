@@ -1,0 +1,70 @@
+/* Section */
+#LandingPageFeatures {
+    padding: 48px 0; /* Tailwind's py-12 */
+    background-color: white; /* Tailwind's bg-white */
+}
+
+/* Container */
+#LandingPageFeaturesContainer {
+    max-width: 1280px; /* Tailwind's container default max-width */
+    margin: 0 auto;
+    padding: 0 16px; /* Tailwind's px-4 */
+}
+
+/* Section Title */
+#LandingPageFeaturesTitle {
+    font-size: 1.5rem; /* Tailwind's text-2xl */
+    font-weight: 700; /* Tailwind's font-bold */
+    text-align: center;
+    color: #1f2937; /* Tailwind's text-gray-800 */
+    margin-bottom: 32px; /* Tailwind's mb-8 */
+}
+
+/* Grid */
+.LandingPageFeaturesGrid {
+    display: grid; /* Tailwind's grid */
+    grid-template-columns: 1fr; /* Tailwind's grid-cols-1 */
+    gap: 24px; /* Tailwind's gap-6 */
+}
+
+/* Feature Card */
+.LandingPageFeaturesCard {
+    background-color: #f3f4f6; /* Tailwind's bg-gray-100 */
+    padding: 24px; /* Tailwind's p-6 */
+    border-radius: 8px; /* Tailwind's rounded-lg */
+}
+
+/* Feature Title */
+.LandingPageFeaturesTitle {
+    font-size: 1.25rem; /* Tailwind's text-xl */
+    font-weight: 600; /* Tailwind's font-semibold */
+    color: #1f2937; /* Tailwind's text-gray-800 */
+    margin-bottom: 8px; /* Tailwind's mb-2 */
+}
+
+/* Feature Description */
+.LandingPageFeaturesDescription {
+    color: #4b5563; /* Tailwind's text-gray-600 */
+}
+
+/*
+    MARK: MEDIA QUERY
+*/
+
+@media (min-width: 640px) {
+    /* Section */
+    #LandingPageFeatures {
+        padding: 64px 0; /* Tailwind's sm:py-16 */
+    }
+    
+    /* Section Title */
+    #LandingPageFeaturesTitle {
+        font-size: 1.875rem; /* Tailwind's sm:text-3xl */
+    }
+    
+    /* Grid */
+    .LandingPageFeaturesGrid {
+      grid-template-columns: repeat(3, 1fr); /* Tailwind's sm:grid-cols-3 */
+      gap: 32px; /* Tailwind's sm:gap-8 */
+    }
+}
