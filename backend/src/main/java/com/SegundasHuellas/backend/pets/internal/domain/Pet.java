@@ -37,10 +37,10 @@ public class Pet extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "breed_id")
-    private Breed breed;
+    private Breed breed;//❓Como validar que la raza agregada pertenezca a la specie correcta.
 
     @Embedded
-    private Age age;//expresado en dias.
+    private Age age;//expresado en días.
 
     @Embedded
     private VaccinationStatus vaccinationStatus;
@@ -67,6 +67,16 @@ public class Pet extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private PetStatus status;
+
+    public void setBreed(Breed breed) {
+        if (breed != null && !breed.getSpecies().equals(this.species)) {
+            throw new IllegalArgumentException(
+                    "The breed's species (" + breed.getSpecies() +
+                            ") does not match the pet´s species (" + this.species + ")."
+            );
+        }
+        this.breed = breed;
+    }//Al usar el builder esta validacion no se usa. ❓Hacer customBuilder
 
     // Por ejemplo, podríamos usar este factory para crear una pet con solo los valores indispensables.
     public static Pet withDefaults(String petName, Species species) {
