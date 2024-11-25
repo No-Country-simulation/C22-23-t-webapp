@@ -14,6 +14,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,9 +35,13 @@ public class Pet extends BaseEntity {
     @Column(name = "species", nullable = false)
     private Species species;//dog, cat, other.
 
-    @Column(name = "breed")
-    @Size(max = 50, message = "Breed must be 50 characters or less.")
-    private String breed;//Hacer lista de especies para cambiar esta propiedad por un enum.
+    @ManyToMany
+    @JoinTable(
+            name = "pets_breeds",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "breed_id")
+    )
+    private Set<Breed> breeds = new HashSet<>();
 
     @Embedded
     private Age age;//expresado en dias.
@@ -62,6 +68,9 @@ public class Pet extends BaseEntity {
     @Column(name = "gender", nullable = true)
     private Gender gender;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private PetStatus status;
 
     // Por ejemplo, podríamos usar este factory para crear una pet con solo los valores indispensables.
     public static Pet withDefaults(String petName, Species species) {
@@ -78,7 +87,7 @@ public class Pet extends BaseEntity {
                   .comments("")
                   .birthDate(LocalDate.now()) // Deberia estar sincronizada con Age? Considerar pedir solo un campo, y derivar uno del otro. // check Age.fromDate()
                   .breed("Unknown")// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
-//                .status(Status.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que se ingresen datos adicionales??
+//                .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
                   .build();
 
         /*
@@ -94,5 +103,9 @@ public class Pet extends BaseEntity {
     public enum Species {
         DOG, CAT, OTHER
     } //Desarrollar lista con variedad de especies ?
+
+    public enum PetStatus {
+        AVAILABLE, UNAVAILABLE, ADOPTED
+    }
 
 }
