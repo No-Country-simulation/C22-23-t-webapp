@@ -5,7 +5,9 @@ import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
 import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
 import com.SegundasHuellas.backend.pets.internal.application.exception.InvalidPetDataException;
 import com.SegundasHuellas.backend.pets.internal.application.exception.PetNotFoundException;
+import com.SegundasHuellas.backend.pets.internal.application.service.BreedService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
+import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
@@ -30,7 +32,7 @@ public class PetServiceImpl implements PetService {
 
     private final PetRepository petRepository;
 
-    private final BreedRepository breedRepository;
+    private final BreedService breedService;
 
 
     /*
@@ -42,9 +44,11 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetResponseDto createPet(CreatePetRequestDto petDto) {
-        validatePetRequest(petDto);
+//        validatePetRequest(petDto);
+        Breed defaultBreedForSpecies = breedService.getDefaultBreedForSpecies(petDto.species());
 
-        Pet pet = Pet.withDefaults(petDto.name(), Species.valueOf(petDto.species().toUpperCase()));
+        Pet pet = Pet.withDefaults(petDto.name(), petDto.species());
+        pet.assignBreed(defaultBreedForSpecies);
 
         petRepository.save(pet);
         return mapToPetResponseDto(pet);
@@ -123,14 +127,14 @@ public class PetServiceImpl implements PetService {
         petRepository.deleteById(id);
     }
 
-    private void validatePetRequest(CreatePetRequestDto petDto) {
-        if (petDto.name() == null || petDto.name().isBlank()) {
-            throw new InvalidPetDataException("Pet name is required");
-        }
-        if (petDto.species() == null || petDto.species().isBlank()) {
-            throw new InvalidPetDataException("Species is required");
-        }
-    }
+//    private void validatePetRequest(CreatePetRequestDto petDto) {
+//        if (petDto.name() == null || petDto.name().isBlank()) {
+//            throw new InvalidPetDataException("Pet name is required");
+//        }
+//        if (petDto.species() == null || petDto.species().isBlank()) {
+//            throw new InvalidPetDataException("Species is required");
+//        }
+//    }
 
 //    private Breed findBreedByNameAndSpecies(String breedName, Species species) {
 //        return breedRepository.findByNameAndSpecies(breedName, species)

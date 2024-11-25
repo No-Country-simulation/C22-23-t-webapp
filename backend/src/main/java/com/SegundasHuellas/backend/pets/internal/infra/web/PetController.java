@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
 import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
 import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class PetController {
     private PetService petService;
 
     @PostMapping
-    public ResponseEntity<PetResponseDto> createPet(@RequestBody CreatePetRequestDto petRequestDto) {
+    public ResponseEntity<PetResponseDto> createPet(@RequestBody @Valid CreatePetRequestDto petRequestDto) {
         PetResponseDto petResponseDto = petService.createPet(petRequestDto);
         return new ResponseEntity<>(petResponseDto, HttpStatus.CREATED);
     }

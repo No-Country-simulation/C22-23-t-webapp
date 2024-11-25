@@ -20,8 +20,6 @@ public class BreedService {
     // Entrega la raza por defecto de una especie, si no existe, la crea.
     public Breed getDefaultBreedForSpecies(Species species) {
 
-
-
         return breedRepository.findBySpeciesAndIsSpeciesDefaultTrue(species)
                 .orElseGet(() -> createDefaultBreedForSpecies(species));
 
