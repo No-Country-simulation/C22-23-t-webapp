@@ -3,6 +3,9 @@ package com.SegundasHuellas.backend.pets.internal.application.service.impl;
 import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
 import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
 import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
+import com.SegundasHuellas.backend.pets.internal.application.exception.BreedNotFoundException;
+import com.SegundasHuellas.backend.pets.internal.application.exception.InvalidPetDataException;
+import com.SegundasHuellas.backend.pets.internal.application.exception.PetNotFoundException;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
 import com.SegundasHuellas.backend.pets.internal.domain.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.BreedRepository;
@@ -46,7 +49,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public PetResponseDto findById(Long id) {
         Pet pet = petRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Pet with ID " + id + " not found."));
+                .orElseThrow(() -> new PetNotFoundException(id));
         return mapToPetResponseDto(pet);
     }
 
@@ -68,11 +71,9 @@ public class PetServiceImpl implements PetService {
     @Override
     public PetResponseDto updatePet(Long id, UpdatePetRequestDto petDto) {
         Pet existingPet = petRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Pet with ID " + id + " not found"));
+                .orElseThrow(() -> new PetNotFoundException(id));
 
-        if (petDto.name() != null && !petDto.name().isBlank()) {
-            existingPet.setName(petDto.name());
-        }
+        existingPet.setName(petDto.name() != null && !petDto.name().isBlank() ? petDto.name() : existingPet.getName());
 
         if (petDto.species() != null) {
             Pet.Species newSpecies = Pet.Species.valueOf(petDto.species().toUpperCase());
@@ -84,29 +85,16 @@ public class PetServiceImpl implements PetService {
             existingPet.setBreed(newBreed);
         }
 
-        if (petDto.birthDate() != null) {
-            existingPet.setBirthDate(petDto.birthDate());
-        }
-
-        if (petDto.ageInDays() != null) {
-            existingPet.setAge(Age.ofDays(petDto.ageInDays()));
-        }
-
-        if (petDto.isCastrated() != null) {
-            existingPet.setIsCastrated(petDto.isCastrated());
-        }
+        existingPet.setBirthDate(petDto.birthDate() != null ? petDto.birthDate() : existingPet.getBirthDate());
+        existingPet.setAge(petDto.ageInDays() != null ? Age.ofDays(petDto.ageInDays()) : existingPet.getAge());
+        existingPet.setIsCastrated(petDto.isCastrated() != null ? petDto.isCastrated() : existingPet.getIsCastrated());
 
         if (petDto.gender() != null) {
             existingPet.setGender(Pet.Gender.valueOf(petDto.gender().toUpperCase()));
         }
 
-        if (petDto.healthStatus() != null && !petDto.healthStatus().isBlank()) {
-            existingPet.setHealthStatus(petDto.healthStatus());
-        }
-
-        if (petDto.comments() != null && !petDto.comments().isBlank()) {
-            existingPet.setComments(petDto.comments());
-        }
+        existingPet.setHealthStatus(petDto.healthStatus() != null && !petDto.healthStatus().isBlank() ? petDto.healthStatus() : existingPet.getHealthStatus());
+        existingPet.setComments(petDto.comments() != null && !petDto.comments().isBlank() ? petDto.comments() : existingPet.getComments());
 
         if (petDto.status() != null) {
             existingPet.setStatus(Pet.PetStatus.valueOf(petDto.status().toUpperCase()));
@@ -119,24 +107,23 @@ public class PetServiceImpl implements PetService {
     @Override
     public void deletePet(Long id) {
         if (!petRepository.existsById(id)) {
-            throw new IllegalArgumentException("Pet with ID " + id + " not found");
+            throw new PetNotFoundException(id);
         }
         petRepository.deleteById(id);
     }
 
     private void validatePetRequest(CreatePetRequestDto petDto) {
         if (petDto.name() == null || petDto.name().isBlank()) {
-            throw new IllegalArgumentException("Pet name is required");
+            throw new InvalidPetDataException("Pet name is required");
         }
         if (petDto.species() == null || petDto.species().isBlank()) {
-            throw new IllegalArgumentException("Species is required");
+            throw new InvalidPetDataException("Species is required");
         }
     }
 
     private Breed findBreedByNameAndSpecies(String breedName, Pet.Species species) {
         return breedRepository.findByNameAndSpecies(breedName, species)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Breed not found for name: " + breedName + " and species: " + species));
+                .orElseThrow(() -> new BreedNotFoundException(breedName, species));
     }
 
     private PetResponseDto mapToPetResponseDto(Pet pet) {
@@ -145,6 +132,7 @@ public class PetServiceImpl implements PetService {
                 pet.getName(),
                 pet.getSpecies().name(),
                 pet.getBreed().getName(),
+                pet.getBirthDate(),
                 pet.getIsCastrated(),
                 pet.getGender().name(),
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,
