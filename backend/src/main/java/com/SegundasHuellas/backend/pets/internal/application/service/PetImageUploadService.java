@@ -1,6 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.application.service;
 
-import com.SegundasHuellas.backend.pets.internal.domain.Pet;
+import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.shared.application.dto.ImageMetadata;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.StorageService;
