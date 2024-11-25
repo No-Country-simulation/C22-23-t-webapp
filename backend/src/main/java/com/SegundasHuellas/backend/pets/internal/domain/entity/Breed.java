@@ -1,5 +1,6 @@
-package com.SegundasHuellas.backend.pets.internal.domain;
+package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
+import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

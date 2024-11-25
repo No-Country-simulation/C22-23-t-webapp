@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.pets.internal.domain;
+package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
@@ -6,7 +6,6 @@ import com.SegundasHuellas.backend.pets.internal.domain.vo.Weight;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +13,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
