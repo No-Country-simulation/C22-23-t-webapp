@@ -1,5 +1,8 @@
 package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Weight;
@@ -13,6 +16,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+
+import static java.util.Objects.requireNonNull;
 
 @Getter
 @Setter
@@ -28,9 +33,6 @@ public class Pet extends BaseEntity {
 
     @Embedded
     private Image photo;
-
-    @Column(name = "species", nullable = false)
-    private Species species;//dog, cat, other.
 
     @ManyToOne
     @JoinColumn(name = "breed_id")
@@ -65,23 +67,34 @@ public class Pet extends BaseEntity {
     @Column(name = "status", nullable = false)
     private PetStatus status;
 
-    public void setBreed(Breed breed) {
-        if (breed != null && !breed.getSpecies().equals(this.species)) {
-            throw new IllegalArgumentException(
-                    "The breed's species (" + breed.getSpecies() +
-                            ") does not match the pet´s species (" + this.species + ")."
-            );
-        }
+//    public void setBreed(Breed breed) {
+//        if (breed != null && !breed.getSpecies().equals(this.species)) {
+//            throw new IllegalArgumentException(
+//                    "The breed's species (" + breed.getSpecies() +
+//                            ") does not match the pet´s species (" + this.species + ")."
+//            );
+//        }
+//        this.breed = breed;
+//    }//Al usar el builder esta validacion no se usa. ❓Hacer customBuilder
+
+    /*
+     🔨 Movemos la Species a la entidad Breed. De esta manera nos aseguramos que siempre que se cree una raza,
+        se sepa a que especie pertenece y no necesitamos validaciones adicionales.
+     🔨 Esto tambien simplifica la manera de settear el breed:
+    */
+    public void assignBreed(Breed breed) {
+        requireNonNull(breed, "Breed cannot be null");
+
         this.breed = breed;
-    }//Al usar el builder esta validacion no se usa. ❓Hacer customBuilder
+        breed.addPet(this);
+    }
 
     // Por ejemplo, podríamos usar este factory para crear una pet con solo los valores indispensables.
     public static Pet withDefaults(String petName, Species species) {
         return Pet.builder()
                   .name(petName)
-                  .species(species)
                   .gender(Gender.UNDEFINED)
-//                .image(Image.placeholder()) // Esto todavía no lo implemento.
+//                .image(Image.placeholder()) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))
                   .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
                   .weight(Weight.of(0))
@@ -90,21 +103,9 @@ public class Pet extends BaseEntity {
                   .comments("")
                   .birthDate(LocalDate.now()) // Deberia estar sincronizada con Age? Considerar pedir solo un campo, y derivar uno del otro. // check Age.fromDate()
                   .breed(Breed.defaultBreed(species))// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
-//                .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
+                  .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
                   .build();
     }
 
-    public enum Gender {//ver si no se sabe.
-        MALE, FEMALE, UNDEFINED
-    }
-
-
-    public enum Species {
-        DOG, CAT, OTHER
-    } //Desarrollar lista con variedad de especies ?
-
-    public enum PetStatus {
-        AVAILABLE, UNAVAILABLE, ADOPTED
-    }
 
 }
