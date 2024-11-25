@@ -1,9 +1,10 @@
 import './App.css'
+import { LandingPage } from './pages/LandingPage.jsx'
 
 function App() {
   return (
     <>
-      <h1>Segundas Huellas | NoCountry | equipo-c22-23-t-webapp</h1>
+      <LandingPage />
     </>
   )
 }
