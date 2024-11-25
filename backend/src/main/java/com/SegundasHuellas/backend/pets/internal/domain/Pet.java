@@ -35,13 +35,9 @@ public class Pet extends BaseEntity {
     @Column(name = "species", nullable = false)
     private Species species;//dog, cat, other.
 
-    @ManyToMany
-    @JoinTable(
-            name = "pets_breeds",
-            joinColumns = @JoinColumn(name = "pet_id"),
-            inverseJoinColumns = @JoinColumn(name = "breed_id")
-    )
-    private Set<Breed> breeds = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "breed_id")
+    private Breed breed;
 
     @Embedded
     private Age age;//expresado en dias.
@@ -86,13 +82,9 @@ public class Pet extends BaseEntity {
                   .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
                   .comments("")
                   .birthDate(LocalDate.now()) // Deberia estar sincronizada con Age? Considerar pedir solo un campo, y derivar uno del otro. // check Age.fromDate()
-                  .breed("Unknown")// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
+                  .breed(Breed.defaultBreed(species))// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
 //                .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
                   .build();
-
-        /*
-        * ❓ Deberíamos guardar en la entidad un valor de "status" (enum) que indique DISPONIBLE, NO_DISPONIBLE, ADOPTADA???
-        * */
     }
 
     public enum Gender {//ver si no se sabe.
