@@ -3,6 +3,7 @@ package com.SegundasHuellas.backend.shared.application.advice;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,11 +24,11 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 import static java.time.Instant.now;
 import static org.springframework.context.i18n.LocaleContextHolder.getLocale;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final String ERROR_PREFIX = "error.";
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private final MessageSource messageSource;
 
     //Exceptions that won't be managed by the catch-all ExceptionHandler
