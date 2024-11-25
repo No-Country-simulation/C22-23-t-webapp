@@ -90,6 +90,8 @@ public class Pet extends BaseEntity {
     }
 
     // Por ejemplo, podríamos usar este factory para crear una pet con solo los valores indispensables.
+
+    // ❗❗❗ Ahora necesitamos asignar el breed a nivel de servicio al registrar una nueva pet. ❗❗❗
     public static Pet withDefaults(String petName, Species species) {
         return Pet.builder()
                   .name(petName)
@@ -102,7 +104,7 @@ public class Pet extends BaseEntity {
                   .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
                   .comments("")
                   .birthDate(LocalDate.now()) // Deberia estar sincronizada con Age? Considerar pedir solo un campo, y derivar uno del otro. // check Age.fromDate()
-                  .breed(Breed.defaultBreed(species))// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
+//                  .breed(Breed.defaultBreed(species))// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
                   .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
                   .build();
     }
