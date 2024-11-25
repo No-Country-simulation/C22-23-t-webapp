@@ -1,5 +1,6 @@
-package com.SegundasHuellas.backend.shared.exception;
+package com.SegundasHuellas.backend.shared.application.advice;
 
+import com.SegundasHuellas.backend.shared.exception.DomainException;
 import com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.slf4j.Logger;
