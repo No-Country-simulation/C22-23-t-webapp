@@ -1,6 +1,7 @@
 package com.SegundasHuellas.backend.pets.internal.application.service;
 
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
+import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,12 @@ public class BreedService {
     // Entrega la raza por defecto de una especie, si no existe, la crea.
     public Breed getDefaultBreedForSpecies(Species species) {
 
+
+
         return breedRepository.findBySpeciesAndIsSpeciesDefaultTrue(species)
                 .orElseGet(() -> createDefaultBreedForSpecies(species));
+
+
     }
 
 
@@ -34,5 +39,8 @@ public class BreedService {
         defaultBreed.setSpeciesDefault(true);
         return breedRepository.save(defaultBreed);
     }
+
+
+
 
 }
