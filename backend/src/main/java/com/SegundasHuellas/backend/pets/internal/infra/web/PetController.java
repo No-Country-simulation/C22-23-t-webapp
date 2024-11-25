@@ -36,11 +36,11 @@ public class PetController {
         return ResponseEntity.ok(petResponseDto);
     }
 
-    @GetMapping("/by-species")
-    public ResponseEntity<List<PetResponseDto>> findPetsBySpecies(@RequestParam("species") String species) {
-        List<PetResponseDto> pets = petService.findBySpecies(species);
-        return ResponseEntity.ok(pets);
-    }
+//    @GetMapping("/by-species")
+//    public ResponseEntity<List<PetResponseDto>> findPetsBySpecies(@RequestParam("species") String species) {
+//        List<PetResponseDto> pets = petService.findBySpecies(species);
+//        return ResponseEntity.ok(pets);
+//    }
 
     @GetMapping("/by-breed")
     public ResponseEntity<List<PetResponseDto>> findPetsByBreedName(@RequestParam("breedName") String breedName) {

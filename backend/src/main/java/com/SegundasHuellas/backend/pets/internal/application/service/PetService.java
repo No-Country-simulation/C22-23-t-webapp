@@ -15,7 +15,7 @@ public interface PetService {
 
     PetResponseDto findById(Long id);
 
-    List<PetResponseDto> findBySpecies(String species);
+//    List<PetResponseDto> findBySpecies(String species);
 
     List<PetResponseDto> findByBreedName(String breedName);
 
