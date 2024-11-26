@@ -3,7 +3,6 @@ package com.SegundasHuellas.backend.pets.internal.application.service.impl;
 import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
 import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
 import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
-import com.SegundasHuellas.backend.pets.internal.application.exception.InvalidPetDataException;
 import com.SegundasHuellas.backend.pets.internal.application.exception.PetNotFoundException;
 import com.SegundasHuellas.backend.pets.internal.application.service.BreedService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
@@ -11,9 +10,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
-import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
@@ -146,16 +143,16 @@ public class PetServiceImpl implements PetService {
         return new PetResponseDto(
                 pet.getId(),
                 pet.getName(),
-                pet.getBreed().getSpecies().name(),
+                pet.getBreed().getSpecies().getTranslation(),
                 pet.getBreed().getName(),
                 ImageResponse.from(pet.getPhoto()),
                 pet.getBirthDate(),//🔴 ligados -> considerar sacarlo
                 pet.getIsCastrated(),
-                pet.getGender().name(),
+                pet.getGender().getTranslation(),
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados
                 pet.getHealthStatus(),
                 pet.getComments(),
-                pet.getStatus().name()
+                pet.getStatus().getTranslation()
         );
     }
 }

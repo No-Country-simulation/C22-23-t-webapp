@@ -4,8 +4,6 @@ import com.SegundasHuellas.backend.shared.exception.DomainException;
 import com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ProblemDetail;

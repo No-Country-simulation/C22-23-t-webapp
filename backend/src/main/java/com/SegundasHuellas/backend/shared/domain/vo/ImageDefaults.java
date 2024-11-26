@@ -1,7 +1,5 @@
 package com.SegundasHuellas.backend.shared.domain.vo;
 
-import lombok.Getter;
-
 public class ImageDefaults {
 
 

@@ -1,7 +1,7 @@
 package com.SegundasHuellas.backend.shared.infrastructure.storage;
 
 import com.SegundasHuellas.backend.shared.application.dto.ImageMetadata;
-import com.SegundasHuellas.backend.shared.exception.PhotoUploadException;
+import com.SegundasHuellas.backend.shared.exception.ImageOperationException;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.config.UploadConfig;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.validation.FileValidator;
 import com.cloudinary.Cloudinary;
@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,7 +98,7 @@ class CloudinaryStorageServiceTest {
                 .thenThrow(new IOException("Upload failed"));
 
         assertThatThrownBy(() -> cloudinaryStorageService.upload(mockPhoto, uploadConfig))
-                .isInstanceOf(PhotoUploadException.class);
+                .isInstanceOf(ImageOperationException.class);
 
     }
 
