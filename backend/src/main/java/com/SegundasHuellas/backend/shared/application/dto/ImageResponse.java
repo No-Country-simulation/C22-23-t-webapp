@@ -7,6 +7,6 @@ public record ImageResponse(
         String thumbnailUrl
 ) {
     public static ImageResponse from(Image image) {
-        return new ImageResponse(image.getOriginalUrl(), image.getThumbnailUrl());
+        return new ImageResponse(image.getUrl(), image.getThumbnailUrl());
     }
 }
