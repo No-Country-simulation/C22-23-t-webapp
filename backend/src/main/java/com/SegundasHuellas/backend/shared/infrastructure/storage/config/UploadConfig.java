@@ -11,14 +11,6 @@ public class UploadConfig {
 
     Map<String, Object> options;
 
-//    public static UploadConfig of(String folder, String identifier) {
-//        return UploadConfig.builder()
-//                           .folder(folder)
-//                           .identifier(identifier)
-//                           .options(Map.of())
-//                           .build();
-//    }
-
     public static UploadConfig of(Map<String, Object> options) {
         return UploadConfig.builder()
                            .options(options)
