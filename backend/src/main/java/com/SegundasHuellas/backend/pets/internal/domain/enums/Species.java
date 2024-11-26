@@ -6,8 +6,10 @@ public enum Species {
     OTHER;
 
 
+    public static final String DEFAULT_BREED_PLACEHOLDER = "Raza sin definir";
+
     public String getDefaultBreedName() {
         // También se podría dar un nombre distinto por especie, como "Raza de Gato Desconocida", pero quiza no es necesario.
-        return "Raza Desconocida";
+        return DEFAULT_BREED_PLACEHOLDER;
     }
 }
