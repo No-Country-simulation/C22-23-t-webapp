@@ -23,8 +23,7 @@ public class PetImageUploadService {
     private final PetRepository petRepository;
 
     public ImageMetadata uploadImage(MultipartFile file, Long petId) {
-        Pet pet = petRepository.findById(petId)
-                               .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, petId.toString()));
+        Pet pet = getPetById(petId);
 
         ImageMetadata uploadResults = storageService.upload(file, forPet(petId, pet.getName()));
         pet.setPhoto(Image.fromUrl(uploadResults.url()));
@@ -33,7 +32,17 @@ public class PetImageUploadService {
     }
 
     public void deleteImage(Long petId) {
-        //TODO
+        Pet pet = getPetById(petId);
+        String publicId = pet.getPhoto().extractPublicId();
+
+        storageService.delete(publicId);
+        pet.setPhoto(Image.withDefaults());
+    }
+
+
+    private Pet getPetById(Long petId) {
+        return petRepository.findById(petId)
+                            .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, petId.toString()));
     }
 
 }
