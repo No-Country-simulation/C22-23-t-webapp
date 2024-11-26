@@ -68,11 +68,41 @@
 }
 
 .btn-login:hover {
-    background: #2f40d6;
+    background: #717277;
     color: #fff;
 }
 
 .btn-join:hover {
-    background: #fff;
+    background: #717277;
     color: #000;
+}
+
+@media (max-width: 640px) {
+
+    .header-container {
+        display: flex;
+        flex-direction: column;
+        height: 130px;
+    }
+
+    .input {
+        width: 200px;
+    }
+
+    .title-logo {
+        width: 100%;
+        position: relative;
+        right: 100px;
+    }
+
+    .btn-header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+    }
+    
+    .btn-login, .btn-join {
+        width: 150px;
+    }
 }

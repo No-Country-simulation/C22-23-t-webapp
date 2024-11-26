@@ -6,11 +6,11 @@ function Header() {
     <header className="header-container">
       <nav className="nav-container">
         <div className="title-logo">
-          <img src={"./public/vite.svg"} alt="" />
+          <img src={"vite.svg"} alt="" />
           <p className="nav-title">SegundasHuellas</p>
         </div>
         <div className="input-container">
-          <img className="search" src={"./public/search-logo.svg"} alt="" />
+          <img className="search" src={"search-logo.svg"} alt="" />
           <input className="input" type="text" placeholder="Que desea buscar?" />
         </div>
       </nav>

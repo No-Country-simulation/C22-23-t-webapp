@@ -6,3 +6,8 @@
 //  import { LandingPageContainer, NavBar } from './components'
 
 // Fuente para mas contexto: https://youtu.be/xt6Vi1Jd1TE&t=1255
+
+export * from "./cards/Card.jsx"
+export * from "./cards/CardsPage.jsx"
+export * from "./footer/Footer.jsx"
+export * from "./header/Header.jsx"

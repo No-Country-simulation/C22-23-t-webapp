@@ -53,3 +53,37 @@
 a {
     text-decoration: none;
 }
+
+@media (max-width: 640px) {
+
+    .footer-container {
+        width: 100%;
+        margin-top: 0;
+        
+    }
+
+    .footer-wrapper {
+        width: 100%;
+        
+    }
+
+    .fixed {
+        width: 100%;
+       
+    }
+
+    .footer-social {
+        width: 100%;
+    }
+
+    .social {
+        justify-content: flex-end;
+        margin-right: 40px;
+    }
+
+    .links {
+        justify-content: flex-start;
+        margin-left: 50px;
+        gap: 25px;
+    }
+}

@@ -61,3 +61,18 @@
 .btn-pet:hover {
     background: #6774ee ;
 }
+
+
+@media (max-width: 640px) {
+
+    .wrapper {
+        height: 100%;
+        background: #edeff0;
+    }
+
+    .App {
+        padding-top: 25px;
+        width: 100%;
+    }
+
+}

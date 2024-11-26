@@ -4,7 +4,7 @@ import './Card.css'
 function Card(props) {
   return (
     <div className='cards-container'>
-        <img className='image-pet' src={`./public/pet-${props.image}.jpeg`} alt='Foto de la pet' />
+        <img className='image-pet' src={`pet-${props.image}.jpeg`} alt='Foto de la pet' />
         <div className='text-container'>
             <div className='title-pet'>{props.name}</div>
             <div className='age-pet'>{props.age} aprox.</div>
