@@ -46,7 +46,7 @@
   
 /* Button */
 #LandingPageHeroButton {
-    background-color: #3b82f6; /* Tailwind's bg-blue-500 */
+    background-color: #1850b9; /* Tailwind's bg-blue-500 */
     color: white;
     font-weight: 700;
     padding: 8px 16px;
@@ -59,7 +59,9 @@
 }
   
 #LandingPageHeroButton:hover {
-    background-color: #2563eb; /* Tailwind's hover:bg-blue-600 */
+    background-color: #749bf7;
+    color: black;
+    cursor: pointer;
 }
 
 /*
