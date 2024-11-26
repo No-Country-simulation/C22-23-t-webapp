@@ -151,7 +151,7 @@ public class PetServiceImpl implements PetService {
                 ImageResponse.from(pet.getPhoto()),
                 pet.getBirthDate(),//🔴 ligados -> considerar sacarlo
                 pet.getIsCastrated(),
-                pet.getGender().name(),
+                pet.getGender().getTranslation(),
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados
                 pet.getHealthStatus(),
                 pet.getComments(),
