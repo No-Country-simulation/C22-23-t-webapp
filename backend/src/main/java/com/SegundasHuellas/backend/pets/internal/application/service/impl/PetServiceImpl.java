@@ -1,9 +1,8 @@
 package com.SegundasHuellas.backend.pets.internal.application.service.impl;
 
-import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
-import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
-import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
-import com.SegundasHuellas.backend.pets.internal.application.exception.InvalidPetDataException;
+import com.SegundasHuellas.backend.pets.internal.domain.dto.CreatePetRequestDto;
+import com.SegundasHuellas.backend.pets.internal.domain.dto.PetResponseDto;
+import com.SegundasHuellas.backend.pets.internal.domain.dto.UpdatePetRequestDto;
 import com.SegundasHuellas.backend.pets.internal.application.exception.PetNotFoundException;
 import com.SegundasHuellas.backend.pets.internal.application.service.BreedService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
@@ -11,9 +10,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
-import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.transaction.Transactional;
@@ -100,7 +97,6 @@ public class PetServiceImpl implements PetService {
 //            existingPet.setBreed(newBreed);
 //        }
 
-        existingPet.setBirthDate(petDto.birthDate() != null ? petDto.birthDate() : existingPet.getBirthDate());
         existingPet.setAge(petDto.ageInDays() != null ? Age.ofDays(petDto.ageInDays()) : existingPet.getAge());
         existingPet.setIsCastrated(petDto.isCastrated() != null ? petDto.isCastrated() : existingPet.getIsCastrated());
 
@@ -147,7 +143,6 @@ public class PetServiceImpl implements PetService {
                 pet.getName(),
                 pet.getBreed().getSpecies().name(),
                 pet.getBreed().getName(),
-                pet.getBirthDate(),//🔴 ligados -> considerar sacarlo
                 pet.getIsCastrated(),
                 pet.getGender().name(),
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados

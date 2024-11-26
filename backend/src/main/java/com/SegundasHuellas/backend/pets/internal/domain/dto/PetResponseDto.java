@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.pets.api.dto;
+package com.SegundasHuellas.backend.pets.internal.domain.dto;
 
 import java.time.LocalDate;
 
@@ -7,7 +7,6 @@ public record PetResponseDto(
         String name,
         String species,
         String breedName,
-        LocalDate birthDate,
         Boolean isCastrated,
         String gender,
         Integer ageInDays,

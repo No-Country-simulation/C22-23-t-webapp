@@ -56,9 +56,6 @@ public class Pet extends BaseEntity {
     @Column(name = "comments", length = 1000)
     private String comments;
 
-    @Column(name = "birth_date", nullable = true)
-    private LocalDate birthDate;//se asume que el front maneja el valor default si es null.
-
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = true)
     private Gender gender;
@@ -67,15 +64,6 @@ public class Pet extends BaseEntity {
     @Column(name = "status", nullable = false)
     private PetStatus status;
 
-//    public void setBreed(Breed breed) {
-//        if (breed != null && !breed.getSpecies().equals(this.species)) {
-//            throw new IllegalArgumentException(
-//                    "The breed's species (" + breed.getSpecies() +
-//                            ") does not match the pet´s species (" + this.species + ")."
-//            );
-//        }
-//        this.breed = breed;
-//    }//Al usar el builder esta validacion no se usa. ❓Hacer customBuilder
 
     /*
      🔨 Movemos la Species a la entidad Breed. De esta manera nos aseguramos que siempre que se cree una raza,
@@ -103,11 +91,7 @@ public class Pet extends BaseEntity {
                   .isCastrated(false)//asumimos que no esta castrado
                   .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
                   .comments("")
-                  .birthDate(LocalDate.now()) // Deberia estar sincronizada con Age? Considerar pedir solo un campo, y derivar uno del otro. // check Age.fromDate()
-//                  .breed(Breed.defaultBreed(species))// Si esto es una entidad aparte podría ser un Breed.defaultBreed() o Breed.unknownBreed()
                   .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
                   .build();
     }
-
-
 }
