@@ -12,15 +12,17 @@ import java.util.Objects;
 @Embeddable
 public class Image {
 
-    @Column(name = "original_url")
-    private String originalUrl;
+
+
+    @Column(name = "image_url")
+    private String url;
 
 
     protected Image() {
     }
 
-    private Image(String originalUrl) {
-        this.originalUrl = Objects.requireNonNull(originalUrl, "Original URL cannot be null");
+    private Image(String url) {
+        this.url = Objects.requireNonNull(url, "Original URL cannot be null");
     }
 
     public static Image fromUrl(String url) {
@@ -28,19 +30,23 @@ public class Image {
     }
 
     public String getThumbnailUrl() {
-        return adjustForLowSize(originalUrl);
+        return adjustForLowSize(url);
+    }
+
+    public static Image withDefaults() {
+        return new Image(ImageDefaults.getDefaultPetPhoto());
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Image image)) return false;
-        return Objects.equals(originalUrl, image.originalUrl);
+        return Objects.equals(url, image.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(originalUrl);
+        return Objects.hashCode(url);
     }
 
     private static String adjustForLowSize(String secureUrl) {

@@ -1,5 +1,7 @@
 package com.SegundasHuellas.backend.pets.api.dto;
 
+import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
+
 import java.time.LocalDate;
 
 public record PetResponseDto(
@@ -7,6 +9,7 @@ public record PetResponseDto(
         String name,
         String species,
         String breedName,
+        ImageResponse photo,
         LocalDate birthDate,
         Boolean isCastrated,
         String gender,
