@@ -11,6 +11,7 @@ import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
@@ -28,9 +29,6 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 @Slf4j
 public class InitialData {
-
-    public static final int NUMBER_OF_FAKE_PETS = 1000;
-    public static final int BATCH_SIZE = 50;
 
     private static final List<String> DOG_IMAGES = List.of(
             "https://picsum.photos/id/237/300/300",
@@ -65,10 +63,22 @@ public class InitialData {
     private final BreedService breedService;
     private final Faker faker;
 
+    @Value("${app.seeding.enabled:false}")
+    private boolean seedingEnabled;
+    @Value("${app.seeding.pets.count:1000}")
+    private int numberOfFakePets;
+    @Value("${app.seeding.batch-size:50}")
+    private int batchSize = 50;
 
     @EventListener
     @Transactional
     public void handleApplicationStartedEvent(ApplicationStartedEvent event) {
+
+        if (!seedingEnabled) {
+            log.info("🌱🚫 Seeding data is disabled");
+            return;
+        }
+
         try {
             log.info("🌱 Starting data seeding...");
             long start = System.currentTimeMillis();
@@ -95,9 +105,9 @@ public class InitialData {
                                                   ));
 
 
-        IntStream.range(0, NUMBER_OF_FAKE_PETS)
+        IntStream.range(0, numberOfFakePets)
                  .mapToObj(i -> createRandomPet(defaultBreeds))
-                 .collect(Collectors.groupingBy(pet -> Math.floorDiv(faker.number().randomNumber(), BATCH_SIZE)))
+                 .collect(Collectors.groupingBy(pet -> Math.floorDiv(faker.number().randomNumber(), batchSize)))
                  .values()
                  .forEach(petRepository::saveAll);
     }
