@@ -37,6 +37,11 @@ public class Image {
         return new Image(ImageDefaults.getDefaultPetPhoto());
     }
 
+    public String extractPublicId() {
+        return url.substring(url.lastIndexOf('/') + 1)
+                  .split("\\.")[0];
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
