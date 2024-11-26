@@ -31,7 +31,7 @@ public class PetController {
         return ResponseEntity.ok(pets);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{petId}")
     public ResponseEntity<PetResponseDto> findPetById(@PathVariable Long petId) {
         PetResponseDto petResponseDto = petService.findById(petId);
         return ResponseEntity.ok(petResponseDto);
