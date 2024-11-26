@@ -2,7 +2,6 @@ package com.SegundasHuellas.backend.pets.internal.infra.persistence;
 
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

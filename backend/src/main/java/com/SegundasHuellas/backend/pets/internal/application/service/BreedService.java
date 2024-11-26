@@ -1,7 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.application.service;
 
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
-import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import lombok.RequiredArgsConstructor;
