@@ -25,6 +25,11 @@ public class PetImageUploadService {
     public ImageMetadata uploadImage(MultipartFile file, Long petId) {
         Pet pet = getPetById(petId);
 
+        // Delete existing photo if it's not the default one
+        if (!pet.getPhoto().isDefaultPhoto()) {
+            storageService.delete(pet.getPhoto().extractPublicId());
+        }
+
         ImageMetadata uploadResults = storageService.upload(file, forPet(petId, pet.getName()));
         pet.setPhoto(Image.fromUrl(uploadResults.url()));
 
@@ -33,10 +38,12 @@ public class PetImageUploadService {
 
     public void deleteImage(Long petId) {
         Pet pet = getPetById(petId);
-        String publicId = pet.getPhoto().extractPublicId();
 
-        storageService.delete(publicId);
-        pet.setPhoto(Image.withDefaults());
+        if (!pet.getPhoto().isDefaultPhoto()) {
+            storageService.delete(pet.getPhoto().extractPublicId());
+            pet.setPhoto(Image.withDefaults());
+        }
+
     }
 
 
@@ -44,5 +51,6 @@ public class PetImageUploadService {
         return petRepository.findById(petId)
                             .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, petId.toString()));
     }
+
 
 }
