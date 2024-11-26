@@ -146,7 +146,7 @@ public class PetServiceImpl implements PetService {
         return new PetResponseDto(
                 pet.getId(),
                 pet.getName(),
-                pet.getBreed().getSpecies().name(),
+                pet.getBreed().getSpecies().getTranslation(),
                 pet.getBreed().getName(),
                 ImageResponse.from(pet.getPhoto()),
                 pet.getBirthDate(),//🔴 ligados -> considerar sacarlo
@@ -155,7 +155,7 @@ public class PetServiceImpl implements PetService {
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados
                 pet.getHealthStatus(),
                 pet.getComments(),
-                pet.getStatus().name()
+                pet.getStatus().getTranslation()
         );
     }
 }
