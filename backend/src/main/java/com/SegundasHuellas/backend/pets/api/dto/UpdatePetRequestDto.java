@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.pets.internal.domain.dto;
+package com.SegundasHuellas.backend.pets.api.dto;
 
 import java.time.LocalDate;
 
@@ -12,5 +12,4 @@ public record UpdatePetRequestDto(
         String healthStatus,
         String comments,
         String status
-) {
-}
+) {}

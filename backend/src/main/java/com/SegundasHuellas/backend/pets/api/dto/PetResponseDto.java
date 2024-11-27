@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.pets.internal.domain.dto;
+package com.SegundasHuellas.backend.pets.api.dto;
 
 import java.time.LocalDate;
 

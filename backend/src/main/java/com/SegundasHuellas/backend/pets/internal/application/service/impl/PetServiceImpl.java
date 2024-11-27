@@ -1,8 +1,8 @@
 package com.SegundasHuellas.backend.pets.internal.application.service.impl;
 
-import com.SegundasHuellas.backend.pets.internal.domain.dto.CreatePetRequestDto;
-import com.SegundasHuellas.backend.pets.internal.domain.dto.PetResponseDto;
-import com.SegundasHuellas.backend.pets.internal.domain.dto.UpdatePetRequestDto;
+import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
+import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
+import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
 import com.SegundasHuellas.backend.pets.internal.application.exception.PetNotFoundException;
 import com.SegundasHuellas.backend.pets.internal.application.service.BreedService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
@@ -41,7 +41,6 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetResponseDto createPet(CreatePetRequestDto petDto) {
-//        validatePetRequest(petDto);
         Breed defaultBreedForSpecies = breedService.getDefaultBreedForSpecies(petDto.species());
 
         Pet pet = Pet.withDefaults(petDto.name(), petDto.species());
