@@ -1,0 +1,102 @@
+.header-container {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background: #edeff0;
+    box-shadow: 0 2px 5px 0 #00000059;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title-logo {
+    display: flex;
+    gap: 5px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.input {
+    width: 260px;
+    height: 30px;
+    text-align: start;
+    padding-left: 50px;
+    border-radius: 10px;
+    background:#edeff0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    border: 1px solid #717277;
+}
+
+.search {
+    position: absolute;
+    bottom: 5px;
+    left: 19px; 
+}
+
+.btn-header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn-login, .btn-join {
+    padding: 8px 110px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: #fff;
+    margin: 0 10px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.btn-join {
+    background: #2f40d6;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background: #717277;
+    color: #fff;
+}
+
+.btn-join:hover {
+    background: #717277;
+    color: #000;
+}
+
+@media (min-width: 640px) {
+
+    .header-container {
+        flex-direction: row;
+        justify-content: space-around;
+        height: 100px;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-direction: row;
+        gap: 45px;
+    }
+
+    .btn-header {
+        flex-direction: row;
+    }
+
+    .btn-login, .btn-join {
+        padding: 15px 20px;
+        margin: unset;
+        border-radius: 10px;
+    }
+}
