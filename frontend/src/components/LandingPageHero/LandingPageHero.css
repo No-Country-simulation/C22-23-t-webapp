@@ -1,0 +1,93 @@
+/* Div */
+#LandingPageHero {
+    min-height: calc(90svh - 12rem - 3rem - 1rem);
+
+    display: grid;
+    place-items: center;
+
+    background: url(https://images.dog.ceo/breeds/labrador/n02099712_511.jpg);
+
+    /* background-color: #e5e5f7;
+    opacity: 0.8;
+    background: linear-gradient(135deg, #444cf755 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(225deg, #444cf7 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(315deg, #444cf755 25%, transparent 25%) 0px 0/ 20px 20px, linear-gradient(45deg, #444cf7 25%, #e5e5f7 25%) 0px 0/ 20px 20px; */
+
+    /*background-color: #f3f4f6;*/ /* Tailwind's bg-gray-100 */
+}
+  
+/* Container */
+#LandingPageHeroContainer {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(16.1px);
+
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+}
+  
+/* Heading */
+#LandingPageHeroTitle {
+    font-size: 1.875rem; /* Tailwind's text-3xl */
+    font-weight: 700; /* Tailwind's font-bold */
+    color: #1f2937; /* Tailwind's text-gray-800 */
+    margin-bottom: 1rem;
+}
+  
+/* Paragraph */
+#LandingPageHeroDescription {
+    font-size: 1.125rem; /* Tailwind's text-lg */
+    color: #4b5563; /* Tailwind's text-gray-600 */
+    margin-bottom: 2rem;
+}
+  
+/* Button */
+#LandingPageHeroButton {
+    background-color: #1850b9; /* Tailwind's bg-blue-500 */
+    color: white;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    min-height: 3rem;
+    display: inline-block;
+    transition: background-color 0.2s ease-in-out;
+}
+  
+#LandingPageHeroButton:hover {
+    background-color: #749bf7;
+    color: black;
+    cursor: pointer;
+}
+
+/*
+    MARK: MEDIA QUERY
+*/
+
+@media (min-width: 640px) { /* Tailwind's sm breakpoint */
+    /* Div */
+    #LandingPageHero {
+        min-height: 90svh;
+        padding: 4rem 0;
+    }
+    
+    /* Container */
+    #LandingPageHeroTitle {
+        font-size: 2.25rem; /* Tailwind's sm:text-4xl */
+    }
+    
+    /* Paragraph */
+    #LandingPageHeroDescription {
+        font-size: 1.25rem; /* Tailwind's sm:text-xl */
+    }
+
+    /* Button */
+    #LandingPageHeroButton {
+      width: auto;
+    }
+}
+  
