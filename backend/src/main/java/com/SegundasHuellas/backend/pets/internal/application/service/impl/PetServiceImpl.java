@@ -64,20 +64,6 @@ public class PetServiceImpl implements PetService {
         return mapToPetResponseDto(pet);
     }
 
-//    @Override
-//    public List<PetResponseDto> findBySpecies(String species) {
-//        Species speciesEnum = Species.valueOf(species.toUpperCase());
-//        return petRepository.findBySpecies(speciesEnum).stream()
-//                .map(this::mapToPetResponseDto)
-//                .collect(Collectors.toList());
-//    }
-
-    @Override
-    public List<PetResponseDto> findByBreedName(String breedName) {
-        return petRepository.findByBreedName(breedName).stream()
-                .map(this::mapToPetResponseDto)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public PetResponseDto updatePet(Long id, UpdatePetRequestDto petDto) {
@@ -85,17 +71,6 @@ public class PetServiceImpl implements PetService {
                 .orElseThrow(() -> new PetNotFoundException(id));
 
         existingPet.setName(petDto.name() != null && !petDto.name().isBlank() ? petDto.name() : existingPet.getName());
-
-//        if (petDto.species() != null) {
-//            Species newSpecies = Species.valueOf(petDto.species().toUpperCase());
-//            existingPet.setSpecies(newSpecies);
-//        }
-//
-//        if (petDto.breedName() != null && !petDto.breedName().isBlank()) {
-//            Breed newBreed = findBreedByNameAndSpecies(petDto.breedName(), existingPet.getSpecies());
-//            existingPet.setBreed(newBreed);
-//        }
-
         existingPet.setAge(petDto.ageInDays() != null ? Age.ofDays(petDto.ageInDays()) : existingPet.getAge());
         existingPet.setIsCastrated(petDto.isCastrated() != null ? petDto.isCastrated() : existingPet.getIsCastrated());
 
@@ -121,20 +96,6 @@ public class PetServiceImpl implements PetService {
         }
         petRepository.deleteById(id);
     }
-
-//    private void validatePetRequest(CreatePetRequestDto petDto) {
-//        if (petDto.name() == null || petDto.name().isBlank()) {
-//            throw new InvalidPetDataException("Pet name is required");
-//        }
-//        if (petDto.species() == null || petDto.species().isBlank()) {
-//            throw new InvalidPetDataException("Species is required");
-//        }
-//    }
-
-//    private Breed findBreedByNameAndSpecies(String breedName, Species species) {
-//        return breedRepository.findByNameAndSpecies(breedName, species)
-//                .orElseThrow(() -> new BreedNotFoundException(breedName, species));
-//    }
 
     private PetResponseDto mapToPetResponseDto(Pet pet) {
         return new PetResponseDto(

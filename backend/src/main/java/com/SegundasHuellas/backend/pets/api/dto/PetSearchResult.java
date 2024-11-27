@@ -12,6 +12,6 @@ public record PetSearchResult(
         Integer ageInDays,
         Gender gender,
         PetStatus status,
-        String comment,
+        String comments,
         String healthStatus
 ) {}
