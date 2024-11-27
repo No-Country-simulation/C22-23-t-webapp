@@ -60,7 +60,7 @@ public class PetSearchQuery {
         //y guardamos su valor en el mapa de parámetros.
         if (searchCriteria.name() != null) {
             jpqlParts.add("UPPER(p.name) LIKE UPPER(:name)");
-            params.put("name", searchCriteria.name() + "%");
+            params.put("name", "%" + searchCriteria.name() + "%");
         }
 
         if (searchCriteria.species() != null) {
@@ -106,8 +106,8 @@ public class PetSearchQuery {
     private String buildOrderByClause(Pageable pageable, String entityName) {
         return pageable.getSort().isSorted()
                 ? pageable.getSort().stream()
-                        .map(order -> entityName + "." + order.getProperty() + " " + order.getDirection())
-                        .collect(Collectors.joining(", ", " ORDER BY ", ""))
+                          .map(order -> entityName + "." + order.getProperty() + " " + order.getDirection())
+                          .collect(Collectors.joining(", ", " ORDER BY ", ""))
                 : "";
     }
 }
