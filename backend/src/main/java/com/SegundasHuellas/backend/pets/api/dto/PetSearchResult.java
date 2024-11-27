@@ -10,6 +10,7 @@ public record PetSearchResult(
         Species species,
         String breedName,
         Integer ageInDays,
+        Boolean isCastrated,
         Gender gender,
         PetStatus status,
         String comments,

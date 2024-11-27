@@ -34,11 +34,14 @@ public class PetSearchQuery {
                     p.id,
                     p.name,
                     p.breed.species,
+                    p.breed.name,
                     p.age.valueInDays,
                     p.isCastrated,
                     p.gender,
-                    p.status)
-                FROM Pet p  
+                    p.status,
+                    p.comments,
+                    p.healthStatus)
+                FROM Pet p
                 """;
 
         // Consulta para contar el total de resultados (necesario para la paginación)
