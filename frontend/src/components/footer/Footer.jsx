@@ -3,13 +3,12 @@ import "./Footer.css";
 
 function Footer() {
   return (
-    <footer className="footer-wrapper">
-      <div className="footer-container">
-        <div className="fixed">
-          <div className="text-footer">
+    
+      <footer className="footer-container">
+          <p className="text-footer">
             © 2024 PetAdopt. All rights reserved. Contact us: info@petadopt.com
-          </div>
-          <div className="footer-social">
+          </p>
+          <div className="social-container">
             <div className="social">
               <img src={"./public/face-logo.svg"} alt="" />
               <img src={"./public/twitter-logo.svg"} alt="" />
@@ -21,9 +20,8 @@ function Footer() {
               <a href="#">Contacto</a>
             </div>
           </div>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    
   );
 }
 

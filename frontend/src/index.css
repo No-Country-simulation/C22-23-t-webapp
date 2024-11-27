@@ -1,0 +1,57 @@
+/*
+    MARK: CSS RESET
+*/
+
+/* Simplifico la forma de aplicar tamaños */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Quito el espaciado predeterminado */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Aplico dark mode user-agent-styles */
+/* Mejoro la puntuación en los navegadores que lo soporten */
+html {
+    color-scheme: dark light;
+    hanging-punctuation: first last;
+}
+
+/* min body height para evitar problemas con display:flex */
+body {
+    min-height: 100svh;
+}
+
+/* imágenes/videos responsive */
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+/* Mejoro los títulos en los navegadores que lo soporten */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/* Mejoro la legibilidad con max-width en párrafos y listas */
+/* Prevengo palabras "huérfanas" en los navegadores que lo soporten */
+p,
+li {
+    max-width: 65ch;
+    text-wrap: pretty;
+}
+
+/* *********************************************************************************** */

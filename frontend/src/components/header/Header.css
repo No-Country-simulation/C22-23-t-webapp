@@ -1,65 +1,64 @@
-
 .header-container {
-    width: 100%;
-    height: 70px;
-    margin: 0 auto;
+    height: 250px;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    background: #fff;
-    box-shadow: 0 1px 10px 1px #0000003d;
+    justify-content: center;
+    gap: 30px;
+    background: #edeff0;
+    box-shadow: 0 2px 5px 0 #00000059;
 }
 
 .nav-container {
     display: flex;
-    align-items: center;
-    width: 400px;
-    gap: 40px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .title-logo {
     display: flex;
-    align-items: center;
     gap: 5px;
-}
-
-.nav-title {
-    font-size: 25px;
-    font-weight: bold;
 }
 
 .input-container {
     display: flex;
+    justify-content: center;
     position: relative;
 }
 
 .input {
-    width: 280px;
+    width: 260px;
     height: 30px;
     text-align: start;
-    padding-left: 30px;
+    padding-left: 50px;
     border-radius: 10px;
     background:#edeff0;
-    font-size: 11px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    border: 1px solid #717277;
 }
 
 .search {
     position: absolute;
-    bottom: 7px;
-    left: 5px; 
+    bottom: 5px;
+    left: 19px; 
 }
 
 .btn-header {
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .btn-login, .btn-join {
-    width: 100px;
-    height: 35px;
+    padding: 8px 110px;
     border: 1px solid #000;
     border-radius: 5px;
     background: #fff;
+    margin: 0 10px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
 }
 
 .btn-join {
@@ -77,32 +76,27 @@
     color: #000;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 640px) {
 
     .header-container {
+        flex-direction: row;
+        justify-content: space-around;
+        height: 100px;
+    }
+
+    .nav-container {
         display: flex;
-        flex-direction: column;
-        height: 130px;
-    }
-
-    .input {
-        width: 200px;
-    }
-
-    .title-logo {
-        width: 100%;
-        position: relative;
-        right: 100px;
+        flex-direction: row;
+        gap: 45px;
     }
 
     .btn-header {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 100px;
+        flex-direction: row;
     }
-    
+
     .btn-login, .btn-join {
-        width: 150px;
+        padding: 15px 20px;
+        margin: unset;
+        border-radius: 10px;
     }
 }

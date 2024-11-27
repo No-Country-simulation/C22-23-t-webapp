@@ -7,7 +7,7 @@ function Header() {
       <nav className="nav-container">
         <div className="title-logo">
           <img src={"vite.svg"} alt="" />
-          <p className="nav-title">SegundasHuellas</p>
+          <h1 className="nav-title">SegundasHuellas</h1>
         </div>
         <div className="input-container">
           <img className="search" src={"search-logo.svg"} alt="" />
