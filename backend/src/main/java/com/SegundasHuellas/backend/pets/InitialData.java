@@ -4,8 +4,10 @@ import com.SegundasHuellas.backend.pets.internal.application.service.BreedServic
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
+import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +64,7 @@ public class InitialData {
     );
     private final PetRepository petRepository;
     private final BreedService breedService;
+    private final BreedRepository breedRepository;
     private final Faker faker;
 
     @Value("${app.seeding.enabled:false}")
@@ -68,8 +72,9 @@ public class InitialData {
     @Value("${app.seeding.pets.count:1000}")
     private int numberOfFakePets;
     @Value("${app.seeding.batch-size:50}")
-    private int batchSize = 50;
+    private int batchSize;
 
+    @Order(2)
     @EventListener
     @Transactional
     public void handleApplicationStartedEvent(ApplicationStartedEvent event) {
@@ -104,24 +109,41 @@ public class InitialData {
                                                           breedService::getDefaultBreedForSpecies
                                                   ));
 
+        Map<Species, List<Breed>> breedsBySpecies = Arrays.stream(Species.values())
+                                                          .collect(Collectors.toMap(
+                                                                  species -> species,
+                                                                  species -> {
+                                                                      List<Breed> breeds = breedRepository.findAllBySpecies(species);
+                                                                      breeds.add(defaultBreeds.get(species));
+                                                                      return breeds;
+                                                                  }
+                                                          ));
+
+        System.out.println(breedsBySpecies);
 
         IntStream.range(0, numberOfFakePets)
-                 .mapToObj(i -> createRandomPet(defaultBreeds))
+                 .mapToObj(i -> createRandomPet(breedsBySpecies))
                  .collect(Collectors.groupingBy(pet -> Math.floorDiv(faker.number().randomNumber(), batchSize)))
                  .values()
                  .forEach(petRepository::saveAll);
     }
 
 
-    private Pet createRandomPet(Map<Species, Breed> defaultBreeds) {
+    private Pet createRandomPet(Map<Species, List<Breed>> breedsBySpecies) {
         Species randomSpecies = faker.options().option(Species.class);
         Pet randomPet = Pet.withDefaults(faker.name().firstName(), randomSpecies);
-        randomPet.assignBreed(defaultBreeds.get(randomSpecies));
+
+
+        randomPet.assignBreed(breedsBySpecies
+                .get(randomSpecies)
+                .get(faker.number().numberBetween(0, breedsBySpecies.get(randomSpecies).size())));
+
         randomPet.setGender(faker.options().option(Gender.class));
         randomPet.setAge(Age.ofDays(faker.number().numberBetween(1, 5500)));
         randomPet.setIsCastrated(faker.options().option(true, false));
         randomPet.setHealthStatus(faker.lorem().sentence());
         randomPet.setComments(faker.lorem().sentence(40));
+        randomPet.setStatus(faker.options().option(PetStatus.class));
 
         List<String> imagePool = IMAGE_POOLS.get(randomSpecies);
         String randomImage = imagePool.get(faker.number().numberBetween(0, imagePool.size()));

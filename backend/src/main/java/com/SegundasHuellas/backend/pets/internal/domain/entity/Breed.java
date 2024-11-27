@@ -18,12 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Table(name = "breeds", uniqueConstraints = {
-        @UniqueConstraint(
-                columnNames = {"species", "is_species_default"},
-                name = "uk_breed_species_default"
-        )
-})
+@Table(name = "breeds")
 public class Breed extends BaseEntity {
 
     @Column(name = "name", nullable = false)
