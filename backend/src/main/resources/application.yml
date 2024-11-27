@@ -19,8 +19,15 @@ spring:
 
 ## Application Configuration
 app:
+  seeding:
+    enabled: true
+    batch-size: 50
+    pets:
+      count: 1000
   error:
     base-uri: https://api.domainplaceholder.com/errors/
+  default:
+    pet-photo: ${DEFAULT_PET_PHOTO:}
   cloudinary:
     url: ${CLOUDINARY_URL:}
 

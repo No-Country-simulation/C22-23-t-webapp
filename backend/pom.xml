@@ -100,6 +100,12 @@
             <artifactId>cloudinary-taglib</artifactId>
             <version>2.0.0</version>
         </dependency>
+        <!--        Data Faker-->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>2.4.2</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

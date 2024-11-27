@@ -1,8 +1,8 @@
 package com.SegundasHuellas.backend.shared.exception;
 
-public class PhotoUploadException extends DomainException {
+public class ImageOperationException extends DomainException {
 
-    public PhotoUploadException(String message) {
+    public ImageOperationException(String message) {
         super(ErrorCode.INVALID_STATE, message);//TODO: cambiar error code
     }
 }

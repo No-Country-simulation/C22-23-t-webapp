@@ -12,6 +12,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
+import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -101,14 +102,16 @@ public class PetServiceImpl implements PetService {
         return new PetResponseDto(
                 pet.getId(),
                 pet.getName(),
-                pet.getBreed().getSpecies().name(),
+                pet.getBreed().getSpecies().getTranslation(),
                 pet.getBreed().getName(),
+                ImageResponse.from(pet.getPhoto()),
+                pet.getBirthDate(),//🔴 ligados -> considerar sacarlo
                 pet.getIsCastrated(),
-                pet.getGender().name(),
+                pet.getGender().getTranslation(),
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados
                 pet.getHealthStatus(),
                 pet.getComments(),
-                pet.getStatus().name()
+                pet.getStatus().getTranslation()
         );
     }
 }

@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.shared.infrastructure.storage.config;
 
 import lombok.Value;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Objects.requireNonNull;
@@ -45,7 +46,10 @@ public class CloudinaryUploadConfig {
         requireNonNull(resourceName, "Resource name cannot be null");
 
         String identifier = String.format("%s-%s-%s", folderName, resourceId, resourceName);
-        return UploadConfig.of(folderName, identifier, defaultOptions());
+        Map<String, Object> options = new HashMap<>(defaultOptions());
+        options.put("display_name", identifier);
+        options.put("asset_folder", folderName);
+        return UploadConfig.of(options);
     }
 
     public static UploadConfig forPet(Long petId, String petName) {

@@ -84,7 +84,7 @@ public class Pet extends BaseEntity {
         return Pet.builder()
                   .name(petName)
                   .gender(Gender.UNDEFINED)
-//                .image(Image.placeholder()) // Esto todavía no lo implemento. De momento es null.
+                  .photo(Image.withDefaults()) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))
                   .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
                   .weight(Weight.of(0))
