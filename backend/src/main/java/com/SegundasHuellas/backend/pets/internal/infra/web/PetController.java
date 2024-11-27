@@ -1,11 +1,14 @@
 package com.SegundasHuellas.backend.pets.internal.infra.web;
 
-import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
-import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
-import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
+import com.SegundasHuellas.backend.pets.api.dto.*;
+import com.SegundasHuellas.backend.pets.internal.application.service.PetSearchService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
 import jakarta.validation.Valid;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +17,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pets")
+@RequiredArgsConstructor
 public class PetController {
 
-    @Autowired
-    private PetService petService;
+    private final PetService petService;
+
+    private final PetSearchService petSearchService;
 
     @PostMapping
     public ResponseEntity<PetResponseDto> createPet(@RequestBody @Valid CreatePetRequestDto petRequestDto) {
@@ -37,19 +42,15 @@ public class PetController {
         return ResponseEntity.ok(petResponseDto);
     }
 
-//    @GetMapping("/by-species")
-//    public ResponseEntity<List<PetResponseDto>> findPetsBySpecies(@RequestParam("species") String species) {
-//        List<PetResponseDto> pets = petService.findBySpecies(species);
-//        return ResponseEntity.ok(pets);
-//    }
-
-    @GetMapping("/by-breed")
-    public ResponseEntity<List<PetResponseDto>> findPetsByBreedName(@RequestParam("breedName") String breedName) {
-        List<PetResponseDto> pets = petService.findByBreedName(breedName);
-        return ResponseEntity.ok(pets);
+    @GetMapping("/search")
+    public ResponseEntity<Page<PetSearchResult>> searchPets(
+            @ModelAttribute PetSearchCriteria criteria,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(petSearchService.searchPets(criteria, pageable));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{petId}")
     public ResponseEntity<PetResponseDto> updatePet(
             @PathVariable Long petId,
             @RequestBody UpdatePetRequestDto petDto
@@ -58,6 +59,7 @@ public class PetController {
         return ResponseEntity.ok(petResponseDto);
     }
 
+    @DeleteMapping("/delete/{petId}")
     public ResponseEntity<Void> deletePet(@PathVariable Long petId) {
         petService.deletePet(petId);
         return ResponseEntity.noContent().build();

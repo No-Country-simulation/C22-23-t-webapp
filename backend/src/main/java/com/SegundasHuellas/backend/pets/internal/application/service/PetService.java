@@ -15,10 +15,6 @@ public interface PetService {
 
     PetResponseDto findById(Long id);
 
-//    List<PetResponseDto> findBySpecies(String species);
-
-    List<PetResponseDto> findByBreedName(String breedName);
-
     PetResponseDto updatePet(Long id, UpdatePetRequestDto petDto);
 
     void deletePet(Long id);
