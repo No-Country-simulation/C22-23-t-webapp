@@ -81,18 +81,18 @@ public class GlobalExceptionHandler {
         String invalidValue = ex.getValue() != null ? ex.getValue().toString() : "null";
         String targetType = ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "unknown";
 
-       // if targetType is an ENUM, show the possible enum values
+        ProblemDetail pd = handleException(DATA_TYPE_MISMATCH, ex, invalidValue, fieldError, targetType);
+
+        // if targetType is an ENUM, show the possible enum values
         if (ex.getRequiredType() != null && ex.getRequiredType().isEnum()) {
             Object[] enumConstants = ex.getRequiredType().getEnumConstants();
-            String allowedValues = Arrays.stream(enumConstants)
+            List<String> allowedValues = Arrays.stream(enumConstants)
                                                .map(Object::toString)
-                                               .collect(Collectors.joining(", "));
-            targetType = String.format("%s: [%s]", targetType, allowedValues);
+                                               .toList();
+            pd.setProperty("allowedValues", allowedValues);
         }
 
-
-        return handleException(DATA_TYPE_MISMATCH, ex,
-                invalidValue,fieldError, targetType);
+        return pd;
     }
 
     @ExceptionHandler(DomainException.class)
