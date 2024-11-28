@@ -10,9 +10,9 @@ export function Footer() {
           </p>
           <div className="social-container">
             <div className="social">
-              <img src={"./public/face-logo.svg"} alt="" />
-              <img src={"./public/twitter-logo.svg"} alt="" />
-              <img src={"./public/ig-logo.svg"} alt="" />
+              <img src={"./face-logo.svg"} alt="Logo de Facebook" />
+              <img src={"./twitter-logo.svg"} alt="Logo de Twitter" />
+              <img src={"./ig-logo.svg"} alt="logo de Instagram" />
             </div>
             <div className="links">
               <a href="#">Sobre Nosotros</a>
