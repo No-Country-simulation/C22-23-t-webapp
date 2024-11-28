@@ -8,6 +8,7 @@ spring:
   docker:
     compose:
       lifecycle-management: start_only
+      file: ./backend/compose.yaml
   servlet:
     multipart:
       max-file-size: 3MB
