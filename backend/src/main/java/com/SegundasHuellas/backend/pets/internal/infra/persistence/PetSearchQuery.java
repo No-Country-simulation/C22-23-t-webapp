@@ -37,7 +37,7 @@ public class PetSearchQuery {
                     p.age.valueInDays,
                     p.gender,
                     p.status,
-                    new com.SegundasHuellas.backend.shared.application.dto.ImageResponse(p.photo.url)
+                    p.photo
                 )
                 FROM Pet p
                 """;
