@@ -1,11 +1,8 @@
-import React from "react";
-import Card from "./Card";
-import Footer from "../footer/Footer";
-import Header from "../header/Header";
+import { Header, Card, Footer } from '../components/'
 
 function CardsPage() {
   return (
-    <div className="wrapper">
+    <>
       <Header />
       <div className="App">
         <Card
@@ -64,7 +61,7 @@ function CardsPage() {
         />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

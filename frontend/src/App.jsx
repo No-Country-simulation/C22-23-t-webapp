@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LandingPage } from './pages/LandingPage.jsx'
-import CardsPage from './components/cards/CardsPage'
+import CardsPage from './pages/CardsPage.jsx'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."
