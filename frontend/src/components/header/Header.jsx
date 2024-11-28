@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 
-function Header() {
+export function Header() {
   return (
     <header className="header-container">
       <nav className="nav-container">
@@ -21,5 +21,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

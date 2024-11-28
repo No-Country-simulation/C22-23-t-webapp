@@ -1,7 +1,7 @@
 import React from 'react'
 import './Card.css'
 
-function Card(props) {
+export function Card(props) {
   return (
     <article className='cards-container'>
         <img className='image-pet' src={`pet-${props.image}.jpeg`} alt='Foto de la pet' />
@@ -14,5 +14,3 @@ function Card(props) {
     </article>
   )
 }
-
-export default Card

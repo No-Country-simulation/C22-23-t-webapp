@@ -1,7 +1,4 @@
-import React from "react";
-import Card from "./Card";
-import Footer from "../footer/Footer";
-import Header from "../header/Header";
+import { Header, Card, Footer } from '../components/'
 
 function CardsPage() {
   return (
