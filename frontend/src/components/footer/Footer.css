@@ -1,14 +1,19 @@
 .footer-container {
     width: 100%;
-    height: 250px;
-    margin-top: 25px;
     padding: 20px 40px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around;
-    gap: 10px;
-    background: #edeff0;
+    justify-content: space-between;
+    gap: 2rem;
+    background-color: var(--clr-grey);
+    color: var(--clr-primary);
+}
+
+.social-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .text-footer {
@@ -21,9 +26,13 @@
 .social {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-bottom: 20px;
+    gap: 2rem;
     cursor: pointer;
+}
+
+.social > img {
+    height: 3rem;
+    width: 3rem;
 }
 
 .links {
@@ -33,34 +42,14 @@
     align-items: center;
     gap: 20px;
     text-decoration: none;
-    color: #2f40d6;
     font-size: 15px;
     letter-spacing: 2px;
 }
 
 a {
+    display: grid;
+    place-items: center;
+    height: 3rem;
     text-decoration: none;
-}
-
-@media (min-width: 640px) {
-
-    .footer-container {
-        height: 95px;
-       flex-direction: row;
-        
-    }
-
-    .social-container {
-        flex-direction: column;
-        margin-top: 10px;
-    }
-
-    .social {
-        justify-content: end;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-    .text-footer {
-        margin-top: 20px;
-}
+    color: var(--clr-primary);
 }

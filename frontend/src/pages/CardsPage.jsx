@@ -2,7 +2,7 @@ import { Header, Card, Footer } from '../components/'
 
 function CardsPage() {
   return (
-    <div className="wrapper">
+    <>
       <Header />
       <div className="App">
         <Card
@@ -61,7 +61,7 @@ function CardsPage() {
         />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

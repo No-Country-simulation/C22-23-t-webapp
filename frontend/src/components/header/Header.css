@@ -1,11 +1,12 @@
 .header-container {
-    height: 250px;
+    padding: 1rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 30px;
-    background: #edeff0;
+    background-color: var(--clr-grey);
+    color: var(--clr-primary);
     box-shadow: 0 2px 5px 0 #00000059;
 }
 
@@ -17,7 +18,14 @@
 
 .title-logo {
     display: flex;
+    align-items: center;
+    height: 3rem;
     gap: 5px;
+}
+
+.title-logo > img {
+    height: 3rem;
+    width: 3rem;
 }
 
 .input-container {
@@ -28,20 +36,25 @@
 
 .input {
     width: 260px;
-    height: 30px;
+    height: 3rem;
     text-align: start;
     padding-left: 50px;
     border-radius: 10px;
-    background:#edeff0;
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
     font-size: 12px;
     letter-spacing: 2px;
-    border: 1px solid #717277;
+    border: 1px solid var(--clr-primary);
 }
 
 .search {
     position: absolute;
-    bottom: 5px;
-    left: 19px; 
+    height: 2rem;
+    width: 2rem;
+    bottom: 0.5rem;
+    left: 0.5rem; 
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
 }
 
 .btn-header {
@@ -52,9 +65,10 @@
 
 .btn-login, .btn-join {
     padding: 8px 110px;
-    border: 1px solid #000;
+    border: 1px solid var(--clr-primary);
     border-radius: 5px;
-    background: #fff;
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
     margin: 0 10px;
     font-size: 12px;
     letter-spacing: 2px;
@@ -77,11 +91,12 @@
 }
 
 @media (min-width: 640px) {
-
     .header-container {
+        height: 100%;
+        padding: 1rem;
         flex-direction: row;
-        justify-content: space-around;
-        height: 100px;
+        justify-content: space-between;
+        gap: 2rem;
     }
 
     .nav-container {
