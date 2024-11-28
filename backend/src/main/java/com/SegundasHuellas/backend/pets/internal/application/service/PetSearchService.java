@@ -2,10 +2,10 @@ package com.SegundasHuellas.backend.pets.internal.application.service;
 
 import com.SegundasHuellas.backend.pets.api.dto.PetSearchCriteria;
 import com.SegundasHuellas.backend.pets.api.dto.PetSearchResult;
-import org.springframework.data.domain.Page;
+import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import org.springframework.data.domain.Pageable;
 
 public interface PetSearchService {
 
-    Page<PetSearchResult> searchPets(PetSearchCriteria criteria, Pageable pageable);
+    PageResponse<PetSearchResult> searchPets(PetSearchCriteria criteria, Pageable pageable);
 }
