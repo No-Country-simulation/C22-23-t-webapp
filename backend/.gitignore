@@ -27,6 +27,7 @@ target/
 *.ipr
 .idea/
 .idea_modules/
+.idea/dbnavigator.xml
 out/
 
 ### NetBeans ###
