@@ -6,7 +6,7 @@ export function Header() {
     <header className="header-container">
       <nav className="nav-container">
         <div className="title-logo">
-          <img src={"vite.svg"} alt="" />
+          <img src={"./vite.svg"} alt="Logo de Vite.js" />
           <h1 className="nav-title">SegundasHuellas</h1>
         </div>
         <div className="input-container">
