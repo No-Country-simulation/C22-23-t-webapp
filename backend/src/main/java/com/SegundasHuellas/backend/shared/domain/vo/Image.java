@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.shared.domain.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,6 @@ import java.util.Objects;
 @Getter
 @Embeddable
 public class Image {
-
-
 
     @Column(name = "image_url")
     private String url;
