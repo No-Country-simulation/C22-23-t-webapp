@@ -11,12 +11,15 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.net.URI;
 import java.nio.file.AccessDeniedException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.*;
 import static java.time.Instant.now;
@@ -69,6 +72,27 @@ public class GlobalExceptionHandler {
         pd.setProperty("errors", validationErrors);
         pd.setProperty("errorsCount", validationErrors.size());
         return pd;
+    }
+
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ProblemDetail onMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String fieldError = ex.getName();
+        String invalidValue = ex.getValue() != null ? ex.getValue().toString() : "null";
+        String targetType = ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "unknown";
+
+       // if targetType is an ENUM, show the possible enum values
+        if (ex.getRequiredType() != null && ex.getRequiredType().isEnum()) {
+            Object[] enumConstants = ex.getRequiredType().getEnumConstants();
+            String allowedValues = Arrays.stream(enumConstants)
+                                               .map(Object::toString)
+                                               .collect(Collectors.joining(", "));
+            targetType = String.format("%s: [%s]", targetType, allowedValues);
+        }
+
+
+        return handleException(DATA_TYPE_MISMATCH, ex,
+                invalidValue,fieldError, targetType);
     }
 
     @ExceptionHandler(DomainException.class)
