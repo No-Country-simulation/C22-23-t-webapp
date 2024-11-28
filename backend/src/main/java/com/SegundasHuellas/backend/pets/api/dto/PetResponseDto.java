@@ -10,7 +10,6 @@ public record PetResponseDto(
         String species,
         String breedName,
         ImageResponse photo,
-        LocalDate birthDate,
         Boolean isCastrated,
         String gender,
         Integer ageInDays,
