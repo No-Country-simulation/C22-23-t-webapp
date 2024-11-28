@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.pets.api.dto.PetSearchCriteria;
 import com.SegundasHuellas.backend.pets.api.dto.PetSearchResult;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetSearchService;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetSearchQuery;
+import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ public class PetSearchServiceImpl implements PetSearchService {
     private final PetSearchQuery petSearchQuery;
 
     @Override
-    public Page<PetSearchResult> searchPets(PetSearchCriteria criteria, Pageable pageable) {
+    public PageResponse<PetSearchResult> searchPets(PetSearchCriteria criteria, Pageable pageable) {
         return petSearchQuery.pageSearch(criteria, pageable);
     }
 }
