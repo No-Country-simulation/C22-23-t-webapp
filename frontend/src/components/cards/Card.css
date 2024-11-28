@@ -34,17 +34,15 @@
 }
 
 .title-pet {
-    font-size: 20px;
     font-weight: bold;
     padding-bottom: 5px;
 }
 
 .btn-pet {
-    height: 35px;
+    height: 3rem;
     border-radius: 10px;
     background: #2f40d6;
     color: #fff;
-    font-size: 12px;
     letter-spacing: 2px;
     font-weight: 800;
     cursor: pointer;

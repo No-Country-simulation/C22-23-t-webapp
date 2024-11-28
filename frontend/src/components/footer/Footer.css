@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-.social > img {
+.social > a > img {
     height: 3rem;
     width: 3rem;
 }

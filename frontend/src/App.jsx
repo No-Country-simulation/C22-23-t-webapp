@@ -12,6 +12,12 @@ function App() {
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/home" element={<CardsPage />} />
+                <Route path="/pet" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/register" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/login" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/about" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/mission" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/contact" element={<h2>{WIP_MESSAGE}</h2>} />
                 <Route path="*" element={<h2>{ERROR_MESSAGE}</h2>} />
             </Routes>
         </BrowserRouter>
