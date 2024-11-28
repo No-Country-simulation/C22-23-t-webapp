@@ -2,9 +2,9 @@ package com.SegundasHuellas.backend.pets.internal.infra.persistence;
 
 import com.SegundasHuellas.backend.pets.api.dto.PetSearchCriteria;
 import com.SegundasHuellas.backend.pets.api.dto.PetSearchResult;
+import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -27,20 +27,18 @@ public class PetSearchQuery {
 
     private final EntityManager entityManager;
 
-    public Page<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria, Pageable pageable) {
+    public PageResponse<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria, Pageable pageable) {
         // Consulta base JPQL para obtener mascotas
         String jpql = """
                 SELECT new com.SegundasHuellas.backend.pets.api.dto.PetSearchResult(
                     p.id,
                     p.name,
                     p.breed.species,
-                    p.breed.name,
                     p.age.valueInDays,
-                    p.isCastrated,
                     p.gender,
                     p.status,
-                    p.comments,
-                    p.healthStatus)
+                    new com.SegundasHuellas.backend.shared.application.dto.ImageResponse(p.photo.url)
+                )
                 FROM Pet p
                 """;
 
@@ -68,9 +66,9 @@ public class PetSearchQuery {
             params.put("species", searchCriteria.species());
         }
 
-        if (searchCriteria.breedName() != null) {
-            jpqlParts.add("UPPER(p.breed.name) LIKE UPPER(:breedName)");
-            params.put("breedName", "%" + searchCriteria.breedName() + "%");
+        if (searchCriteria.breed() != null) {
+            jpqlParts.add("UPPER(p.breed.name) LIKE UPPER(:breed)");
+            params.put("breed", "%" + searchCriteria.breed() + "%");
         }
 
         if (searchCriteria.status() != null) {
@@ -100,7 +98,7 @@ public class PetSearchQuery {
 
         //Obtenemos los resultados y construimos el objeto Page con la información de paginación.
         List<PetSearchResult> results = dataQuery.getResultList();
-        return new PageImpl<>(results, pageable, total);
+        return PageResponse.from(new PageImpl<>(results, pageable, total));
     }
 
     private String buildOrderByClause(Pageable pageable, String entityName) {
