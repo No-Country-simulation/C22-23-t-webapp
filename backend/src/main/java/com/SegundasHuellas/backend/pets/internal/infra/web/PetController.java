@@ -3,6 +3,7 @@ package com.SegundasHuellas.backend.pets.internal.infra.web;
 import com.SegundasHuellas.backend.pets.api.dto.*;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetSearchService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
+import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,7 @@ public class PetController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<PetSearchResult>> searchPets(
+    public ResponseEntity<PageResponse<PetSearchResult>> searchPets(
             @ModelAttribute PetSearchCriteria criteria,
             @PageableDefault(sort = "id", direction = ASC) Pageable pageable
     ) {
