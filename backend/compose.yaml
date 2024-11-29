@@ -16,7 +16,7 @@ services:
     depends_on:
       - postgres
     environment:
-        - SPRING_PROFILES_ACTIVE=docker
+        - SPRING_PROFILES_ACTIVE=dev
         - CLOUDINARY_URL=cloudinary://367656173992544:ErIitGo4UksnWrB3K2W9LcSBoFA@dffbmjmgj
         - DEFAULT_PET_PHOTO=https://res.cloudinary.com/dgdxraapm/image/upload/v1732583288/pet-photos/default.jpg
         - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/segundas-huellas
