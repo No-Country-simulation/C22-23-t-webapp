@@ -1,4 +1,5 @@
 import './LandingPageHero.css'
+import { Link } from 'react-router-dom' 
 
 export function LandingPageHero() {
     return (
@@ -11,7 +12,7 @@ export function LandingPageHero() {
                 Dale un hogar a una mascota y cambia su vida y la tuya para siempre.
                 </p>
 
-                <button id="LandingPageHeroButton">Empieza a adoptar</button>
+                <button id="LandingPageHeroButton"><Link to={"/home"}>Empieza a adoptar</Link></button>
 
             </div>
         </div>

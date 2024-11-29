@@ -1,5 +1,7 @@
 import React from 'react'
 import './Card.css'
+import { NavLink } from 'react-router-dom'
+
 
 export function Card(props) {
   return (
@@ -10,7 +12,7 @@ export function Card(props) {
             <div className='age-pet'>{props.age} aprox.</div>
             <div className='location-pet'>{props.location}</div>
         </div>
-        <button className='btn-pet'>Ver más detalles</button>
+        <NavLink to={"/pet"} className='btn-pet'>Ver más detalles</NavLink>
     </article>
   )
 }

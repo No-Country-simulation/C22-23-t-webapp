@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     gap: 30px;
-    background-color: var(--clr-grey);
+    background-color: var(--clr-light-gray);
     color: var(--clr-primary);
     box-shadow: 0 2px 5px 0 #00000059;
 }
