@@ -1,13 +1,12 @@
 package com.SegundasHuellas.backend.pets.internal.infra.web;
 
-import com.SegundasHuellas.backend.pets.api.dto.*;
+import com.SegundasHuellas.backend.pets.internal.application.dto.*;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetSearchService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import jakarta.validation.Valid;
-import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

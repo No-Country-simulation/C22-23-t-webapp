@@ -1,8 +1,6 @@
-package com.SegundasHuellas.backend.pets.api.dto;
+package com.SegundasHuellas.backend.pets.internal.application.dto;
 
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
-
-import java.time.LocalDate;
 
 public record PetResponseDto(
         Long id,

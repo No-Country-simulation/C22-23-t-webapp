@@ -1,9 +1,8 @@
 package com.SegundasHuellas.backend.pets.internal.application.service.impl;
 
-import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
-import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
-import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
-import com.SegundasHuellas.backend.pets.internal.application.exception.PetNotFoundException;
+import com.SegundasHuellas.backend.pets.internal.application.dto.CreatePetRequestDto;
+import com.SegundasHuellas.backend.pets.internal.application.dto.PetResponseDto;
+import com.SegundasHuellas.backend.pets.internal.application.dto.UpdatePetRequestDto;
 import com.SegundasHuellas.backend.pets.internal.application.service.BreedService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
@@ -69,7 +68,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public PetResponseDto updatePet(Long id, UpdatePetRequestDto petDto) {
         Pet existingPet = petRepository.findById(id)
-                .orElseThrow(() -> new PetNotFoundException(id));
+                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
 
         existingPet.setName(petDto.name() != null && !petDto.name().isBlank() ? petDto.name() : existingPet.getName());
         existingPet.setAge(petDto.ageInDays() != null ? Age.ofDays(petDto.ageInDays()) : existingPet.getAge());
@@ -93,7 +92,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public void deletePet(Long id) {
         if (!petRepository.existsById(id)) {
-            throw new PetNotFoundException(id);
+            throw new DomainException(RESOURCE_NOT_FOUND, id.toString());
         }
         petRepository.deleteById(id);
     }

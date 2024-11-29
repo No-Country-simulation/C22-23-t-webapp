@@ -11,11 +11,7 @@ import java.util.Optional;
 
 public interface BreedRepository extends JpaRepository<Breed, Long> {
 
-//    Optional<Breed> findByNameAndSpecies(String name, Pet.Species species);
 
-
-    //TODO: Deberia funcionar este method por magia de JPA, pero hay que probarlo
-    //Este metodo sirve para obtener la raza por defecto de un especie y asi poder asignarla a una mascota recién creada.
     Optional<Breed> findBySpeciesAndIsSpeciesDefaultTrue(Species species);
 
     @Query("""

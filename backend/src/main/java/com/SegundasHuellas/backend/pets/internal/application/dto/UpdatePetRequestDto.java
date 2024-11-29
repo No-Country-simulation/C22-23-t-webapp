@@ -1,6 +1,4 @@
-package com.SegundasHuellas.backend.pets.api.dto;
-
-import java.time.LocalDate;
+package com.SegundasHuellas.backend.pets.internal.application.dto;
 
 public record UpdatePetRequestDto(
         String name,
