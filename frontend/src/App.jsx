@@ -18,6 +18,8 @@ function App() {
                 <Route path="/about" element={<h2>{WIP_MESSAGE}</h2>} />
                 <Route path="/mission" element={<h2>{WIP_MESSAGE}</h2>} />
                 <Route path="/contact" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/tips" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/process" element={<h2>{WIP_MESSAGE}</h2>} />
                 <Route path="*" element={<h2>{ERROR_MESSAGE}</h2>} />
             </Routes>
         </BrowserRouter>

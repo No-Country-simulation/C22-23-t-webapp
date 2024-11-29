@@ -1,34 +1,27 @@
 import './LandingPageHeader.css'
+import { NavLink } from 'react-router-dom'
 
 export function LandingPageHeader() {
     return (
         <header id="LandingPageHeader">
             <div id="LandingPageContainer">
-
                 <h1 id="LandingPageTitle">Segundas Huellas</h1>
-
                 <nav>
                     <ul id="LandingPageNavList">
-
                         <li className="LandingPageNavItem">
-                            <a href="#" className="LandingPageNavLink">Home</a>
+                            <NavLink to={"/home"} className="LandingPageNavLink">Home</NavLink>
                         </li>
-
                         <li className="LandingPageNavItem">
-                            <a href="#" className="LandingPageNavLink">Sobre Nosotros</a>
+                            <NavLink to={"/about"} className="LandingPageNavLink">Sobre Nosotros</NavLink>
                         </li>
-
                         <li className="LandingPageNavItem">
-                            <a href="#" className="LandingPageNavLink">Adoptar</a>
+                            <NavLink to={"/login"} className="LandingPageNavLink">Adoptar</NavLink>
                         </li>
-
                         <li className="LandingPageNavItem">
-                            <a href="#" className="LandingPageNavLink">Contacto</a>
+                            <NavLink to={"/contact"} className="LandingPageNavLink">Contacto</NavLink>
                         </li>
-
                     </ul>
                 </nav>
-
             </div>
         </header>
     )

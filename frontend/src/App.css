@@ -1,8 +1,11 @@
 :root {
   --clr-primary: #121212;
   --clr-secondary: #f2f2f2;
-  --clr-grey: #d9d9d9;
   --clr-accent: green;
+  --clr-black: #121212;
+  --clr-white: #f2f2f2;
+  --clr-light-gray: rgb(217, 217, 217);
+  --clr-dark-gray: #1f2937;
 }
 
 html {
