@@ -1,7 +1,7 @@
 package com.SegundasHuellas.backend.pets.internal.infra.persistence;
 
-import com.SegundasHuellas.backend.pets.api.dto.PetSearchCriteria;
-import com.SegundasHuellas.backend.pets.api.dto.PetSearchResult;
+import com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchCriteria;
+import com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchResult;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class PetSearchQuery {
     public PageResponse<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria, Pageable pageable) {
         // Consulta base JPQL para obtener mascotas
         String jpql = """
-                SELECT new com.SegundasHuellas.backend.pets.api.dto.PetSearchResult(
+                SELECT new com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchResult(
                     p.id,
                     p.name,
                     p.breed.species,
