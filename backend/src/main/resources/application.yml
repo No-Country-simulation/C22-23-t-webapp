@@ -82,4 +82,3 @@ spring:
     compose:
       lifecycle-management: start_only
       file: ./backend/compose.yaml
-
