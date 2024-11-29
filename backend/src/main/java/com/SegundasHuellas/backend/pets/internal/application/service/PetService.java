@@ -1,8 +1,8 @@
 package com.SegundasHuellas.backend.pets.internal.application.service;
 
-import com.SegundasHuellas.backend.pets.api.dto.CreatePetRequestDto;
-import com.SegundasHuellas.backend.pets.api.dto.PetResponseDto;
-import com.SegundasHuellas.backend.pets.api.dto.UpdatePetRequestDto;
+import com.SegundasHuellas.backend.pets.internal.application.dto.CreatePetRequestDto;
+import com.SegundasHuellas.backend.pets.internal.application.dto.PetResponseDto;
+import com.SegundasHuellas.backend.pets.internal.application.dto.UpdatePetRequestDto;
 
 import java.util.List;
 
