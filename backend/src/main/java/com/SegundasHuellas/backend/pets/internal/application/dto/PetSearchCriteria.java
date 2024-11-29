@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.pets.api.dto;
+package com.SegundasHuellas.backend.pets.internal.application.dto;
 
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
