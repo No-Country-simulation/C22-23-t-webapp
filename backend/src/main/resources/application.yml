@@ -26,6 +26,13 @@ app:
     pet-photo: ${DEFAULT_PET_PHOTO:}
   cloudinary:
     url: ${CLOUDINARY_URL:}
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: ${JWT_TOKEN_EXPIRATION}
+      refresh-token:
+        expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
+
 
 ## Dev only configuration
 ---
