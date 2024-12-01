@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.auth.internal.infra.web;
 
+import com.SegundasHuellas.backend.auth.internal.application.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.auth.internal.application.dto.LoginRequest;
 import com.SegundasHuellas.backend.auth.internal.application.dto.RegistrationRequest;
 import com.SegundasHuellas.backend.auth.internal.application.dto.TokenResponse;
@@ -18,12 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public TokenResponse register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public AuthenticationResponse register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         return authService.register(registrationRequest);
     }
 
     @PostMapping("/login")
-    public TokenResponse login(@RequestBody @Valid LoginRequest loginRequest) {
+    public AuthenticationResponse login(@RequestBody @Valid LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
 
