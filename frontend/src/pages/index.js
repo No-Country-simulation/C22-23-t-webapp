@@ -9,3 +9,4 @@
 
 export * from "./LandingPage.jsx"
 export * from "./SearchPage.jsx"
+export * from "./AboutPage.jsx"
