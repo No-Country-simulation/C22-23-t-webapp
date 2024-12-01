@@ -1,11 +1,11 @@
-import { Header, Footer, Contact } from '../components/'
+import { LandingPageHeader, LandingPageFooter, Contact } from '../components/'
 
 export function ContactPage() {
     return (
         <>
-            <Header />
+            <LandingPageHeader />
             <Contact />
-            <Footer />
+            <LandingPageFooter />
         </>
     )
 }
