@@ -1,7 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { LandingPage } from './pages/LandingPage.jsx'
-import { SearchPage } from './pages/SearchPage.jsx'
+import { LandingPage, SearchPage } from './pages/'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."
