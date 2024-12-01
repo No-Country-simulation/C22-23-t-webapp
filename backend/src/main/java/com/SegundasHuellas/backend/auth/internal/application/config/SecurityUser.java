@@ -1,7 +1,7 @@
 package com.SegundasHuellas.backend.auth.internal.application.config;
 
-import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
 import com.SegundasHuellas.backend.auth.api.enums.UserRole;
+import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

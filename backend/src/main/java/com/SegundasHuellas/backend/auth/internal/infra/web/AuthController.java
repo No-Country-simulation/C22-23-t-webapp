@@ -1,8 +1,8 @@
 package com.SegundasHuellas.backend.auth.internal.infra.web;
 
-import com.SegundasHuellas.backend.auth.internal.application.dto.AuthenticationResponse;
+import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
+import com.SegundasHuellas.backend.auth.api.dto.TokenResponse;
 import com.SegundasHuellas.backend.auth.internal.application.dto.LoginRequest;
-import com.SegundasHuellas.backend.auth.internal.application.dto.TokenResponse;
 import com.SegundasHuellas.backend.auth.internal.application.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
