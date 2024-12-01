@@ -1,14 +1,13 @@
 package com.SegundasHuellas.backend.auth.internal.domain.entity;
 
+import com.SegundasHuellas.backend.auth.internal.domain.enums.UserRole;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.security.core.GrantedAuthority;
+import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -17,11 +16,30 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
+@Slf4j
 @Table(name = "users")
 public class User extends BaseEntity {
 
+    public static final int MAX_FAILED_ATTEMPTS = 5;
     private String email;
     private String password;
+
+    @Builder.Default
+    private boolean active = true;
+
+    @Builder.Default
+    private boolean locked = false;
+
+    @Builder.Default
+    private boolean emailVerified = true; //TODO: EMAIL VERIFICATION FLOW
+    private LocalDateTime passwordExpiryDate;
+
+    @Column(name = "last_login_date")
+    private LocalDateTime lastLoginDate;
+
+    @Column(name = "failed_attempts_count", nullable = false)
+    @Builder.Default
+    private int failedAttemptsCount = 0;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Token> tokens;
@@ -31,17 +49,21 @@ public class User extends BaseEntity {
     @CollectionTable(name = "user_roles")
     private Set<UserRole> roles;
 
-
-    public enum UserRole implements GrantedAuthority {
-        ADMIN,
-        USER,
-        ADOPTER,
-        PROVIDER;
-
-        @Override
-        public String getAuthority() {
-            return name();
+    public void incrementFailedAttemptsCount() {
+        this.failedAttemptsCount++;
+        if (this.failedAttemptsCount >= MAX_FAILED_ATTEMPTS) {
+            this.locked = true;
         }
     }
+
+    public void resetFailedAttempts() {
+        this.failedAttemptsCount = 0;
+    }
+
+    public void recordSuccessfulLogin() {
+        this.lastLoginDate = LocalDateTime.now();
+        this.resetFailedAttempts();
+    }
+
 
 }
