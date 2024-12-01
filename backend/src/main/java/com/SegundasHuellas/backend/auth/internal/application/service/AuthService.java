@@ -1,15 +1,15 @@
 package com.SegundasHuellas.backend.auth.internal.application.service;
 
+import com.SegundasHuellas.backend.auth.api.RegistrationService;
+import com.SegundasHuellas.backend.auth.api.dto.AuthRegistrationRequest;
+import com.SegundasHuellas.backend.auth.api.enums.UserRole;
 import com.SegundasHuellas.backend.auth.api.events.UserAccountLockedEvent;
 import com.SegundasHuellas.backend.auth.api.events.UserLoggedInEvent;
-import com.SegundasHuellas.backend.auth.api.events.UserRegisteredEvent;
 import com.SegundasHuellas.backend.auth.internal.application.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.auth.internal.application.dto.LoginRequest;
-import com.SegundasHuellas.backend.auth.internal.application.dto.RegistrationRequest;
 import com.SegundasHuellas.backend.auth.internal.application.dto.TokenResponse;
 import com.SegundasHuellas.backend.auth.internal.domain.entity.Token;
 import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
-import com.SegundasHuellas.backend.auth.internal.domain.enums.UserRole;
 import com.SegundasHuellas.backend.auth.internal.infra.persistence.TokenRepository;
 import com.SegundasHuellas.backend.auth.internal.infra.persistence.UserRepository;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
@@ -27,12 +27,13 @@ import java.util.Set;
 
 import static com.SegundasHuellas.backend.auth.internal.application.exceptions.AuthErrorCode.*;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.DUPLICATED_DATA;
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_DATA;
 
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthService implements RegistrationService {
 
     public static final String BEARER_PREFIX = "Bearer ";
     public static final int BEARER_PREFIX_LENGTH = 7;
@@ -44,19 +45,19 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
 
-    public AuthenticationResponse register(RegistrationRequest request) {
+    public AuthenticationResponse register(AuthRegistrationRequest request, Long domainUserId) {
         validateRegistration(request);
 
         User user = User.builder()
                         .email(request.email())
                         .password(passwordEncoder.encode(request.password()))
-                        .roles(Set.of(UserRole.USER))
+                        .roles(Set.of(UserRole.USER, request.role())) //TODO: CHECK IF THIS IS CORRECT
+                        .domainUserId(domainUserId)
                         .build();
 
         user = userRepository.save(user);
 
         TokenResponse tokens = generateTokens(user);
-        eventPublisher.publishEvent(new UserRegisteredEvent(user.getId(), user.getEmail()));
 
         return AuthenticationResponse.from(user, tokens);
     }
@@ -113,9 +114,13 @@ public class AuthService {
         return generateTokens(user);
     }
 
-    private void validateRegistration(RegistrationRequest request) {
+    private void validateRegistration(AuthRegistrationRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new DomainException(DUPLICATED_DATA, "Email already registered");
+        }
+
+        if (request.role() == UserRole.ADMIN) {
+            throw new DomainException(INVALID_DATA, "Cannot register with ADMIN role");
         }
     }
 
