@@ -1,0 +1,127 @@
+/* Estilos generales para el contenedor principal */
+#ContactContainer {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Estilos para la sección que contiene el título y el texto introductorio */
+#ContactTitleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#ContactTitle {
+    font-size: 2rem;
+    color: var(--clr-black);
+}
+
+#ContactText { color: var(--clr-black); }
+
+#ContactFormContainer {
+    background-color: var(--clr-light-gray);
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#ContactFormFieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#ContactFormLegend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--clr-black);
+    margin-bottom: 2rem;
+}
+
+.ContactFormSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ContactFormLabel {
+    display: block;
+    font-weight: bold;
+    color: var(--clr-black);
+}
+
+.ContactFormInput,
+#ContactFormMessage {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100%;
+    min-height: 3rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    background-color: white;
+    color: var(--clr-black);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ContactFormInput:focus,
+#ContactFormMessage:focus {
+    outline: solid 0.2rem var(--clr-accent);
+}
+
+#ContactFormMessage {
+    resize: vertical;
+    height: 6rlh;
+}
+
+#ContactFormSubmit {
+    min-height: 3rem;
+    min-width: 3rem;
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    padding: 1rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#ContactFormSubmit:hover {
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    outline: 0.2rem solid var(--clr-black);
+    cursor: pointer;
+}
+
+@media (max-width: 640px) {
+    #ContactContainer {
+        padding: 15px;
+    }
+
+    #ContactTitle {
+        font-size: 1.8em;
+    }
+
+    #ContactText {
+        font-size: 1em;
+    }
+
+    .ContactFormInput,
+    #ContactFormMessage {
+        font-size: 0.9em;
+    }
+
+    #ContactFormSubmit {
+        font-size: 1em;
+    }
+}
