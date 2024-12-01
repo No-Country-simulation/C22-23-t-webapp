@@ -1,6 +1,6 @@
 package com.SegundasHuellas.backend.auth.internal.domain.entity;
 
-import com.SegundasHuellas.backend.auth.internal.domain.enums.UserRole;
+import com.SegundasHuellas.backend.auth.api.enums.UserRole;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +23,9 @@ public class User extends BaseEntity {
     public static final int MAX_FAILED_ATTEMPTS = 5;
     private String email;
     private String password;
+
+    @Column(name = "domain_user_id")
+    private Long domainUserId; // Reference to the specific domain entity (Adopter, PetProvider, etc.)
 
     @Builder.Default
     private boolean active = true;
