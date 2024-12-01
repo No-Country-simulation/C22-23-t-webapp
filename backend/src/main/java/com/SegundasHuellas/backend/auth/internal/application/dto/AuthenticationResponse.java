@@ -1,7 +1,7 @@
 package com.SegundasHuellas.backend.auth.internal.application.dto;
 
 import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
-import com.SegundasHuellas.backend.auth.internal.domain.enums.UserRole;
+import com.SegundasHuellas.backend.auth.api.enums.UserRole;
 
 import java.util.Set;
 import java.util.stream.Collectors;
