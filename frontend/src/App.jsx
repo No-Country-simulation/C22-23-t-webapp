@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LandingPage } from './pages/LandingPage.jsx'
-import CardsPage from './pages/CardsPage.jsx'
+import { SearchPage } from './pages/SearchPage.jsx'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."
@@ -11,7 +11,7 @@ function App() {
         <BrowserRouter basename="/SegundasHuellas/">
             <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/home" element={<CardsPage />} />
+                <Route path="/home" element={<SearchPage />} />
                 <Route path="/pet" element={<h2>{WIP_MESSAGE}</h2>} />
                 <Route path="/register" element={<h2>{WIP_MESSAGE}</h2>} />
                 <Route path="/login" element={<h2>{WIP_MESSAGE}</h2>} />
