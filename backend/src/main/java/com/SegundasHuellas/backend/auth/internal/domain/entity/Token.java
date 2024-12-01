@@ -1,21 +1,19 @@
 package com.SegundasHuellas.backend.auth.internal.domain.entity;
 
+import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@Builder
+@SuperBuilder
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "tokens")
-public class Token {
+public class Token extends BaseEntity {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "token", unique = true)
     private String token;
     @Enumerated(EnumType.STRING)
@@ -27,8 +25,18 @@ public class Token {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user; //TODO: HOW DO I APPROACH THIS? CHANGE FOR MODULITH
+    private User user;
 
+    @PrePersist
+    public void onCreate() {
+        if (tokenType == null) {
+            tokenType = TokenType.BEARER;
+        }
+    }
+
+    public boolean isValid() {
+        return !expired && !revoked;
+    }
 
     public enum TokenType {
         BEARER,
