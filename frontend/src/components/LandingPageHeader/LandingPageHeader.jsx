@@ -1,11 +1,13 @@
 import './LandingPageHeader.css'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export function LandingPageHeader() {
     return (
         <header id="LandingPageHeader">
             <div id="LandingPageContainer">
-                <h1 id="LandingPageTitle">Segundas Huellas</h1>
+                <Link to={"/"}>
+                    <h1 id="LandingPageTitle">Segundas Huellas</h1>
+                </Link>
                 <nav>
                     <ul id="LandingPageNavList">
                         <li className="LandingPageNavItem">
