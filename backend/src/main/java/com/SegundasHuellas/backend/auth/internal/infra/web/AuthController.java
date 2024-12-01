@@ -2,7 +2,6 @@ package com.SegundasHuellas.backend.auth.internal.infra.web;
 
 import com.SegundasHuellas.backend.auth.internal.application.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.auth.internal.application.dto.LoginRequest;
-import com.SegundasHuellas.backend.auth.internal.application.dto.RegistrationRequest;
 import com.SegundasHuellas.backend.auth.internal.application.dto.TokenResponse;
 import com.SegundasHuellas.backend.auth.internal.application.service.AuthService;
 import jakarta.validation.Valid;
@@ -18,10 +17,10 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/register")
-    public AuthenticationResponse register(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        return authService.register(registrationRequest);
-    }
+//    @PostMapping("/register")
+//    public AuthenticationResponse register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+//        return authService.register(registrationRequest);
+//    } //TODO : we will now register users from their respective modules.
 
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody @Valid LoginRequest loginRequest) {
