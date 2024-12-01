@@ -2,12 +2,12 @@ package com.SegundasHuellas.backend.auth.internal.application.service;
 
 import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthRegistrationRequest;
+import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
+import com.SegundasHuellas.backend.auth.api.dto.TokenResponse;
 import com.SegundasHuellas.backend.auth.api.enums.UserRole;
 import com.SegundasHuellas.backend.auth.api.events.UserAccountLockedEvent;
 import com.SegundasHuellas.backend.auth.api.events.UserLoggedInEvent;
-import com.SegundasHuellas.backend.auth.internal.application.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.auth.internal.application.dto.LoginRequest;
-import com.SegundasHuellas.backend.auth.internal.application.dto.TokenResponse;
 import com.SegundasHuellas.backend.auth.internal.domain.entity.Token;
 import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
 import com.SegundasHuellas.backend.auth.internal.infra.persistence.TokenRepository;
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.SegundasHuellas.backend.auth.internal.application.exceptions.AuthErrorCode.*;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.DUPLICATED_DATA;
@@ -59,7 +60,7 @@ public class AuthService implements RegistrationService {
 
         TokenResponse tokens = generateTokens(user);
 
-        return AuthenticationResponse.from(user, tokens);
+        return buildAuthResponse(user, tokens);
     }
 
     @Transactional(noRollbackFor = {DomainException.class})
@@ -79,7 +80,7 @@ public class AuthService implements RegistrationService {
 
             handleSuccessfulLogin(user);
             TokenResponse tokens = generateTokens(user);
-            return AuthenticationResponse.from(user, tokens);
+            return buildAuthResponse(user, tokens);
 
 
         } catch (AuthenticationException e) {
@@ -144,7 +145,7 @@ public class AuthService implements RegistrationService {
         String refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(user, accessToken);
 
-        return TokenResponse.bearer(accessToken, refreshToken, jwtService.extractExpiration(accessToken));
+        return new TokenResponse(accessToken, refreshToken, jwtService.extractExpiration(accessToken));
     }
 
     private void revokeAllUserTokens(User user) {
@@ -163,6 +164,16 @@ public class AuthService implements RegistrationService {
         tokenRepository.save(token);
     }
 
+    private AuthenticationResponse buildAuthResponse(User user, TokenResponse tokens) {
+        return new AuthenticationResponse(
+                user.getId().toString(),
+                user.getEmail(),
+                user.getRoles().stream().map(UserRole::getAuthority).collect(Collectors.toSet()),
+                tokens
+        );
+    }
+
 }
+
 
 
