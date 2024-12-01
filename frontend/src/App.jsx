@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage } from './pages/'
+import { LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage } from './pages/'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."
@@ -18,7 +18,7 @@ function App() {
                 <Route path="/mission" element={<MissionPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/tips" element={<TipsPage />} />
-                <Route path="/process" element={<h2>{WIP_MESSAGE}</h2>} />
+                <Route path="/process" element={<ProcessPage />} />
                 <Route path="*" element={<h2>{ERROR_MESSAGE}</h2>} />
             </Routes>
         </BrowserRouter>
