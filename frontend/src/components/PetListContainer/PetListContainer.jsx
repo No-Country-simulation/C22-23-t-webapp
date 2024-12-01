@@ -1,5 +1,7 @@
 import './PetListContainer.css'
 import { PetList } from '../'
+import { useEffect, useState } from 'react'
+// import { useParams } from 'react-router-dom'
 
 export function PetListContainer() {
     const PETS = [
@@ -53,9 +55,33 @@ export function PetListContainer() {
         }
     ]      
 
+    const [pets, setPets] = useState()
+    const [loading, setLoading] = useState(true)
+    const GREETING = "Espera mientras preparamos el listado de mascotas..."
+    const ERROR_MESSAGE = "¡UPS! Parece que no hay mascotas para adoptar ahora..."
+    // const { categoryId } = useParams()
+
+    const fakeFetch = async () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(PETS) 
+            }, 2000)
+        })
+    }
+
+    useEffect(() => {
+        fakeFetch()
+            .then( response => setPets(response) )
+            .catch( error => console.error("Error recibiendo datos:", error) )
+            .finally( () => setLoading(false) )
+    }, [])
+    // }, [categoryId])
+
     return (
         <main id="PetListContainer">
-            <PetList pets={PETS} />
+            {loading && <h2 id="SearchLoadingGreet">{GREETING}</h2>}
+            {!loading && pets && <PetList pets={pets} />}
+            {!loading && !pets && <h2 id="SearchErrorMessage">{ERROR_MESSAGE}</h2>}
         </main>
     )
 }

@@ -1,5 +1,15 @@
 #PetListContainer {
     width: 100%;
     height: 100%;
-    background: var(--clr-secondary);
+    background-color: var(--clr-secondary);
+}
+
+#SearchLoadingGreet,
+#SearchErrorMessage {
+    width: 100%;
+    height: calc(100svh - 5rem); /* 5rem es el height total del componente Header.jsx */
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    display: grid;
+    place-items: center;
 }
