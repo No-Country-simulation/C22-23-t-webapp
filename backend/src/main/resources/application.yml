@@ -62,6 +62,8 @@ spring:
         order_updates: true
 
 logging:
+  pattern:
+    console: "%d{HH:mm:ss} %clr(%-5level) [%-30.30logger{0}] %msg%n"
   level:
     org.hibernate.stat: ERROR
     org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: ERROR
