@@ -63,10 +63,12 @@ spring:
 
 logging:
   level:
-    org.hibernate.stat: DEBUG
+    org.hibernate.stat: ERROR
+    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: ERROR
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     com.SegundasHuellas.backend: DEBUG
+
 
 ## Docker configuration
 ---
