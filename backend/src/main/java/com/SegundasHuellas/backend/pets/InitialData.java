@@ -10,6 +10,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
+import com.SegundasHuellas.backend.shared.infrastructure.logging.LoggerManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
@@ -66,6 +67,7 @@ public class InitialData {
     private final BreedService breedService;
     private final BreedRepository breedRepository;
     private final Faker faker;
+    private final LoggerManager loggerManager;
 
     @Value("${app.seeding.enabled:false}")
     private boolean seedingEnabled;
@@ -87,7 +89,9 @@ public class InitialData {
         try {
             log.info("🌱 Starting data seeding...");
             long start = System.currentTimeMillis();
-            seedData();
+
+            loggerManager.executeWithSuppressedSQLLogs(this::seedData);
+
             logExecutionTime(start);
         } catch (Exception e) {
             String errorMsg = "❌ Error loading seeding data: ";
@@ -118,8 +122,6 @@ public class InitialData {
                                                                       return breeds;
                                                                   }
                                                           ));
-
-        System.out.println(breedsBySpecies);
 
         IntStream.range(0, numberOfFakePets)
                  .mapToObj(i -> createRandomPet(breedsBySpecies))
