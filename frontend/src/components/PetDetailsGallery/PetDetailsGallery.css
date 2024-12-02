@@ -1,0 +1,17 @@
+#PetDetailsGallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.PetDetailsGalleryPhoto {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.PetDetailsGalleryPhoto:hover { transform: scale(0.95); }
