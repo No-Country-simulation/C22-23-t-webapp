@@ -1,17 +1,131 @@
 #PetDetailsGallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.5rem;
+    --main-img-mobile-width: 320px;
+    --main-img-mobile-height: 320px;
+    --main-img-desktop-height: 500px;
+    --main-img-desktop-width: 500px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    position: relative;
 }
 
-.PetDetailsGalleryPhoto {
-    width: 200px;
-    height: 200px;
+#PetDetailsGallery .main-image {
+    display: none;
+}
+
+#PetDetailsGallery .main-image img {
+    width: var(--main-img-mobile-width);
+    height: var(--main-img-mobile-height);
     object-fit: cover;
-    display: block;
     border-radius: 1rem;
-    transition: transform 0.3s ease;
-    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.PetDetailsGalleryPhoto:hover { transform: scale(0.95); }
+/* Thumbnails (Desktop Only) */
+#PetDetailsGallery .thumbnails {
+    display: none;
+    justify-content: center;
+    gap: 0px;
+    flex-wrap: wrap;
+}
+
+#PetDetailsGallery .thumbnails img {
+    width: calc(var(--main-img-desktop-width) / 4);
+    height: calc(var(--main-img-desktop-height) / 4);
+    object-fit: cover;
+    border: 2px solid transparent;
+    cursor: pointer;
+    border-radius: 1rem;
+    transition: border 0.3s;
+}
+
+#PetDetailsGallery .thumbnails img.active {
+    border: 2px solid #007BFF;
+}
+
+/* Mobile Gallery - Full Width Scrolling */
+#PetDetailsGallery .mobile-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#PetDetailsGallery .mobile-gallery img {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    scroll-snap-align: center;
+}
+
+/* Hide scrollbar */
+#PetDetailsGallery .mobile-gallery {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+
+#PetDetailsGallery .mobile-gallery::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+
+/* Dots for Navigation */
+#PetDetailsGallery .dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+#PetDetailsGallery .dots .dot {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#PetDetailsGallery .dots .dot.active {
+    background: #007BFF;
+}
+
+/* Desktop Layout */
+@media (min-width: 640px) {    
+    #PetDetailsGallery .main-image img {
+        width: var(--main-img-desktop-width);
+        height: var(--main-img-desktop-height);
+    }
+
+    #PetDetailsGallery#PetDetailsGallery {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    #PetDetailsGallery .main-image {
+        display: flex;
+        flex: 3;
+    }
+
+    #PetDetailsGallery .thumbnails {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #PetDetailsGallery .mobile-gallery {
+        display: none;
+    }
+
+    #PetDetailsGallery .dots {
+        display: none;
+    }
+}
