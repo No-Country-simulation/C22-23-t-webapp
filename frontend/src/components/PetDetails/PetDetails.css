@@ -1,0 +1,199 @@
+/* 
+    NOTA: Los layouts con grid se armaron usando la siguiente herramienta online:
+    https://cssgrid-generator.netlify.app/
+*/
+
+/*
+    MARK: Layout de la página
+*/
+
+#PetDetailsGalleryContainer { grid-area: gallery; }
+#PetDetailsInfoContainer { grid-area: info; } 
+
+#PetDetailsCTAContainer { 
+    grid-area: cta;
+    display: grid;
+    place-items: center;
+} 
+
+#PetDetailsHealthStatusContainer { grid-area: health; }
+#PetDetailsExtraInfoContainer { grid-area: extra; }   
+#PetDetailsContactContainer  { grid-area: contact; }
+
+#PetDetailsHealthStatusContainer,
+#PetDetailsExtraInfoContainer,
+#PetDetailsContactContainer {
+    justify-self: center;
+    align-self: center;
+}
+
+.PetInfoContainer {
+    width: 65ch;
+    padding: 1rem;
+    /* Sin este borde el CTA da la sensación de estar desalinado... */
+    border: solid 0.1rem var(--clr-light-gray); 
+    border-radius: 1rem;
+}
+
+/*
+    MARK: Layout de la info
+*/
+
+/* INFORMACIÓN DE LA MASCOTA */
+#PetDetailsInfoContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+#PetDetailsInfo         { grid-area: 1 / 1 / 2 / 6; }
+#PetDetailsNameLabel    { grid-area: 2 / 1 / 3 / 3; }
+#PetDetailsName         { grid-area: 2 / 3 / 3 / 6; }
+#PetDetailsAgeLabel     { grid-area: 3 / 1 / 4 / 3; }
+#PetDetailsAge          { grid-area: 3 / 3 / 4 / 6; }
+#PetDetailsSpeciesLabel { grid-area: 4 / 1 / 5 / 3; }
+#PetDetailsSpecies      { grid-area: 4 / 3 / 5 / 6; }
+#PetDetailsBreedLabel   { grid-area: 5 / 1 / 6 / 3; }
+#PetDetailsBreed        { grid-area: 5 / 3 / 6 / 6; }
+#PetDetailsSizeLabel    { grid-area: 6 / 1 / 7 / 3; }
+#PetDetailsSize         { grid-area: 6 / 3 / 7 / 6; }
+/* ********************************************************************* */
+
+
+/* SALUD DE LA MASCOTA */
+#PetDetailsHealthStatusContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+#PetDetailsHealthStatus                       { grid-area: 1 / 1 / 2 / 6; }
+#PetDetailsHealthStatusVaccinatedLabel        { grid-area: 2 / 1 / 3 / 3; }
+#PetDetailsHealthStatusVaccinated             { grid-area: 2 / 3 / 3 / 6; }
+#PetDetailsHealthStatusSterilizedLabel        { grid-area: 3 / 1 / 4 / 3; }
+#PetDetailsHealthStatusSterilized             { grid-area: 3 / 3 / 4 / 6; }
+#PetDetailsHealthStatusDewormedLabel          { grid-area: 4 / 1 / 5 / 3; }
+#PetDetailsHealthStatusDewormed               { grid-area: 4 / 3 / 5 / 6; }
+#PetDetailsHealthStatusMedicalConditionsLabel { grid-area: 5 / 1 / 6 / 3; }
+#PetDetailsHealthStatusMedicalConditions      { grid-area: 5 / 3 / 6 / 6; }
+/* ********************************************************************* */
+
+
+/* INFORMACIÓN ADICIONAL DE LA MASCOTA */
+#PetDetailsExtraInfoContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+#PetDetailsExtraInfo          { grid-area: 1 / 1 / 2 / 6; }
+#PetDetailsTemperamentLabel   { grid-area: 2 / 1 / 3 / 3; }
+#PetDetailsTemperament        { grid-area: 2 / 3 / 3 / 6; }
+#PetDetailsCompatibilityLabel { grid-area: 3 / 1 / 4 / 3; }
+#PetDetailsCompatibility      { grid-area: 3 / 3 / 4 / 6; }
+#PetDetailsSpecialNeedsLabel  { grid-area: 4 / 1 / 5 / 3; }
+#PetDetailsSpecialNeeds       { grid-area: 4 / 3 / 5 / 6; }
+/* ********************************************************************* */
+
+
+/* INFORMACIÓN DE CONTACTO */
+#PetDetailsContactContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+#PetDetailsContact           { grid-area: 1 / 1 / 2 / 6; }
+#PetDetailsLocationLabel     { grid-area: 2 / 1 / 3 / 3; }
+#PetDetailsLocation          { grid-area: 2 / 3 / 3 / 6; }
+#PetDetailsRefugeePhoneLabel { grid-area: 3 / 1 / 4 / 3; }
+#PetDetailsRefugeePhone      { grid-area: 3 / 3 / 4 / 6; }
+#PetDetailsRefugeeEmailLabel { grid-area: 4 / 1 / 5 / 3; }
+#PetDetailsRefugeeEmail      { grid-area: 4 / 3 / 5 / 6; }
+/* ********************************************************************* */
+
+.PetDetailsContainerLabel { margin-bottom: 1rem; }
+
+.PetInfoContainer > .PetDetailsText {
+    border-left: solid 0.2rem var(--clr-light-gray);
+    padding-left: 1.8rem;
+}
+
+/*
+    MARK: Estilos generales
+*/
+
+#PetDetailsAdoptButton {
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 1rem;
+    text-align: center;
+    width: 60%;
+    min-width: 18rem;
+    min-height: 3rem;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+  
+#PetDetailsAdoptButton:hover {
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    outline: 0.2rem solid var(--clr-black);
+    cursor: pointer;
+}
+
+#PetDetailsAdoptButton > a {
+    color: var(--clr-secondary);
+}
+
+#PetDetailsAdoptButton > a:hover {
+    color: var(--clr-primary);
+}
+
+.PetDetailsText { font-size: 1rem; }
+
+.PetDetailsText strong { font-weight: bold; }
+
+.PetDetailsSubtitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#PetDetailsHealthStatusList { list-style-type: none; }
+
+.PetDetailsHealthStatusListItem { font-size: 1rem; }
+
+.PetDetailsHealthStatusListItem strong { font-weight: bold; }
+
+#PetDetailsTemperament { font-size: 1rem; }
+
+#PetDetailsCompatibility { font-size: 1rem; }
+
+#PetDetailsSpecialNeeds { font-size: 1rem; }
+
+#PetDetailsLocation { font-size: 1rem; }
+
+#PetDetailsRefugeePhone strong,
+#PetDetailsRefugeeEmail strong { font-weight: bold; }
+
+#PetDetailsRefugeeEmail {
+    display: flex;
+    gap: 1ch; /* Simula un espacio en un editor de texto. */
+}
+
+#PetDetailsRefugeeEmail a {
+    display: block;
+    text-decoration: none;
+}
