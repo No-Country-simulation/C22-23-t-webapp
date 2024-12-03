@@ -4,7 +4,6 @@ import com.SegundasHuellas.backend.pets.internal.application.service.BreedServic
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
-import com.SegundasHuellas.backend.shared.infrastructure.logging.LoggerManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -23,7 +22,6 @@ public class BreedDataInitializer {
 
     private final BreedRepository breedRepository;
     private final BreedService breedService;
-    private final LoggerManager loggerManager;
 
     @EventListener
     @Transactional
@@ -36,7 +34,7 @@ public class BreedDataInitializer {
         try {
             log.info("🐱🐶 Loading initial breeds...");
             long start = System.currentTimeMillis();
-            loggerManager.executeWithSuppressedSQLLogs(this::loadInitialBreeds);
+            loadInitialBreeds();
             logExecutionTime(start);
         } catch (Exception e) {
             String msg = "❌ Error loading initial breeds: ";
