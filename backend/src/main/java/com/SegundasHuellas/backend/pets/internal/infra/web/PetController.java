@@ -18,6 +18,10 @@ import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
+/**
+ * REST Controller for managing pet-related operations in the application.
+ * Provides endpoints for creating, updating, deleting, retrieving, and searching pets.
+ */
 @RestController
 @RequestMapping("/api/pets")
 @RequiredArgsConstructor
@@ -26,24 +30,53 @@ public class PetController {
     private final PetService petService;
     private final PetSearchService petSearchService;
 
+    /**
+     * Creates a new pet based on the provided data.
+     *
+     * @param petRequestDto the pet to be created
+     * @return the created pet
+     */
     @PostMapping
     public ResponseEntity<PetResponseDto> createPet(@RequestBody @Valid CreatePetRequestDto petRequestDto) {
         PetResponseDto petResponseDto = petService.createPet(petRequestDto);
         return new ResponseEntity<>(petResponseDto, HttpStatus.CREATED);
     }
 
+    /**
+     * Returns a list of all pets.
+     *
+     * @return a list of pet response data transfer objects
+     */
     @GetMapping
     public ResponseEntity<List<PetResponseDto>> getAllPets() {
+        // Call the pet service to retrieve the list of pets
         List<PetResponseDto> pets = petService.getAllPets();
+        // Return the list of pets in a 200 OK response
         return ResponseEntity.ok(pets);
     }
 
+    /**
+     * Retrieves a pet by its ID.
+     *
+     * @param petId the ID of the pet to be retrieved
+     * @return the pet response data transfer object
+     */
     @GetMapping("/{petId}")
     public ResponseEntity<PetResponseDto> findPetById(@PathVariable Long petId) {
         PetResponseDto petResponseDto = petService.findById(petId);
         return ResponseEntity.ok(petResponseDto);
     }
 
+    /**
+     * Searches for pets based on the provided criteria.
+     *
+     * @param name     the name of the pet (optional, partial match)
+     * @param species  the species of the pet (optional, exact match)
+     * @param breed    the breed of the pet (optional, partial match)
+     * @param status   the status of the pet (optional, exact match)
+     * @param pageable the pagination and sorting information
+     * @return a paginated list of pet search results
+     */
     @GetMapping("/search")
     public ResponseEntity<PageResponse<PetSearchResult>> searchPets(
             @RequestParam(required = false, value = "name") String name,
@@ -52,10 +85,19 @@ public class PetController {
             @RequestParam(required = false, value = "status") PetStatus status,
             @PageableDefault(sort = "id", direction = ASC) Pageable pageable
     ) {
+        // Create a search criteria object with the provided parameters
         PetSearchCriteria criteria = new PetSearchCriteria(name, species, breed, status);
+        // Perform the search using the pet search service and return the results
         return ResponseEntity.ok(petSearchService.searchPets(criteria, pageable));
     }
 
+    /**
+     * Updates a pet with the provided information.
+     *
+     * @param petId    the ID of the pet to be updated
+     * @param petDto   the updated pet data
+     * @return the updated pet response data transfer object
+     */
     @PutMapping("/{petId}")
     public ResponseEntity<PetResponseDto> updatePet(
             @PathVariable Long petId,
@@ -65,9 +107,17 @@ public class PetController {
         return ResponseEntity.ok(petResponseDto);
     }
 
+    /**
+     * Deletes a pet by its ID.
+     *
+     * @param petId the ID of the pet to be deleted
+     * @return an empty response with a 204 status code
+     */
     @DeleteMapping("/delete/{petId}")
     public ResponseEntity<Void> deletePet(@PathVariable Long petId) {
+        // Call the deletePet method on the pet service with the provided ID
         petService.deletePet(petId);
+        // Return an empty response with a 204 status code
         return ResponseEntity.noContent().build();
     }
 }

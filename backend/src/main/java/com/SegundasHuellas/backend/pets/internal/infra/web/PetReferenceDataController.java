@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * REST Controller for retrieving reference data related to pets.
+ * This includes available species, breeds for a species, and genders.
+ */
 @RestController
 @RequestMapping("/api/pets/reference-data")
 @RequiredArgsConstructor
@@ -22,11 +26,28 @@ public class PetReferenceDataController {
 
     private final BreedService breedService;
 
+    /**
+     * Retrieves a list of available breeds for a given species.
+     * <p>
+     * This endpoint provides a list of breeds associated with the given species.
+     * </p>
+     *
+     * @param species the species to search for
+     * @return a list of breeds associated with the given species
+     */
     @GetMapping("/breeds")
     public List<BreedResponse> getAllAvailableBreedsForSpecies(@RequestParam("species") Species species) {
         return breedService.getAllBreedsForSpecies(species);
     }
 
+    /**
+     * Retrieves a list of available pet species.
+     * <p>
+     * This endpoint provides a list of all available pet species.
+     * </p>
+     *
+     * @return a list of available pet species
+     */
     @GetMapping("/species")
     public List<SpeciesResponse> getAllSpecies() {
         return Arrays.stream(Species.values())
@@ -34,11 +55,18 @@ public class PetReferenceDataController {
 
     }
 
+    /**
+     * Retrieves a list of all available pet genders.
+     * <p>
+     * This endpoint provides a list of all available pet genders, including
+     * male, female, and undefined.
+     * </p>
+     *
+     * @return a list of all available pet genders
+     */
     @GetMapping("/genders")
     public List<GenderResponse> getAllGenders() {
         return Arrays.stream(Gender.values())
                      .map(GenderResponse::new).toList();
     }
-
-
 }
