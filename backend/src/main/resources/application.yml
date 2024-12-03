@@ -21,24 +21,11 @@ app:
     pets:
       count: 1000
   error:
-    base-uri: https://api.segundas-huellas.com/errors/
+    base-uri: https://api.domainplaceholder.com/errors/
   default:
     pet-photo: ${DEFAULT_PET_PHOTO:}
   cloudinary:
     url: ${CLOUDINARY_URL:}
-  security:
-    cors:
-      allowed-origins:
-        - ${CORS_ALLOWED_ORIGINS}
-    token:
-      cleanup-cron: "0 0 2 * * *"
-      retention-days: 7
-    jwt:
-      secret-key: ${JWT_SECRET_KEY}
-      expiration: ${JWT_TOKEN_EXPIRATION}
-      refresh-token:
-        expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
-
 
 ## Dev only configuration
 ---
@@ -62,15 +49,11 @@ spring:
         order_updates: true
 
 logging:
-  pattern:
-    console: "%d{HH:mm:ss} %clr(%-5level) [%-30.30logger{0}] %msg%n"
   level:
-    org.hibernate.stat: ERROR
-    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: ERROR
+    org.hibernate.stat: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     com.SegundasHuellas.backend: DEBUG
-
 
 ## Docker configuration
 ---

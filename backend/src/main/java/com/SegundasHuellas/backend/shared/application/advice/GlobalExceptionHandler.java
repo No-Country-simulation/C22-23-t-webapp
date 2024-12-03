@@ -1,7 +1,7 @@
 package com.SegundasHuellas.backend.shared.application.advice;
 
 import com.SegundasHuellas.backend.shared.exception.DomainException;
-import com.SegundasHuellas.backend.shared.exception.ErrorCodeProvider;
+import com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.net.URI;
+import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,9 +33,9 @@ public class GlobalExceptionHandler {
 
     //Exceptions that won't be managed by the catch-all ExceptionHandler
     private final Set<Class<? extends Exception>> exceptionsToRethrow = Set.of(
-//            AccessDeniedException.class,
-            IllegalStateException.class
-//            SecurityException.class
+            AccessDeniedException.class,
+            IllegalStateException.class,
+            SecurityException.class
     );
     @Value("${app.error.base-uri}")
     private String errorTypeBase;
@@ -125,7 +126,7 @@ public class GlobalExceptionHandler {
                                   .anyMatch(exceptionClass -> exceptionClass.isInstance(exception));
     }
 
-    private ProblemDetail handleException(ErrorCodeProvider errorCode,
+    private ProblemDetail handleException(ErrorCode errorCode,
                                           Exception exception,
                                           String... messageParameters) {
 
@@ -138,7 +139,7 @@ public class GlobalExceptionHandler {
 
         logException(errorCode, exception, userMessage);
 
-        ProblemDetail pd = ProblemDetail.forStatus(errorCode.getStatus());
+        ProblemDetail pd = ProblemDetail.forStatus(errorCode.statusCode);
         pd.setType(createErrorUri(errorCode));
         pd.setDetail(userMessage);
         pd.setTitle(errorCode.name());
@@ -146,7 +147,7 @@ public class GlobalExceptionHandler {
         return pd;
     }
 
-    private String resolveMessage(ErrorCodeProvider errorCode, String... messageParameters) {
+    private String resolveMessage(ErrorCode errorCode, String... messageParameters) {
         return messageSource.getMessage(
                 ERROR_PREFIX + errorCode,
                 messageParameters,
@@ -155,8 +156,8 @@ public class GlobalExceptionHandler {
         );
     }
 
-    private void logException(ErrorCodeProvider errorCode, Exception exception, String userMessage) {
-        if (errorCode.getStatus().is5xxServerError()) {
+    private void logException(ErrorCode errorCode, Exception exception, String userMessage) {
+        if (errorCode.statusCode.is5xxServerError()) {
             log.error("Server error {}: {}. Exception: ",
                     errorCode, userMessage, exception);
         } else {
@@ -165,7 +166,7 @@ public class GlobalExceptionHandler {
         }
     }
 
-    private URI createErrorUri(ErrorCodeProvider errorCode) {
+    private URI createErrorUri(ErrorCode errorCode) {
         return URI.create(errorTypeBase + errorCode.name()
                                                    .toLowerCase()
                                                    .replace('_', '-'));
