@@ -1,23 +1,24 @@
 package com.SegundasHuellas.backend.shared.exception;
 
+
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.HttpStatus.*;
 
 public class DomainException extends RuntimeException {
-    private final ErrorCode errorCode;
+    private final ErrorCodeProvider errorCode;
     private final String[] parameters;
     private final boolean useCustomMessage;
 
     // Used when the error message will be built from messages.properties
-    public DomainException(ErrorCode errorCode, String... parameters) {
+    public DomainException(ErrorCodeProvider errorCode, String... parameters) {
         this.errorCode = errorCode;
         this.parameters = parameters;
         this.useCustomMessage = false;
     }
 
     // Private constructor for custom messages
-    private DomainException(ErrorCode errorCode, String customMessage, boolean useCustomMessage) {
+    private DomainException(ErrorCodeProvider errorCode, String customMessage, boolean useCustomMessage) {
         super(customMessage);
         this.errorCode = errorCode;
         this.parameters = new String[0];
@@ -29,11 +30,11 @@ public class DomainException extends RuntimeException {
     }
 
     // Static factory method for custom messages
-    public static DomainException withCustomMessage(ErrorCode errorCode, String customMessage) {
+    public static DomainException withCustomMessage(ErrorCodeProvider errorCode, String customMessage) {
         return new DomainException(errorCode, customMessage, true);
     }
 
-    public ErrorCode getErrorCode() {
+    public ErrorCodeProvider getErrorCode() {
         return errorCode;
     }
 
@@ -41,7 +42,7 @@ public class DomainException extends RuntimeException {
         return parameters;
     }
 
-    public enum ErrorCode {
+    public enum ErrorCode implements ErrorCodeProvider {
         GENERAL,
         CONSTRAINT_VIOLATION(BAD_REQUEST),
         DATA_TYPE_MISMATCH(BAD_REQUEST),
@@ -60,5 +61,11 @@ public class DomainException extends RuntimeException {
         ErrorCode(HttpStatus statusCode) {
             this.statusCode = statusCode;
         }
+
+        @Override
+        public HttpStatus getStatus() {
+            return this.statusCode;
+        }
+
     }
 }
