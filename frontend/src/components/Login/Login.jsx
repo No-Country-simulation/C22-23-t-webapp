@@ -130,7 +130,7 @@ const Login = () => {
         </form>
         <p className="form-register">
           ¿Quieres ser parte de ésta hermosa comunidad?
-          <Link className="links-form-register" to="register">
+          <Link className="links-form-register" to="/register">
             Únete
           </Link>
         </p>
