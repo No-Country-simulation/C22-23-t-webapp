@@ -6,6 +6,11 @@ import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +18,10 @@ import java.util.Set;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_STATE;
 
 @Entity
+@SuperBuilder
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "adopters")
 public class Adopter extends BaseEntity {
 
@@ -24,7 +33,7 @@ public class Adopter extends BaseEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "bio", length = 1000)
