@@ -1,0 +1,40 @@
+#ProcessContainer {
+    width: 100%;
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#ProcessContainer > * { max-width: 65ch; }
+
+#ProcessHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#ProcessTitle {
+    font-size: 2rem;
+    color: var(--clr-accent);
+}
+
+.ProcessText { font-size: 1rem; }
+
+.ProcessArticle {
+    padding: 1rem;
+    background-color: white;
+    border-left: 1rem solid var(--clr-accent);
+    border-radius: 0 1rem 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ProcessSubtitle { font-size: 1.5rem; }
+
+#ProcessFooter { padding: 1rem 0; }

@@ -1,0 +1,25 @@
+#PetDetailsContainer {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+@media (min-width: 640px) {
+    #PetDetailsContainer {
+        display: grid;
+        grid-template-columns: 1fr 65ch; /* Galería ocupa 1fr, derecha 2fr */
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas: 
+            "gallery info"
+            "gallery cta"
+            "health health"
+            "extra extra"
+            "contact contact";
+        gap: 1rem;
+    }
+}

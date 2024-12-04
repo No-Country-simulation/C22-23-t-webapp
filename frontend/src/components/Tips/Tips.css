@@ -1,0 +1,40 @@
+#TipsContainer {
+    width: 100%;
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#TipsContainer > * { max-width: 65ch; }
+
+#TipsHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#TipsTitle {
+    font-size: 2rem;
+    color: var(--clr-accent);
+}
+
+.TipsText { font-size: 1rem; }
+
+.TipsArticle {
+    padding: 1rem;
+    background-color: white;
+    border-left: 1rem solid var(--clr-accent);
+    border-radius: 0 1rem 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.TipsSubtitle { font-size: 1.5rem; }
+
+#TipsFooter { padding: 1rem 0; }

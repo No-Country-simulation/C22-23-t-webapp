@@ -1,0 +1,67 @@
+#LandingPageFooterContainer {
+    background-color: var(--clr-dark-gray);
+    color: var(--clr-white);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+#LandingPageFooterContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+}
+
+.footer-title,
+.footer-subtitle {
+    font-weight: 800;
+}
+
+.footer-text {
+    color: var(--clr-light-gray);
+}
+
+#LandingPageFooterLinks > li,
+#LandingPageFooterSocial > li {
+    list-style: none;
+}
+#LandingPageFooterLinks > li > a,
+#LandingPageFooterSocial > li > a {
+    display: flex;
+    color: var(--clr-light-gray);
+    text-decoration: none;
+}
+
+#LandingPageFooterLinks > li > a:hover,
+#LandingPageFooterSocial > li > a:hover {
+    color: var(--clr-white);
+}
+
+#LandingPageFooterBottom {
+    color: var(--clr-light-gray);
+}
+
+/*
+    MARK: MEDIA QUERY
+*/
+
+@media (min-width: 640px) { /* Tailwind's sm breakpoint */
+    #LandingPageFooterContent {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .footer-column {
+        width: 33%;
+    }
+}
