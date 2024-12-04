@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
@@ -107,7 +108,13 @@ public class Pet extends BaseEntity {
     @Column(name = "status", nullable = false)
     private PetStatus status;
 
-
+    /**
+     * The size of the pet.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "size", nullable = false)
+    private Size size;
+}
 
 
     /**
