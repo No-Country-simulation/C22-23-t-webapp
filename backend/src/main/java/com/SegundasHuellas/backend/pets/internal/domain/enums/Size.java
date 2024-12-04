@@ -12,6 +12,7 @@ import lombok.Getter;
 @Getter
 public enum Size {
 
+    UNKNOWN("Desconocido"),
     SMALL("Pequeño"),
     MEDIUM("Mediano"),
     LARGE("Grande");

@@ -148,6 +148,7 @@ public class Pet extends BaseEntity {
      *     <li>Is Castrated: false</li>
      *     <li>Health Status: "Healthy"</li>
      *     <li>Status: {@link PetStatus#UNAVAILABLE}</li>
+     *     <li>Size: {@link Size#SMALL}</li>
      * </ul>
      *
      * <p><strong>Note:</strong> The breed must be set later at the service level.</p>
@@ -167,7 +168,8 @@ public class Pet extends BaseEntity {
                   .isCastrated(false)//asumimos que no esta castrado
                   .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
                   .comments("")
-                  .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
+                  .status(PetStatus.UNAVAILABLE)
+                  .size(Size.UNKNOWN)//❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
                   .build();
     }
 }
