@@ -29,7 +29,7 @@ public class Address {
     @Column(name = "country")
     private String country;
 
-    public Address withDefaults() {
+    public static Address withDefaults() {
         return Address.builder()
                       .street(DEFAULT_VALUE)
                       .city(DEFAULT_VALUE)
