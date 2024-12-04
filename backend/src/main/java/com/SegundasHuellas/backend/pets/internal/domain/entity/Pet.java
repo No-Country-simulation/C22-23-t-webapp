@@ -108,6 +108,8 @@ public class Pet extends BaseEntity {
     private PetStatus status;
 
 
+
+
     /**
      * Assigns a breed to the pet and establishes a bi-directional relationship.
      * <p>

@@ -25,5 +25,4 @@ public enum Gender {
     Gender(String translation) {
         this.translation = translation;
     }
-
 }
