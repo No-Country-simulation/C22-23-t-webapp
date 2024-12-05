@@ -24,7 +24,6 @@ export function PetDetailsContainer({ petId }) {
 
     useEffect(() => {
         fetchPet()
-        console.log(pet)
     }, [petId])
 
     return (
