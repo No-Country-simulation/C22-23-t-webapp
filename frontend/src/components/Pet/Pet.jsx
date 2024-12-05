@@ -1,7 +1,7 @@
 import './Pet.css'
 import { NavLink } from 'react-router-dom'
 
-export function Pet({ image, name, age, species, gender, location, status}) {
+export function Pet({ petId, image, name, age, species, gender, location, status}) {
     const convertAgeInDays = (age_in_days) => {
         if (age_in_days < 28)
             return `${age_in_days} día${age_in_days === 1 ? '' : 's'}`
@@ -38,7 +38,7 @@ export function Pet({ image, name, age, species, gender, location, status}) {
                 <h3 className='location-pet'>{ location }</h3>
                 <h3 className='status-pet'>{ status }</h3>
             </div>
-            <NavLink to={"/pet"} className='btn-pet'>Ver más detalles</NavLink>
+            <NavLink to={`/pet/${petId}`} className='btn-pet'>Ver más detalles</NavLink>
         </li>
     )
 }

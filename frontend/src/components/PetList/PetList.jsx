@@ -6,6 +6,7 @@ export function PetList({ pets }) {
         <ul>
             {pets.map((pet)  => <Pet 
                                     key={pet.id}
+                                    petId={pet.id}
                                     image={pet.id}
                                     name={pet.name}
                                     age={pet.ageInDays}

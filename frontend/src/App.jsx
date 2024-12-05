@@ -10,17 +10,17 @@ function App() {
     return (
         <BrowserRouter basename={BASENAME}>
             <Routes>
-                <Route path="/"         element={ <LandingPage />            } />
-                <Route path="/home"     element={ <SearchPage />             } />
-                <Route path="/pet"      element={ <PetDetailsPage />         } />
-                <Route path="/register" element={ <h2>{ WIP_MESSAGE }</h2>   } />
-                <Route path="/login"    element={ <h2>{ WIP_MESSAGE }</h2>   } />
-                <Route path="/about"    element={ <AboutPage />              } />
-                <Route path="/mission"  element={ <MissionPage />            } />
-                <Route path="/contact"  element={ <ContactPage />            } />
-                <Route path="/tips"     element={ <TipsPage />               } />
-                <Route path="/process"  element={ <ProcessPage />            } />
-                <Route path="*"         element={ <h2>{ ERROR_MESSAGE }</h2> } />
+                <Route path="/"           element={ <LandingPage />            } />
+                <Route path="/home"       element={ <SearchPage />             } />
+                <Route path="/pet/:petId" element={ <PetDetailsPage />         } />
+                <Route path="/register"   element={ <h2>{ WIP_MESSAGE }</h2>   } />
+                <Route path="/login"      element={ <h2>{ WIP_MESSAGE }</h2>   } />
+                <Route path="/about"      element={ <AboutPage />              } />
+                <Route path="/mission"    element={ <MissionPage />            } />
+                <Route path="/contact"    element={ <ContactPage />            } />
+                <Route path="/tips"       element={ <TipsPage />               } />
+                <Route path="/process"    element={ <ProcessPage />            } />
+                <Route path="*"           element={ <h2>{ ERROR_MESSAGE }</h2> } />
             </Routes>
         </BrowserRouter>
     )
