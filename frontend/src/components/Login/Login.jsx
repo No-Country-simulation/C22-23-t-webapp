@@ -117,16 +117,7 @@ const Login = () => {
               Recupérala aquí
             </Link>
           </div>
-          <div className="button-social-container">
-            <button className="button-style">
-              <FaGoogle className="iconStyle" />
-              Google
-            </button>
-            <button className="button-style-face">
-              <FaFacebook className="iconStyle-face" />
-              Facebook
-            </button>
-          </div>
+          
         </form>
         <p className="form-register">
           ¿Quieres ser parte de ésta hermosa comunidad?
