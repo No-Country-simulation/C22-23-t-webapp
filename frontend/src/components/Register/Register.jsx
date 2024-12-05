@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Register.css";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -11,6 +10,25 @@ const Register = () => {
     userType: "",
     refugeName: "",
     refugeAddress: "",
+    refugePhoto: "",
+    refugeCity:"",
+    refugeCountry:"",
+    refugePhone:"",
+    fullName:"",
+    profilePhoto:"",
+    age:"",
+    address:"",
+    city:"",
+    province:"",
+    country:"",
+    phone:"",
+    rescuerFullName:"",
+    rescuerProfilePhoto:"",
+    rescuerAddress:"",
+    rescuerCity:"",
+    rescuerCountry:"", 
+    rescuerPhone:"",
+
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -36,6 +54,23 @@ const Register = () => {
       userType: checked ? value : "",
       refugeName: value !== "refugio" ? "" : prevState.refugeName,
       refugeAddress: value !== "refugio" ? "" : prevState.refugeAddress,
+      refugeCity: value === "refugio" ? prevState.refugeCity : "",
+      refugeCountry: value === "refugio" ? prevState.refugeCountry : "",
+      refugePhone: value === "refugio" ? prevState.refugePhone : "",
+      // Limpiar campos específicos de adoptante cuando no es seleccionado
+      fullName: value === "adoptante" ? prevState.fullName : "",
+      age: value === "adoptante" ? prevState.age : "",
+      address: value === "adoptante" ? prevState.address : "",
+      city: value === "adoptante" ? prevState.city : "",
+      province: value === "adoptante" ? prevState.province : "",
+      country: value === "adoptante" ? prevState.country : "",
+      phone: value === "adoptante" ? prevState.phone : "",
+      // Limpiar campos específicos de rescatista cuando no es seleccionado
+      rescuerFullName: value === "rescatista" ? prevState.rescuerFullName : "",
+      rescuerAddress: value === "rescatista" ? prevState.rescuerAddress : "",
+      rescuerCity: value === "rescatista" ? prevState.rescuerCity : "",
+      rescuerCountry: value === "rescatista" ? prevState.rescuerCountry : "",
+      rescuerPhone: value === "rescatista" ? prevState.rescuerPhone : "",
     }));
   };
 
@@ -80,6 +115,9 @@ const Register = () => {
           ...(formData.userType === "refugio" && {
             refugeName: formData.refugeName,
             refugeAddress: formData.refugeAddress,
+            refugeCity: formData.refugeCity,
+            refugeCountry: formData.refugeCountry,
+            refugePhone: formData.refugePhone
           }),
         };
 
@@ -96,22 +134,14 @@ const Register = () => {
   };
 
   return (
-    <div className="container-register">
+    <main className="container-register">
       <div className="register-container">
-        <form onSubmit={handleSubmit} className="register-form">
+        <form
+          id="inputs-colors"
+          onSubmit={handleSubmit}
+          className="register-form"
+        >
           <h2>Registro de nuevos usuarios</h2>
-
-          <div className="input-group">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Nombre Completo"
-            />
-            {errors.name && <span className="error">{errors.name}</span>}
-          </div>
-
           <div className="input-group">
             <input
               type="email"
@@ -131,7 +161,9 @@ const Register = () => {
               onChange={handleInputChange}
               placeholder="Contraseña"
             />
-            {errors.password && <span className="error">{errors.password}</span>}
+            {errors.password && (
+              <span className="error">{errors.password}</span>
+            )}
           </div>
 
           <div className="user-type-section">
@@ -153,6 +185,7 @@ const Register = () => {
             </div>
           </div>
 
+          {/* Si el tipo de usuario es "refugio" */}
           {formData.userType === "refugio" && (
             <>
               <div className="input-group">
@@ -162,8 +195,11 @@ const Register = () => {
                   value={formData.refugeName}
                   onChange={handleInputChange}
                   placeholder="Nombre del refugio"
+                  className="input-checks"
                 />
-                {errors.refugeName && <span className="error">{errors.refugeName}</span>}
+                {errors.refugeName && (
+                  <span className="error">{errors.refugeName}</span>
+                )}
               </div>
 
               <div className="input-group">
@@ -173,27 +209,238 @@ const Register = () => {
                   value={formData.refugeAddress}
                   onChange={handleInputChange}
                   placeholder="Dirección del refugio"
+                  className="input-checks"
                 />
-                {errors.refugeAddress && <span className="error">{errors.refugeAddress}</span>}
+                {errors.refugeAddress && (
+                  <span className="error">{errors.refugeAddress}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="refugeCity"
+                  value={formData.refugeCity}
+                  onChange={handleInputChange}
+                  placeholder="Ciudad donde vives"
+                  className="input-checks"
+                />
+                {errors.refugeCity && (
+                  <span className="error">{errors.refugeCity}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="refugeCountry"
+                  value={formData.refugeCountry}
+                  onChange={handleInputChange}
+                  placeholder="País donde vives"
+                  className="input-checks"
+                />
+                {errors.refugeCountry && (
+                  <span className="error">{errors.refugeCountry}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="tel"
+                  name="refugePhone"
+                  value={formData.refugePhone}
+                  onChange={handleInputChange}
+                  placeholder="Teléfono de contacto"
+                  className="input-checks"
+                />
+                {errors.refugePhone && (
+                  <span className="error">{errors.refugePhone}</span>
+                )}
               </div>
             </>
           )}
 
+          {/* Si el tipo de usuario es "adoptante" */}
+          {formData.userType === "adoptante" && (
+            <>
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Nombre completo"
+                  className="input-checks"
+                />
+                {errors.fullName && (
+                  <span className="error">{errors.fullName}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleInputChange}
+                  placeholder="Edad"
+                  className="input-checks"
+                />
+                {errors.age && <span className="error">{errors.age}</span>}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  placeholder="Dirección donde vives"
+                  className="input-checks"
+                />
+                {errors.address && (
+                  <span className="error">{errors.address}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  placeholder="Ciudad donde vives"
+                  className="input-checks"
+                />
+                {errors.city && <span className="error">{errors.city}</span>}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="province"
+                  value={formData.province}
+                  onChange={handleInputChange}
+                  placeholder="Provincia donde vives"
+                  className="input-checks"
+                />
+                {errors.province && (
+                  <span className="error">{errors.province}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleInputChange}
+                  placeholder="País donde vives"
+                  className="input-checks"
+                />
+                {errors.country && (
+                  <span className="error">{errors.country}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="Teléfono de contacto"
+                  className="input-checks"
+                />
+                {errors.phone && <span className="error">{errors.phone}</span>}
+              </div>
+            </>
+          )}
+
+          {/* Si el tipo de usuario es "rescatista" */}
+          {formData.userType === "rescatista" && (
+            <>
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="rescuerFullName"
+                  value={formData.rescuerFullName}
+                  onChange={handleInputChange}
+                  placeholder="Nombre completo"
+                  className="input-checks"
+                />
+                {errors.rescuerFullName && (
+                  <span className="error">{errors.rescuerFullName}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="rescuerAddress"
+                  value={formData.rescuerAddress}
+                  onChange={handleInputChange}
+                  placeholder="Dirección donde vives"
+                  className="input-checks"
+                />
+                {errors.rescuerAddress && (
+                  <span className="error">{errors.rescuerAddress}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="rescuerCity"
+                  value={formData.rescuerCity}
+                  onChange={handleInputChange}
+                  placeholder="Ciudad donde vives"
+                  className="input-checks"
+                />
+                {errors.rescuerCity && (
+                  <span className="error">{errors.rescuerCity}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="rescuerCountry"
+                  value={formData.rescuerCountry}
+                  onChange={handleInputChange}
+                  placeholder="País donde vives"
+                  className="input-checks"
+                />
+                {errors.rescuerCountry && (
+                  <span className="error">{errors.rescuerCountry}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="tel"
+                  name="rescuerPhone"
+                  value={formData.rescuerPhone}
+                  onChange={handleInputChange}
+                  placeholder="Teléfono de contacto"
+                  className="input-checks"
+                />
+                {errors.rescuerPhone && (
+                  <span className="error">{errors.rescuerPhone}</span>
+                )}
+              </div>
+            </>
+          )}
           <button type="submit" className="register-button" disabled={loading}>
             {loading ? "Registrando..." : "Registrar"}
           </button>
 
           <hr className="line-register" />
-          <div className="button-social-container">
-            <p className="social-title">También puedes crear tu cuenta con</p>
-            <button className="button-style">
-              <FaGoogle className="iconStyle" />
-              Google
-            </button>
-            <button className="button-style-face">
-              <FaFacebook className="iconStyle-face" />
-              Facebook
-            </button>
+          <div className="link-login-container">
+            <p className="social-title">¿ Ya tienes una cuenta ?</p>
+            <Link className="links-form-register" to="/login">
+              Inicia Sesión
+            </Link>
           </div>
         </form>
       </div>
@@ -204,9 +451,8 @@ const Register = () => {
           alt="Imagen de la mascota en Registro"
         />
       </figure>
-    </div>
+    </main>
   );
 };
 
 export default Register;
-

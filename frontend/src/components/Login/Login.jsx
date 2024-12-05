@@ -78,7 +78,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <main className="login-container">
       <div className="form-container">
         <form onSubmit={handleSubmit} className="login-form">
           <h2 className="form-title">Iniciar Sesión</h2>
@@ -138,7 +138,7 @@ const Login = () => {
       <figure className="image-container">
         <img className="image-login" src="login-image.jpg" alt="Imagen de la mascota en Login" />
       </figure>
-    </div>
+    </main>
   );
 };
 
