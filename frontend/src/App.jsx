@@ -1,5 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import { LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage } from './pages/'
 
 function App() {
@@ -12,8 +14,8 @@ function App() {
                 <Route path="/"         element={ <LandingPage />            } />
                 <Route path="/home"     element={ <SearchPage />             } />
                 <Route path="/pet"      element={ <PetDetailsPage />         } />
-                <Route path="/register" element={ <h2>{ WIP_MESSAGE }</h2>   } />
-                <Route path="/login"    element={ <h2>{ WIP_MESSAGE }</h2>   } />
+                <Route path="/register" element={ <RegisterPage />           } />
+                <Route path="/login"    element={ <LoginPage />              } />
                 <Route path="/about"    element={ <AboutPage />              } />
                 <Route path="/mission"  element={ <MissionPage />            } />
                 <Route path="/contact"  element={ <ContactPage />            } />
@@ -26,3 +28,5 @@ function App() {
 }
 
 export default App
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/login" element={<LoginPage />} />
