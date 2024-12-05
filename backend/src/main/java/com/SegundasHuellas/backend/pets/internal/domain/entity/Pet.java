@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
+import com.SegundasHuellas.backend.pets.internal.domain.vo.ContactInfo;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Weight;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
@@ -29,7 +30,6 @@ import static java.util.Objects.requireNonNull;
  * <strong>Note:</strong> The {@link #assignBreed(Breed)} method enforces breed assignment, ensuring consistency
  * between the pet and its species.
  * </p>
- *
  */
 
 @Getter
@@ -77,6 +77,9 @@ public class Pet extends BaseEntity {
      */
     @Embedded
     private Weight weight;//en gramos.
+
+    @Embedded
+    private ContactInfo contactInfo;
 
     @Column(name = "is_castrated", nullable = false)
     private Boolean isCastrated;//si esta castrado o no.
@@ -151,6 +154,7 @@ public class Pet extends BaseEntity {
         return Pet.builder()
                   .name(petName)
                   .gender(Gender.UNDEFINED)
+                  .contactInfo(ContactInfo.withDefaults())
                   .photo(Image.withDefaults()) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))
                   .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto

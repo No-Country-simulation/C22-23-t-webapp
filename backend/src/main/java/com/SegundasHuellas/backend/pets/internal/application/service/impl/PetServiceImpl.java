@@ -168,6 +168,7 @@ public class PetServiceImpl implements PetService {
                 pet.getBreed().getSpecies().getTranslation(), // Map species translation
                 pet.getBreed().getName(), // Map breed name
                 ImageResponse.from(pet.getPhoto()), // Map photo to ImageResponse
+                pet.getContactInfo(), // Map contact info
                 pet.getIsCastrated(), // Map castration status
                 pet.getGender().getTranslation(), // Map gender translation
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null, // Map age in days if available
