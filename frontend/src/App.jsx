@@ -16,7 +16,7 @@ function App() {
                 <Route path="/home"       element={ <SearchPage />             } />
                 <Route path="/pet/:petId" element={ <PetDetailsPage />         } />
                 <Route path="/login"      element={ <LoginPage />              } />
-                <Route path="/about"      element={ <AboutPage />              } />
+                <Route path="/register"   element={ <RegisterPage />           } />
                 <Route path="/about"      element={ <AboutPage />              } />
                 <Route path="/mission"    element={ <MissionPage />            } />
                 <Route path="/contact"    element={ <ContactPage />            } />
@@ -29,5 +29,3 @@ function App() {
 }
 
 export default App
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
