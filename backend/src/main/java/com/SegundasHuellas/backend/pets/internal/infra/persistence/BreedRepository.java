@@ -5,6 +5,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +26,7 @@ public interface BreedRepository extends JpaRepository<Breed, Long> {
             WHERE b.species = :species
             GROUP BY b.id, b.name
             """)
-    List<BreedResponse> findAllBySpeciesAsResponse(Species species);
+    List<BreedResponse> findAllBySpeciesAsResponse(@Param("species") Species species);
 
 
     List<Breed> findAllBySpecies(Species species);
