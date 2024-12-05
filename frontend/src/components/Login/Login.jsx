@@ -117,7 +117,6 @@ const Login = () => {
               Recupérala aquí
             </Link>
           </div>
-          
         </form>
         <p className="form-register">
           ¿Quieres ser parte de ésta hermosa comunidad?
