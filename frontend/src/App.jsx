@@ -1,4 +1,5 @@
 import './App.css'
+import { BASENAME } from './config.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage } from './pages/'
 
@@ -7,7 +8,7 @@ function App() {
     const ERROR_MESSAGE = "¡UPS! Esa página no existe..."
 
     return (
-        <BrowserRouter basename="/SegundasHuellas/">
+        <BrowserRouter basename={BASENAME}>
             <Routes>
                 <Route path="/"         element={ <LandingPage />            } />
                 <Route path="/home"     element={ <SearchPage />             } />
