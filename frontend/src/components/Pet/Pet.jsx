@@ -15,6 +15,18 @@ export function Pet({ image, name, age, species, gender, location, status}) {
         return `${YEARS} año${YEARS === 1 ? '' : 's'}`
     }
 
+    const showGender = (gender) => {
+        switch (gender) {
+            case "Masculino": return "Macho"
+        
+            case "Femenino": return "Hembra"
+            
+            default:
+                // "No definido"
+                return "Género no definido"
+        }
+    }
+
     return (
         <li className='card-container'>
             <img className='image-pet' src={ `./pet-${image > 8 ? image - 5 : image}.jpeg` } alt={ `Foto de la mascota ${image}` } />
@@ -22,7 +34,7 @@ export function Pet({ image, name, age, species, gender, location, status}) {
                 <h2 className='title-pet'>{ name }</h2>
                 <h3 className='age-pet'>{ convertAgeInDays(age) }</h3>
                 <h3 className='species-pet'>{ species }</h3>
-                <h3 className='gender-pet'>{ gender }</h3>
+                <h3 className='gender-pet'>{ showGender(gender) }</h3>
                 <h3 className='location-pet'>{ location }</h3>
                 <h3 className='status-pet'>{ status }</h3>
             </div>
