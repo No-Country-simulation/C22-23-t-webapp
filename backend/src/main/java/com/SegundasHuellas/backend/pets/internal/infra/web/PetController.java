@@ -96,17 +96,14 @@ public class PetController {
             @RequestParam(required = false, value = "breed") String breed,
             @RequestParam(required = false, value = "status") PetStatus status,
             @RequestParam(required = false, value = "size") Size size,
-            @RequestParam(required = false, value = "minAge") Integer minAge,
-            @RequestParam(required = false, value = "maxAge") Integer maxAge,
+            @RequestParam(required = false, value = "minAge") Age minAge,
+            @RequestParam(required = false, value = "maxAge") Age maxAge,
             @PageableDefault(sort = "id", direction = ASC) Pageable pageable
     ) {
         try {
-            //Validate and convert minAge and maxAge to Age objects
-            Age minAgeValue = (minAge != null) ? Age.ofDays(minAge) : null;
-            Age maxAgeValue = (maxAge != null) ? Age.ofDays(maxAge) : null;
-
             // Ensure minAge is not greater than maxAge
-            if (minAgeValue != null && maxAgeValue != null && minAgeValue.getValueInDays() > maxAgeValue.getValueInDays()) {
+            if (minAge != null && maxAge != null && minAge.getValueInDays() > maxAge.getValueInDays()) {
+                // Throw an exception if minAge is greater than maxAge
                 throw new DomainException(INVALID_AGE, minAge.toString(), maxAge.toString());
             }
             // Create a search criteria object with the provided parameters
@@ -114,6 +111,7 @@ public class PetController {
             // Perform the search using the pet search service and return the results
             return ResponseEntity.ok(petSearchService.searchPets(criteria, pageable));
         } catch (Exception e) {
+            // Return a 500 Internal Server Error response in case of an exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.application.dto;
 
+import com.SegundasHuellas.backend.pets.internal.domain.vo.ContactInfo;
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 
 public record PetResponseDto(
@@ -8,6 +9,7 @@ public record PetResponseDto(
         String species,
         String breedName,
         ImageResponse photo,
+        ContactInfo contactInfo,
         Boolean isCastrated,
         String gender,
         Integer ageInDays,

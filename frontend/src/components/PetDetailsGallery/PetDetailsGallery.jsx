@@ -1,4 +1,5 @@
 import './PetDetailsGallery.css'
+import { BASENAME } from '../../config.js'
 import { useState, useRef } from 'react'
 
 export function PetDetailsGallery({ images, petName }) {
@@ -22,7 +23,7 @@ export function PetDetailsGallery({ images, petName }) {
                 {images.map((imageId, index) => (
                     <img
                         key={index}
-                        src={`./pet-${imageId}.jpeg`}
+                        src={`${BASENAME}/pet-${imageId}.jpeg`}
                         alt={`Foto ${index + 1} de la mascota ${petName}`}
                         className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
                         onClick={() => setSelectedImageIndex(index)}
@@ -33,7 +34,7 @@ export function PetDetailsGallery({ images, petName }) {
             {/* Main Image */}
             <div className="main-image">
                 <img
-                    src={`./pet-${images[selectedImageIndex]}.jpeg`}
+                    src={`${BASENAME}/pet-${images[selectedImageIndex]}.jpeg`}
                     alt={`Foto ${selectedImageIndex + 1} de la mascota ${petName}`}
                 />
             </div>
@@ -47,7 +48,7 @@ export function PetDetailsGallery({ images, petName }) {
                 {images.map((imageId, index) => (
                     <img
                         key={index}
-                        src={`./pet-${imageId}.jpeg`}
+                        src={`${BASENAME}/pet-${imageId}.jpeg`}
                         alt={`Foto ${index + 1} de la mascota ${petName}`}
                         className="mobile-image"
                     />

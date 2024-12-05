@@ -7,6 +7,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
+import com.SegundasHuellas.backend.pets.internal.domain.vo.ContactInfo;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
@@ -138,6 +139,11 @@ public class InitialData {
                 .get(randomSpecies)
                 .get(faker.number().numberBetween(0, breedsBySpecies.get(randomSpecies).size())));
 
+        ContactInfo contactInfo = ContactInfo.withDefaults();
+        contactInfo.setFullAddress(faker.address().streetAddress());
+        contactInfo.setPhone(faker.phoneNumber().phoneNumber());
+        contactInfo.setEmail(faker.internet().emailAddress());
+        randomPet.setContactInfo(contactInfo);
         randomPet.setGender(faker.options().option(Gender.class));
         randomPet.setAge(Age.ofDays(faker.number().numberBetween(1, 5500)));
         randomPet.setIsCastrated(faker.options().option(true, false));
