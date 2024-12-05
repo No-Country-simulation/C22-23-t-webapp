@@ -3,7 +3,8 @@
     justify-content: center;
     height: 100%;
     padding: 50px;
-    background: #f0efef;
+    background: var(--clr-light-gray);
+    color: var(--clr-black);
     flex-direction: column; 
   }
 
@@ -44,8 +45,8 @@
   .login-button {
     width: 100%;
     padding: 13px;
-    background-color: #3e3bee;
-    color: white;
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -53,7 +54,8 @@
   }
   
   .login-button:hover {
-    background-color: #3e3bee6e;
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
   }
   
   .login-button:disabled {
@@ -78,10 +80,11 @@
   
   .links-form {
     text-decoration: none;
+    color: var(--clr-accent)
   }
 
   .links-form-register {
-    color: #1877f2;
+    color:  var(--clr-accent);
   }
   
   .links-form:hover {
