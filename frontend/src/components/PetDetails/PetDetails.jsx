@@ -60,36 +60,15 @@ export function PetDetails({ pet }) {
             <section id="PetDetailsContactContainer" className="PetInfoContainer">
                 <h2 id="PetDetailsContact" className="PetDetailsContainerLabel">Información de contacto</h2>
 
+                <p id="PetDetailsLocationLabel" className="PetDetailsLabel"><strong>Ubicación</strong></p>
+                <p id="PetDetailsLocation" className="PetDetailsText"> { pet.contactInfo.fullAddress } </p>
 
+                <p id="PetDetailsRefugeePhoneLabel" className="PetDetailsLabel"><strong>Teléfono</strong></p>
+                <p id="PetDetailsRefugeePhone" className="PetDetailsText"> { pet.contactInfo.phone } </p>
+
+                <p id="PetDetailsRefugeeEmailLabel" className="PetDetailsLabel"><strong>Email</strong></p>
+                <p id="PetDetailsRefugeeEmail" className="PetDetailsText"><Link to={ `mailto:${pet.contactInfo.email}` }> { pet.contactInfo.email } </Link></p>
             </section>
         </>
     )
 }
-
-{/* <>
-<section id="PetDetailsExtraInfoContainer" className="PetInfoContainer">
-    <h2 id="PetDetailsExtraInfo" className="PetDetailsContainerLabel">Información adicional de la mascota</h2>
-    
-    <p id="PetDetailsTemperamentLabel" className="PetDetailsLabel"><strong>Temperamento</strong></p>
-    <p id="PetDetailsTemperament" className="PetDetailsText"> { pet.temperament } </p>
-
-    <p id="PetDetailsCompatibilityLabel" className="PetDetailsLabel"><strong>Compatibilidad</strong></p>
-    <p id="PetDetailsCompatibility" className="PetDetailsText"> { pet.compatibility.length > 0 ? pet.compatibility.join(', ') : 'No especificado' } </p>
-
-    <p id="PetDetailsSpecialNeedsLabel" className="PetDetailsLabel"><strong>Necesidades Especiales</strong></p>
-    <p id="PetDetailsSpecialNeeds" className="PetDetailsText"> { pet.specialNeeds } </p>
-</section>
-
-<section id="PetDetailsContactContainer" className="PetInfoContainer">
-    <h2 id="PetDetailsContact" className="PetDetailsContainerLabel">Información de contacto</h2>
-
-    <p id="PetDetailsLocationLabel" className="PetDetailsLabel"><strong>Ubicación</strong></p>
-    <p id="PetDetailsLocation" className="PetDetailsText"> { pet.location } </p>
-
-    <p id="PetDetailsRefugeePhoneLabel" className="PetDetailsLabel"><strong>Teléfono</strong></p>
-    <p id="PetDetailsRefugeePhone" className="PetDetailsText"> { pet.shelterContact.phone } </p>
-
-    <p id="PetDetailsRefugeeEmailLabel" className="PetDetailsLabel"><strong>Email</strong></p>
-    <p id="PetDetailsRefugeeEmail" className="PetDetailsText"><a href={ `mailto:${pet.shelterContact.email}` }> { pet.shelterContact.email } </a></p>
-</section>
-</> */}
