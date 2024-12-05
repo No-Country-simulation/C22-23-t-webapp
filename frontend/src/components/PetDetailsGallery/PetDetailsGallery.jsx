@@ -48,7 +48,7 @@ export function PetDetailsGallery({ images, petName }) {
                 {images.map((imageId, index) => (
                     <img
                         key={index}
-                        src={`./pet-${imageId}.jpeg`}
+                        src={`${BASENAME}/pet-${imageId}.jpeg`}
                         alt={`Foto ${index + 1} de la mascota ${petName}`}
                         className="mobile-image"
                     />
