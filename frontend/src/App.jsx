@@ -1,4 +1,5 @@
 import './App.css'
+import { BASENAME } from './config.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -9,19 +10,19 @@ function App() {
     const ERROR_MESSAGE = "¡UPS! Esa página no existe..."
 
     return (
-        <BrowserRouter basename="/SegundasHuellas/">
+        <BrowserRouter basename={BASENAME}>
             <Routes>
-                <Route path="/"         element={ <LandingPage />            } />
-                <Route path="/home"     element={ <SearchPage />             } />
-                <Route path="/pet"      element={ <PetDetailsPage />         } />
-                <Route path="/register" element={ <RegisterPage />           } />
-                <Route path="/login"    element={ <LoginPage />              } />
-                <Route path="/about"    element={ <AboutPage />              } />
-                <Route path="/mission"  element={ <MissionPage />            } />
-                <Route path="/contact"  element={ <ContactPage />            } />
-                <Route path="/tips"     element={ <TipsPage />               } />
-                <Route path="/process"  element={ <ProcessPage />            } />
-                <Route path="*"         element={ <h2>{ ERROR_MESSAGE }</h2> } />
+                <Route path="/"           element={ <LandingPage />            } />
+                <Route path="/home"       element={ <SearchPage />             } />
+                <Route path="/pet/:petId" element={ <PetDetailsPage />         } />
+                <Route path="/login"      element={ <LoginPage />              } />
+                <Route path="/about"      element={ <AboutPage />              } />
+                <Route path="/about"      element={ <AboutPage />              } />
+                <Route path="/mission"    element={ <MissionPage />            } />
+                <Route path="/contact"    element={ <ContactPage />            } />
+                <Route path="/tips"       element={ <TipsPage />               } />
+                <Route path="/process"    element={ <ProcessPage />            } />
+                <Route path="*"           element={ <h2>{ ERROR_MESSAGE }</h2> } />
             </Routes>
         </BrowserRouter>
     )

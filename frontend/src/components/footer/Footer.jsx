@@ -1,4 +1,5 @@
 import "./Footer.css"
+import { BASENAME } from '../../config.js'
 import { Link } from 'react-router-dom'
 
 export function Footer() {
@@ -8,13 +9,13 @@ export function Footer() {
             <div className="social-container">
                 <div className="social">
                     <Link to={"https://www.facebook.com/"}>
-                        <img src={"./face-logo.svg"} alt="Logo de Facebook" />
+                        <img src={`${BASENAME}/face-logo.svg`} alt="Logo de Facebook" />
                     </Link>
                     <Link to={"https://www.twitter.com/"}>
-                        <img src={"./twitter-logo.svg"} alt="Logo de Twitter" />
+                        <img src={`${BASENAME}/twitter-logo.svg`} alt="Logo de Twitter" />
                     </Link>
                     <Link to={"https://www.instagram.com/"}>
-                        <img src={"./ig-logo.svg"} alt="logo de Instagram" />
+                        <img src={`${BASENAME}/ig-logo.svg`} alt="logo de Instagram" />
                     </Link>
                 </div>
                 <div className="links">

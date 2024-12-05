@@ -1,4 +1,5 @@
 import "./Header.css"
+import { BASENAME } from '../../config.js'
 import { Link, NavLink } from 'react-router-dom'
 
 export function Header() {
@@ -6,11 +7,11 @@ export function Header() {
         <header className="header-container">
             <nav className="nav-container">
                 <Link to={"/"} className="title-logo">
-                    <img src={"./vite.svg"} alt="Logo de Vite.js" />
+                    <img src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
                     <h1 className="nav-title">SegundasHuellas</h1>
                 </Link>
                 <div className="input-container">
-                    <img className="search" src={"search-logo.svg"} alt="" />
+                    <img className="search" src={`${BASENAME}/search-logo.svg`} alt="" />
                     <input className="input" type="text" placeholder="Que desea buscar?" />
                 </div>
             </nav>
