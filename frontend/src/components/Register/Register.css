@@ -3,19 +3,20 @@
     align-items: center;
     height: 100%;
     padding: 50px;
-    background: var(--clr-light-gray);
+    background-color: var(--clr-light-gray);
+    color: var(--clr-black);
     flex-direction: column;
   }
 
-  form #inputs-colors {
-    background: #fff;
+  #inputs-colors {
+    background-color: var(--clr-secondary);
   }
   
   .register-form {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    background: var(--clr-secondary);
+    background-color: var(--clr-secondary);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -39,16 +40,17 @@
     width: 100%;
     padding: 8px;
     font-size: 1rem;
-    border: 1px solid var(--clr-white);
+    border: 1px solid var(--clr-black);
     border-radius: 4px;
-    
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
   }
 
   .register-button {
     width: 100%;
     padding: 13px;
-    background-color: #3e3bee;
-    color: white;
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
