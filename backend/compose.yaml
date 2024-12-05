@@ -17,8 +17,8 @@ services:
       - postgres
     environment:
         - SPRING_PROFILES_ACTIVE=dev
-        - CLOUDINARY_URL=cloudinary://367656173992544:ErIitGo4UksnWrB3K2W9LcSBoFA@dffbmjmgj
+        - CLOUDINARY_URL={$CLOUDINARY_URL}
         - DEFAULT_PET_PHOTO=https://res.cloudinary.com/dgdxraapm/image/upload/v1732583288/pet-photos/default.jpg
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/segundas-huellas
-        - SPRING_DATASOURCE_USERNAME=admin
-        - SPRING_DATASOURCE_PASSWORD=admin
+        - SPRING_DATASOURCE_URL={$SPRING_DATASOURCE_URL}
+        - SPRING_DATASOURCE_USERNAME=[$SPRING_DATASOURCE_USERNAME]
+        - SPRING_DATASOURCE_PASSWORD=[$SPRING_DATASOURCE_PASSWORD]

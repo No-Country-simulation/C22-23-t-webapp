@@ -63,6 +63,7 @@ public class PetSearchQuery {
                     p.age.valueInDays,
                     p.gender,
                     p.status,
+                    p.size,
                     p.photo
                 )
                 FROM Pet p
@@ -104,6 +105,17 @@ public class PetSearchQuery {
             // Exact match for the status.
             jpqlParts.add("p.status = :status");
             params.put("status", searchCriteria.status());
+        }
+
+        if (searchCriteria.size() != null) {
+            jpqlParts.add("p.size = :size");
+            params.put("size", searchCriteria.size());
+        }
+
+        if (searchCriteria.age() != null) {
+            jpqlParts.add("p.age.valueInDays >= :minAge AND p.age.valueInDays <= :maxAge");
+            params.put("minAge", 0);
+            params.put("maxAge", 20000);
         }
 
         //Join all the conditions with an AND to form the complete WHERE clause.
