@@ -6,10 +6,7 @@ import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
@@ -20,12 +17,16 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 @Entity
 @SuperBuilder
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "adopters")
 public class Adopter extends BaseEntity {
 
     public static final int MAX_ACTIVE_APPLICATIONS = 3;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
