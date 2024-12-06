@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.ContactInfo;
@@ -110,6 +111,12 @@ public class Pet extends BaseEntity {
     @Column(name = "status", nullable = false)
     private PetStatus status;
 
+    /**
+     * The size of the pet.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "size", nullable = false)
+    private Size size;
 
     /**
      * Assigns a breed to the pet and establishes a bi-directional relationship.
@@ -152,17 +159,17 @@ public class Pet extends BaseEntity {
      */
     public static Pet withDefaults(String petName, Species species) {
         return Pet.builder()
-                  .name(petName)
-                  .gender(Gender.UNDEFINED)
-                  .contactInfo(ContactInfo.withDefaults())
-                  .photo(Image.withDefaults()) // Esto todavía no lo implemento. De momento es null.
-                  .age(Age.ofDays(0))
-                  .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
-                  .weight(Weight.of(0))
-                  .isCastrated(false)//asumimos que no esta castrado
-                  .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
-                  .comments("")
-                  .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creacion, hasta que un admin lo permita.
-                  .build();
+                .name(petName)
+                .gender(Gender.UNDEFINED)
+                .photo(Image.withDefaults()) // Esto todavía no lo implemento. De momento es null.
+                .age(Age.ofDays(0))
+                .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
+                .weight(Weight.of(0))
+                .isCastrated(false)//asumimos que no esta castrado
+                .healthStatus("Healthy")// Dependiendo de la complejidad, podría ser un value object HealthStatus, y luego llamar a HealthStatus.default() en este campo.
+                .comments("")
+                .status(PetStatus.UNAVAILABLE) //❓ La mascota no esta disponible para adoptar al momento de creación, hasta que un admin lo permita.
+                .size(Size.UNKNOWN)
+                .build();
     }
 }
