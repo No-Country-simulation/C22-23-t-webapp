@@ -3,7 +3,7 @@ package com.SegundasHuellas.backend.petProviders.internal.application.service.im
 import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
-import com.SegundasHuellas.backend.petProviders.internal.application.service.PetProviderService;
+import com.SegundasHuellas.backend.petProviders.internal.application.service.PetProviderRegistrationService;
 import com.SegundasHuellas.backend.petProviders.internal.domain.entity.PetProvider;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderStatus;
 import com.SegundasHuellas.backend.petProviders.internal.infra.persistence.PetProvidersRepository;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PetProviderServiceImpl implements PetProviderService {
+public class PetProviderRegistrationServiceImpl implements PetProviderRegistrationService {
 
     private final PetProvidersRepository  petProviderRepository;
 
