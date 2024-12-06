@@ -6,14 +6,17 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    confirmEmail: "",
     password: "",
-    userType: "",
-    refugeName: "",
-    refugeAddress: "",
-    refugePhoto: "",
-    refugeCity:"",
-    refugeCountry:"",
-    refugePhone:"",
+    confirmPassword: "",
+    userType: "adoptante",
+    adoptFullName: "",
+    adoptAge: "",
+    adoptAddress: "",
+    adoptCity:"",
+    adoptProvince:"",
+    adoptCountry:"",
+    adoptPhone: "",
     fullName:"",
     profilePhoto:"",
     age:"",
@@ -58,13 +61,13 @@ const Register = () => {
       refugeCountry: value === "refugio" ? prevState.refugeCountry : "",
       refugePhone: value === "refugio" ? prevState.refugePhone : "",
       // Limpiar campos específicos de adoptante cuando no es seleccionado
-      fullName: value === "adoptante" ? prevState.fullName : "",
-      age: value === "adoptante" ? prevState.age : "",
-      address: value === "adoptante" ? prevState.address : "",
-      city: value === "adoptante" ? prevState.city : "",
-      province: value === "adoptante" ? prevState.province : "",
-      country: value === "adoptante" ? prevState.country : "",
-      phone: value === "adoptante" ? prevState.phone : "",
+      adoptFullName: value === "adoptante" ? prevState.fullName : "",
+      adoptAgeage: value === "adoptante" ? prevState.age : "",
+      adoptAddress: value === "adoptante" ? prevState.address : "",
+      adoptCity: value === "adoptante" ? prevState.city : "",
+      adoptProvince: value === "adoptante" ? prevState.province : "",
+      adoptCountry: value === "adoptante" ? prevState.country : "",
+      adoptPhone: value === "adoptante" ? prevState.phone : "",
       // Limpiar campos específicos de rescatista cuando no es seleccionado
       rescuerFullName: value === "rescatista" ? prevState.rescuerFullName : "",
       rescuerAddress: value === "rescatista" ? prevState.rescuerAddress : "",
@@ -76,19 +79,27 @@ const Register = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name.trim()) {
-      newErrors.name = "El nombre es requerido";
-    }
+  
     if (!formData.email.trim()) {
       newErrors.email = "El correo electrónico es requerido";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "El correo electrónico no es válido";
     }
+  
+    if (formData.email !== formData.confirmEmail) {
+      newErrors.confirmEmail = "Los correos electrónicos no coinciden";
+    }
+  
     if (!formData.password.trim()) {
       newErrors.password = "La contraseña es requerida";
     } else if (formData.password.length < 6) {
       newErrors.password = "La contraseña debe tener al menos 6 caracteres";
     }
+  
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    }
+  
     if (formData.userType === "refugio") {
       if (!formData.refugeName.trim()) {
         newErrors.refugeName = "El nombre del refugio es requerido";
@@ -97,7 +108,7 @@ const Register = () => {
         newErrors.refugeAddress = "La dirección del refugio es requerida";
       }
     }
-
+  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -108,16 +119,17 @@ const Register = () => {
       setLoading(true);
       try {
         const submitData = {
-          name: formData.name,
           email: formData.email,
           password: formData.password,
           userType: formData.userType,
-          ...(formData.userType === "refugio" && {
-            refugeName: formData.refugeName,
-            refugeAddress: formData.refugeAddress,
-            refugeCity: formData.refugeCity,
-            refugeCountry: formData.refugeCountry,
-            refugePhone: formData.refugePhone
+          ...(formData.userType === "adoptante" && {
+            adoptFullName: formData.adoptFullName,
+            adoptAge: formData.adoptAge,
+            adoptAddress: formData.adoptAddress,
+            adoptCity: formData.adoptCity,
+            adoptProvince: formData.adoptProvince,
+            adoptCountry: formData.adoptCountry,
+            adoptPhone: formData.adoptPhone
           }),
         };
 
@@ -155,6 +167,17 @@ const Register = () => {
 
           <div className="input-group">
             <input
+              type="email"
+              name="confirmEmail"
+              value={formData.confirmEmail}
+              onChange={handleInputChange}
+              placeholder="Confirmar Correo Electrónico"
+            />
+            {errors.confirmEmail && <span className="error">{errors.confirmEmail}</span>}
+          </div>
+
+          <div className="input-group">
+            <input
               type="password"
               name="password"
               value={formData.password}
@@ -164,6 +187,19 @@ const Register = () => {
             {errors.password && (
               <span className="error">{errors.password}</span>
             )}
+          </div>
+
+          <div className="input-group">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              placeholder="Confirmar Contraseña"
+            />
+            {errors.confirmPassword && (
+              <span className="error">{errors.confirmPassword}</span>
+              )}
           </div>
 
           <div className="user-type-section">
@@ -266,93 +302,93 @@ const Register = () => {
               <div className="input-group">
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
+                  name="adoptFullName"
+                  value={formData.adoptFullName}
                   onChange={handleInputChange}
                   placeholder="Nombre completo"
                   className="input-checks"
                 />
-                {errors.fullName && (
-                  <span className="error">{errors.fullName}</span>
+                {errors.adoptFullName && (
+                  <span className="error">{errors.adoptFullName}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="number"
-                  name="age"
-                  value={formData.age}
+                  name="adoptAge"
+                  value={formData.adoptAge}
                   onChange={handleInputChange}
                   placeholder="Edad"
                   className="input-checks"
                 />
-                {errors.age && <span className="error">{errors.age}</span>}
+                {errors.adoptAge && <span className="error">{errors.adoptAge}</span>}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="address"
-                  value={formData.address}
+                  name="adoptAddress"
+                  value={formData.adoptAddress}
                   onChange={handleInputChange}
                   placeholder="Dirección donde vives"
                   className="input-checks"
                 />
-                {errors.address && (
-                  <span className="error">{errors.address}</span>
+                {errors.adoptAddress && (
+                  <span className="error">{errors.adoptAddress}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="city"
-                  value={formData.city}
+                  name="adoptCity"
+                  value={formData.adoptCity}
                   onChange={handleInputChange}
                   placeholder="Ciudad donde vives"
                   className="input-checks"
                 />
-                {errors.city && <span className="error">{errors.city}</span>}
+                {errors.adoptCity && <span className="error">{errors.adoptCity}</span>}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="province"
-                  value={formData.province}
+                  name="adoptProvince"
+                  value={formData.adoptProvince}
                   onChange={handleInputChange}
                   placeholder="Provincia donde vives"
                   className="input-checks"
                 />
-                {errors.province && (
-                  <span className="error">{errors.province}</span>
+                {errors.adoptProvince && (
+                  <span className="error">{errors.adoptProvince}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="country"
-                  value={formData.country}
+                  name="adoptCountry"
+                  value={formData.adoptCountry}
                   onChange={handleInputChange}
                   placeholder="País donde vives"
                   className="input-checks"
                 />
-                {errors.country && (
-                  <span className="error">{errors.country}</span>
+                {errors.adoptCountry && (
+                  <span className="error">{errors.adoptCountry}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="tel"
-                  name="phone"
-                  value={formData.phone}
+                  name="adoptPhone"
+                  value={formData.adoptPhone}
                   onChange={handleInputChange}
                   placeholder="Teléfono de contacto"
                   className="input-checks"
                 />
-                {errors.phone && <span className="error">{errors.phone}</span>}
+                {errors.adoptPhone && <span className="error">{errors.adoptPhone}</span>}
               </div>
             </>
           )}
@@ -432,7 +468,7 @@ const Register = () => {
             </>
           )}
           <button type="submit" className="register-button" disabled={loading}>
-            {loading ? "Registrando..." : "Registrar"}
+            {loading ? "Registrando..." : "Únete"}
           </button>
 
           <hr className="line-register" />
