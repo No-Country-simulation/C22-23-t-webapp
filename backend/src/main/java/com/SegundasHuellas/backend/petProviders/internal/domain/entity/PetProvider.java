@@ -49,7 +49,7 @@ public class PetProvider extends BaseEntity {
     //Status del petProvider si esta habilitado o no.
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private PetProviderStatus petProviderStatus;
+    private PetProviderStatus status;
 
     //Lista de mascotas
     @ElementCollection
