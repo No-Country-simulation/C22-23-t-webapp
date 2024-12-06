@@ -32,11 +32,11 @@ public class PetProvider extends BaseEntity {
     @Embedded
     @Column(name = "photo")
     private Image photo;
+
     //Dirección
     @Embedded
     @Column(name = "address")
     private Address address;
-
 
     //Telefono
     @Column(name = "phone_number")
@@ -73,15 +73,23 @@ public class PetProvider extends BaseEntity {
         pets.add(petId);
     }
 
+    public void addPet(Set<Long> petIds) {
+        pets.addAll(petIds);
+    }
+
     public void removePet(Long petId) {
-        pets.remove(petId);
+        pets.removeIf(id -> id.equals(petId));
     }
 
     public void addAdoptionApplication(Long applicationId) {
-        adoptionApplications.add(applicationId);
+        if (!adoptionApplications.contains(applicationId)) {
+            adoptionApplications.add(applicationId);
+        }
     }
 
     public void removeAdoptionApplication(Long applicationId) {
-        adoptionApplications.remove(applicationId);
+        if (adoptionApplications.contains(applicationId)) {
+            adoptionApplications.remove(applicationId);
+        }
     }
 }
