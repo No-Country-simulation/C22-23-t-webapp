@@ -42,8 +42,11 @@ public class AdopterRegistrationService {
     }
 
     public AdopterDetailsResponse getAdopterDetails(Long userId) {
-        return adopterRepository.findByUserId(userId)
-                                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, userId.toString()));
+        var userDetails = registrationService.getUserDetails(userId);
+        var adopterDetails = adopterRepository.findByUserId(userId)
+                                              .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, userId.toString()));
+        return adopterDetails.withUserDetails(userDetails);
+
     }
 
 }
