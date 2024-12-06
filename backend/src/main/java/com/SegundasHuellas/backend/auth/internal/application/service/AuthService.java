@@ -55,7 +55,7 @@ public class AuthService implements RegistrationService {
                         .email(request.email())
                         .password(passwordEncoder.encode(request.password()))
                         .lastLoginDate(LocalDateTime.now()) // First login when registering
-                        .roles(Set.of(UserRole.USER, request.role())) //TODO: CHECK IF THIS IS CORRECT
+                        .roles(Set.of(UserRole.USER, request.role()))
                         .domainUserId(domainUserId)
                         .build();
 
