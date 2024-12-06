@@ -33,6 +33,7 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthService implements RegistrationService {
 
@@ -112,7 +113,9 @@ public class AuthService implements RegistrationService {
         }
 
         revokeAllUserTokens(user);
-        return generateTokens(user);
+        TokenResponse tokenResponse = generateTokens(user);
+        log.info("🔐 Refreshed token for user: {}", user.getEmail());
+        return tokenResponse;
     }
 
     private void validateRegistration(AuthRegistrationRequest request) {
@@ -166,7 +169,7 @@ public class AuthService implements RegistrationService {
 
     private AuthenticationResponse buildAuthResponse(User user, TokenResponse tokens) {
         return new AuthenticationResponse(
-                user.getId().toString(),
+                user.getId(),
                 user.getEmail(),
                 user.getRoles().stream().map(UserRole::getAuthority).collect(Collectors.toSet()),
                 tokens
