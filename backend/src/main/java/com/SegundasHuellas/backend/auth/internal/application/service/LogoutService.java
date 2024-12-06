@@ -29,7 +29,7 @@ public class LogoutService implements LogoutHandler {
 
     public void configure(LogoutConfigurer<HttpSecurity> logout) {
         logout
-                .logoutUrl("/auth/logout")
+                .logoutUrl("/api/auth/logout")
                 .addLogoutHandler(this)
                 .logoutSuccessHandler((req, res, auth) -> SecurityContextHolder.clearContext());
     }
