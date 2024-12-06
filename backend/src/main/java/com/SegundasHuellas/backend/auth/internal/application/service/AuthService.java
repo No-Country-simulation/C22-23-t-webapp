@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthRegistrationRequest;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.auth.api.dto.TokenResponse;
+import com.SegundasHuellas.backend.auth.api.dto.UserDetailsResponse;
 import com.SegundasHuellas.backend.auth.api.enums.UserRole;
 import com.SegundasHuellas.backend.auth.api.events.UserAccountLockedEvent;
 import com.SegundasHuellas.backend.auth.api.events.UserLoggedInEvent;
@@ -23,12 +24,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.SegundasHuellas.backend.auth.internal.application.exceptions.AuthErrorCode.*;
-import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.DUPLICATED_DATA;
-import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_DATA;
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.*;
 
 
 @Slf4j
@@ -53,6 +54,7 @@ public class AuthService implements RegistrationService {
         User user = User.builder()
                         .email(request.email())
                         .password(passwordEncoder.encode(request.password()))
+                        .lastLoginDate(LocalDateTime.now()) // First login when registering
                         .roles(Set.of(UserRole.USER, request.role())) //TODO: CHECK IF THIS IS CORRECT
                         .domainUserId(domainUserId)
                         .build();
@@ -62,6 +64,17 @@ public class AuthService implements RegistrationService {
         TokenResponse tokens = generateTokens(user);
 
         return buildAuthResponse(user, tokens);
+    }
+
+    @Override
+    public UserDetailsResponse getUserDetails(Long userId) {
+
+        UserDetailsResponse details = userRepository.findUserDetails(userId)
+                                                    .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, userId.toString()));
+
+        Set<UserRole> roles = userRepository.findUserRoles(userId);
+
+        return details.withRoles(roles);
     }
 
     @Transactional(noRollbackFor = {DomainException.class})
