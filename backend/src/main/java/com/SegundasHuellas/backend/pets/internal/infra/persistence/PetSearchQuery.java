@@ -3,8 +3,11 @@ package com.SegundasHuellas.backend.pets.internal.infra.persistence;
 import com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchCriteria;
 import com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchResult;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
+import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -14,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_DATA;
 
 /**
  * Repository class for performing dynamic and paginated searches on the {@code Pet} entity.
@@ -32,6 +37,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PetSearchQuery {
 
+    private static final Logger log = LoggerFactory.getLogger(PetSearchQuery.class);
     private final EntityManager entityManager;
 
     /**
@@ -95,18 +101,23 @@ public PageResponse<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria
         countBuilder.append(" WHERE ").append(whereClause);
     }
 
-    var countJpqlQuery = entityManager.createQuery(countBuilder.toString(), Long.class);
-    var dataJpqlQuery = entityManager.createQuery(queryBuilder.toString() + buildOrderByClause(pageable, "p"), PetSearchResult.class);
+    try {
+        var countJpqlQuery = entityManager.createQuery(countBuilder.toString(), Long.class);
+        var dataJpqlQuery = entityManager.createQuery(queryBuilder.toString() + buildOrderByClause(pageable, "p"), PetSearchResult.class);
 
-    params.forEach(countJpqlQuery::setParameter);
-    params.forEach(dataJpqlQuery::setParameter);
+        params.forEach(countJpqlQuery::setParameter);
+        params.forEach(dataJpqlQuery::setParameter);
 
-    Long total = countJpqlQuery.getSingleResult();
-    dataJpqlQuery.setFirstResult((int) pageable.getOffset());
-    dataJpqlQuery.setMaxResults(pageable.getPageSize());
+        Long total = countJpqlQuery.getSingleResult();
+        dataJpqlQuery.setFirstResult((int) pageable.getOffset());
+        dataJpqlQuery.setMaxResults(pageable.getPageSize());
 
-    List<PetSearchResult> results = dataJpqlQuery.getResultList();
-    return PageResponse.from(new PageImpl<>(results, pageable, total));
+        List<PetSearchResult> results = dataJpqlQuery.getResultList();
+        return PageResponse.from(new PageImpl<>(results, pageable, total));
+    } catch (Exception e) {
+        log.error("Error excecuting search query", e);
+        throw new DomainException(INVALID_DATA, e.getMessage());
+    }
 }
 
     /**
