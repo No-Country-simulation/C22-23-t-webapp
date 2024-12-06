@@ -1,7 +1,5 @@
 package com.SegundasHuellas.backend.adopters.internal.domain.vo;
 
-import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
