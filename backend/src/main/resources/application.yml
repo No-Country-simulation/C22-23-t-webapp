@@ -4,6 +4,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
   servlet:
     multipart:
@@ -40,6 +41,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+      dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
     properties:
       hibernate:
@@ -62,12 +64,13 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://postgres:5432/segundas-huellas
+    username: admin
+    password: admin
   jpa:
     hibernate:
       ddl-auto: create-drop
+      dialect: org.hibernate.dialect.PostgreSQLDialect
 app:
   seeding:
     enabled: true
