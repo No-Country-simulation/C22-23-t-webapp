@@ -4,6 +4,11 @@ import { useParams } from 'react-router-dom'
 export function Adopt() {
     const petId = useParams().petId
 
+    const validateEmail = () => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return re.test(String(email).toLowerCase())
+    }
+
     return (
         <main id="AdoptFormContainer">
             <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle">
@@ -21,20 +26,6 @@ export function Adopt() {
                         required 
                         aria-required="true" 
                         placeholder="ejemplo@correo.com" 
-                    />
-                </div>
-
-                {/* <!-- Campo de contraseña --> */}
-                <div className="AdoptFormField">
-                    <label for="AdoptFormPassword" className="AdoptFormLabel">Contraseña:</label>
-                    <input 
-                        type="password" 
-                        id="AdoptFormPassword" 
-                        name="password" 
-                        className="AdoptFormInput" 
-                        required 
-                        aria-required="true" 
-                        placeholder="Ingrese una contraseña segura" 
                     />
                 </div>
 
