@@ -9,6 +9,29 @@ export function Adopt() {
         return re.test(String(email).toLowerCase())
     }
 
+    const validatePhoneNumber = (phoneNumber) => {
+        // Definición del regex:
+        // 1. ^\+? - El número puede comenzar opcionalmente con un "+".
+        // 2. [1-9][0-9]{0,2} - Después del "+" puede haber un código de país de 1 a 3 dígitos.
+        // 3. \s? - Espacio opcional después del prefijo del código de país.
+        // 4. 9? - El número puede tener un "9" opcional (móviles en Argentina).
+        // 5. [0-9]{2,4} - Acepta de 2 a 4 dígitos como código de área/localidad.
+        // 6. \s? - Espacio opcional entre el código de área y el número principal.
+        // 7. [0-9]{6,8} - Acepta de 6 a 8 dígitos como cuerpo principal del número.
+        // 8. (\-[0-9]{1,4})? - Puede tener un guion seguido de 1 a 4 dígitos adicionales (opcional).
+        // 9. $ - Fin de la cadena.
+
+        // Números válidos aceptados:
+        // - "+54 9 123 456-7890" (con prefijo internacional, código de operador y separadores).
+        // - "+5491234567890" (prefijo internacional y número concatenado).
+        // - "1234567890" (número local sin prefijo internacional).
+        // - "54111234567890" (prefijo internacional sin símbolo '+' y número concatenado).
+        // - "123456789" (cualquier secuencia de al menos 9 dígitos).
+        const phoneRegex = /^\+?[1-9][0-9]{0,2}\s?9?[0-9]{2,4}\s?[0-9]{6,8}(\-[0-9]{1,4})?$/
+      
+        return phoneRegex.test(phoneNumber)
+    }
+
     return (
         <main id="AdoptFormContainer">
             <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle">
