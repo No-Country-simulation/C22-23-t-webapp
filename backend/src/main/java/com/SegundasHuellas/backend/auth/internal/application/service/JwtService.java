@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.auth.internal.application.service;
 
+import com.SegundasHuellas.backend.auth.api.enums.UserRole;
 import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import io.jsonwebtoken.Claims;
@@ -71,6 +72,14 @@ public class JwtService {
                 .getExpiration().toInstant();
     }
 
+    private Map<String, Object> buildUserClaims(User user) {
+        return Map.of(
+                "roles", user.getRoles().stream()
+                             .map(UserRole::name)
+                             .toList()
+        );
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().
                    verifyWith(getSignInKey())
@@ -78,7 +87,6 @@ public class JwtService {
                    .parseSignedClaims(token)
                    .getPayload();
     }
-
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).isBefore(Instant.now());
@@ -88,7 +96,7 @@ public class JwtService {
         Instant now = Instant.now();
         return Jwts.builder()
                    .id(user.getId().toString())
-                   .claims(Map.of("email", user.getEmail()))
+                   .claims(buildUserClaims(user))
                    .subject(user.getEmail())
                    .issuer(ISSUER)
                    .issuedAt(Date.from(now))
