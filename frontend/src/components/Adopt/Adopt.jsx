@@ -1,4 +1,4 @@
-// import './Adopt.css'
+import './Adopt.css'
 import { useParams } from 'react-router-dom'
 
 export function Adopt() {
