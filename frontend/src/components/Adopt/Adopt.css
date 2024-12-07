@@ -1,0 +1,103 @@
+/* Contenedor principal */
+#AdoptFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr-secondary);
+    padding: 0rem;
+    font-family: inherit;
+}
+
+/* Estilo del formulario */
+#AdoptForm {
+    width: 100%;
+    background: var(--clr-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Título del formulario */
+.AdoptFormTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--clr-dark-gray);
+    margin-bottom: 1rem;
+}
+
+/* Descripción del formulario */
+.AdoptFormDescription {
+    font-size: 1rem;
+    color: var(--clr-dark-gray);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* Campos del formulario */
+.AdoptFormField {
+    margin-bottom: 1.5rem;
+}
+
+/* Etiquetas */
+.AdoptFormLabel {
+    display: block;
+    font-weight: 600;
+    color: var(--clr-dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+/* Campos de entrada */
+.AdoptFormInput {
+    width: 100%;
+    min-height: 3rem;
+    padding-left: 0.5rem;
+    font-size: 1rem;
+    color: var(--clr-dark-gray);
+    background-color: var(--clr-secondary);
+    border: 1px solid var(--clr-light-gray);
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#AdoptFormAge,
+#AdoptFormPhone { width: 100%; }
+
+.AdoptFormInput:focus {
+    border-color: var(--clr-accent);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5); /* Usando verde para el foco */
+}
+
+/* Botón de enviar */
+.AdoptFormActions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.AdoptFormButton {
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    min-height: 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.AdoptFormButton:hover {
+    background-color: var(--clr-dark-gray);
+    transform: scale(1.05);
+}
+
+.AdoptFormButton:active {
+    background-color: var(--clr-primary);
+    transform: scale(1);
+}
+
+@media (min-width: 640px) {
+    #AdoptFormContainer { padding: 2rem; }
+}
