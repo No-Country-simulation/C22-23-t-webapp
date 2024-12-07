@@ -3,6 +3,7 @@ package com.SegundasHuellas.backend.adopters.internal.application.dto;
 import com.SegundasHuellas.backend.adopters.internal.domain.enums.AdopterStatus;
 import com.SegundasHuellas.backend.auth.api.dto.UserDetailsResponse;
 
+//TODO: add bio and other fields
 public record AdopterDetailsResponse(
         Long userId,
         String firstName,
