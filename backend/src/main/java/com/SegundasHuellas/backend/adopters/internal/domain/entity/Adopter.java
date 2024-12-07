@@ -8,6 +8,7 @@ import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Formula;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,8 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 @Table(name = "adopters")
 public class Adopter extends BaseEntity {
 
+    //TODO: Need to move this default value to a place that can be referenced by every class that needs defaults.
+    public static final String DEFAULT_VALUE = "Sin definir";
     public static final int MAX_ACTIVE_APPLICATIONS = 3;
 
     @Column(name = "user_id")
@@ -39,6 +42,7 @@ public class Adopter extends BaseEntity {
 
     @Column(name = "bio", length = 1000)
     private String bio;
+
 
     @Embedded
     private Address address;
@@ -98,5 +102,39 @@ public class Adopter extends BaseEntity {
 
     public void setCountry(String country) {
         this.address.setCountry(country);
+    }
+
+
+    public int getProfileCompletionScore() {
+        int score = 0;
+
+        //Phone number: 1 point
+        if (phoneNumber != null && !phoneNumber.isEmpty() && !phoneNumber.equals(DEFAULT_VALUE)) score++;
+
+        // Bio: Up to 2 points
+        if (bio != null && !bio.isEmpty() && !bio.equals(DEFAULT_VALUE)) {
+            score += bio.length() > 150 ? 2 : 1;
+        }
+
+        //Address : 5 points
+        if (address != null) {
+            if (address.getStreet() != null && !address.getStreet().isEmpty() && !address.getStreet().equals(DEFAULT_VALUE))
+                score++;
+            if (address.getCity() != null && !address.getCity().isEmpty() && !address.getCity().equals(DEFAULT_VALUE))
+                score++;
+            if (address.getState() != null && !address.getState().isEmpty() && !address.getState().equals(DEFAULT_VALUE))
+                score++;
+            if (address.getZip() != null && !address.getZip().isEmpty() && !address.getZip().equals(DEFAULT_VALUE))
+                score++;
+            if (address.getCountry() != null && !address.getCountry().isEmpty() && !address.getCountry().equals(DEFAULT_VALUE))
+                score++;
+        }
+        //Pet preferences: up to 2 point
+        if (!petPreferences.isEmpty()) {
+            score += petPreferences.size() > 2 ? 2 : 1;
+        }
+
+        return Math.min(10, score);
+
     }
 }
