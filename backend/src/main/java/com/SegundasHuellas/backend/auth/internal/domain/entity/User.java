@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +51,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles")
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     public void incrementFailedAttemptsCount() {
         this.failedAttemptsCount++;
