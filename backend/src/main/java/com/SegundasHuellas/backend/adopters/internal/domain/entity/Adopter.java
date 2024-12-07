@@ -57,26 +57,46 @@ public class Adopter extends BaseEntity {
             joinColumns = @JoinColumn(name = "adopter_id")
     )
     @Column(name = "adoption_application_id")
-    private Set<Long> adoptionApplicationIds = new HashSet<>();
+    private Set<Long> activeAdoptionApplicationIds = new HashSet<>();
 
     public void addAdoptionApplication(Long applicationId) {
 
-        if (adoptionApplicationIds.size() >= MAX_ACTIVE_APPLICATIONS) {
+        if (activeAdoptionApplicationIds.size() >= MAX_ACTIVE_APPLICATIONS) {
             throw new DomainException(INVALID_STATE,
                     "Max number of applications reached for adopter: " + MAX_ACTIVE_APPLICATIONS);
         }
-        adoptionApplicationIds.add(applicationId);
+        activeAdoptionApplicationIds.add(applicationId);
     }
 
     public void removeAdoptionApplication(Long applicationId) {
-        adoptionApplicationIds.remove(applicationId);
+        activeAdoptionApplicationIds.remove(applicationId);
     }
 
     public boolean hasMaxApplications() {
-        return adoptionApplicationIds.size() >= MAX_ACTIVE_APPLICATIONS;
+        return activeAdoptionApplicationIds.size() >= MAX_ACTIVE_APPLICATIONS;
     }
 
     public boolean hasActiveApplication(Long applicationId) {
-        return adoptionApplicationIds.contains(applicationId);
+        return activeAdoptionApplicationIds.contains(applicationId);
+    }
+
+    public void setStreet(String street) {
+        this.address.setStreet(street);
+    }
+
+    public void setCity(String city) {
+        this.address.setCity(city);
+    }
+
+    public void setState(String state) {
+        this.address.setState(state);
+    }
+
+    public void setZip(String zip) {
+        this.address.setZip(zip);
+    }
+
+    public void setCountry(String country) {
+        this.address.setCountry(country);
     }
 }
