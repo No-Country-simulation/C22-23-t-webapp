@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Component
-@Profile("dev")
+@Profile("!prod")
 @RequiredArgsConstructor
 @Slf4j
 public class InitialData {

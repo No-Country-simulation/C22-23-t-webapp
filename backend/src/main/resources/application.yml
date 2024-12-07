@@ -62,17 +62,24 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://postgres:5432/segundas-huellas  # Conexión a la base de datos dentro de la red de Docker
-    username: admin
-    password: admin
+    url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
-  app:
-    cloudinary:
-      url: cloudinary://367656173992544:ErIitGo4UksnWrB3K2W9LcSBoFA@dffbmjmgj
-    default:
-      pet-photo: https://res.cloudinary.com/dgdxraapm/image/upload/v1732583288/pet-photos/default.jpg
+      ddl-auto: create-drop
+app:
+  seeding:
+    enabled: true
+    batch-size: 50
+    pets:
+      count: 1000
+  error:
+    base-uri: https://api.domainplaceholder.com/errors/
+  cloudinary:
+    url: ${CLOUDINARY_URL}
+  default:
+    pet-photo: ${DEFAULT_PET_PHOTO}
 
 
 ## Docker Compose Configuration (aplica a todos los perfiles)
