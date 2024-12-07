@@ -1,5 +1,11 @@
+import { Header, Adopt, Footer } from '../components/'
+
 export function AdoptPage() {
-  return (
-    <div>AdoptPage</div>
-  )
+    return (
+        <>
+            <Header />
+            <Adopt />
+            <Footer />
+        </>
+    )
 }
