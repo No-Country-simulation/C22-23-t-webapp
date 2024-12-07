@@ -3,7 +3,7 @@ import { BASENAME } from './config.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
-import { LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage } from './pages/'
+import { AdoptPage, LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage } from './pages/'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."
@@ -15,7 +15,7 @@ function App() {
                 <Route path="/"           element={ <LandingPage />            } />
                 <Route path="/home"       element={ <SearchPage />             } />
                 <Route path="/pet/:petId" element={ <PetDetailsPage />         } />
-                <Route path="/adopt/:petId" element={ <h2>{ WIP_MESSAGE }</h2>   } />
+                <Route path="/adopt/:petId" element={ <AdoptPage />   } />
                 <Route path="/login"      element={ <LoginPage />              } />
                 <Route path="/register"   element={ <RegisterPage />           } />
                 <Route path="/about"      element={ <AboutPage />              } />
