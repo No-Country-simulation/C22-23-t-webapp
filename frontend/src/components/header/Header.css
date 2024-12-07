@@ -1,4 +1,4 @@
-.header-container {
+#Header {
     padding: 1rem 0;
     display: flex;
     flex-direction: column;
@@ -10,31 +10,31 @@
     box-shadow: 0 2px 5px 0 #00000059;
 }
 
-.nav-container {
+#HeaderNavbar {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.title-logo {
+#HeaderLogo {
     display: flex;
     align-items: center;
     height: 3rem;
     gap: 5px;
 }
 
-.title-logo > img {
+#HeaderLogo > img {
     height: 3rem;
     width: 3rem;
 }
 
-.input-container {
+#HeaderSearchContainer {
     display: flex;
     justify-content: center;
     position: relative;
 }
 
-.input {
+#HeaderSearchInput {
     width: 260px;
     height: 3rem;
     text-align: start;
@@ -47,7 +47,7 @@
     border: 1px solid var(--clr-primary);
 }
 
-.search {
+#HeaderSearchIcon {
     position: absolute;
     height: 2rem;
     width: 2rem;
@@ -57,41 +57,37 @@
     color: var(--clr-primary);
 }
 
-.btn-header {
+#HeaderUserMenu {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.btn-login, .btn-join {
+.HeaderUserMenuLink {
     padding: 8px 110px;
     border: 1px solid var(--clr-primary);
     border-radius: 5px;
     background: var(--clr-secondary);
-    color: var(--clr-primary);
+    color: var(--clr-black);
     margin: 0 10px;
     font-size: 12px;
     letter-spacing: 2px;
     cursor: pointer;
 }
 
-.btn-join {
-    background: #2f40d6;
-    color: #fff;
+#HeaderLoginButton {
+    background: var(--clr-accent);
+    color: var(--clr-white);
 }
 
-.btn-login:hover {
-    background: #717277;
-    color: #fff;
-}
-
-.btn-join:hover {
-    background: #717277;
-    color: #000;
+#HeaderLoginButton:hover,
+#HeaderRegisterButton:hover {
+    background: var(--clr-dark-gray);
+    color: var(--clr-white);
 }
 
 @media (min-width: 640px) {
-    .header-container {
+    #Header {
         height: 100%;
         padding: 1rem;
         flex-direction: row;
@@ -99,17 +95,17 @@
         gap: 2rem;
     }
 
-    .nav-container {
+    #HeaderNavbar {
         display: flex;
         flex-direction: row;
         gap: 45px;
     }
 
-    .btn-header {
+    #HeaderUserMenu {
         flex-direction: row;
     }
 
-    .btn-login, .btn-join {
+    .HeaderUserMenuLink {
         padding: 15px 20px;
         margin: unset;
         border-radius: 10px;

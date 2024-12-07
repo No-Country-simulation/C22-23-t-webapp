@@ -4,20 +4,20 @@ import { Link, NavLink } from 'react-router-dom'
 
 export function Header() {
     return (
-        <header className="header-container">
-            <nav className="nav-container">
-                <Link to={"/"} className="title-logo">
-                    <img src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
-                    <h1 className="nav-title">SegundasHuellas</h1>
+        <header id="Header">
+            <nav id="HeaderNavbar">
+                <Link to={"/"} id="HeaderLogo">
+                    <img id="HeaderLogoImage" src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
+                    <h1 id="HeaderLogoTitle">SegundasHuellas</h1>
                 </Link>
-                <div className="input-container">
-                    <img className="search" src={`${BASENAME}/search-logo.svg`} alt="" />
-                    <input className="input" type="text" placeholder="Que desea buscar?" />
+                <div id="HeaderSearchContainer">
+                    <img id="HeaderSearchIcon" src={`${BASENAME}/search-logo.svg`} alt="" />
+                    <input id="HeaderSearchInput" type="text" placeholder="Buscar perros, gatos y más..." />
                 </div>
             </nav>
-            <div className="btn-header">
-                <NavLink to={"/login"} className="btn-login">Iniciar Sesión</NavLink>
-                <NavLink to={"/register"} className="btn-join">Únete</NavLink>
+            <div id="HeaderUserMenu">
+                <NavLink to={"/login"} id="HeaderLoginButton" className="HeaderUserMenuLink">Iniciar Sesión</NavLink>
+                <NavLink to={"/register"} id="HeaderRegisterButton" className="HeaderUserMenuLink">Únete</NavLink>
             </div>
         </header>
     )
