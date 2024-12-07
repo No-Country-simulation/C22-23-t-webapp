@@ -4,7 +4,7 @@ import com.SegundasHuellas.backend.adopters.internal.application.dto.AdopterDeta
 import com.SegundasHuellas.backend.adopters.internal.application.dto.AdopterRegistrationRequest;
 import com.SegundasHuellas.backend.adopters.internal.application.dto.AdopterSummaryResponse;
 import com.SegundasHuellas.backend.adopters.internal.application.dto.AdopterUpdateRequest;
-import com.SegundasHuellas.backend.adopters.internal.application.service.AdopterRegistrationService;
+import com.SegundasHuellas.backend.adopters.internal.application.service.AdopterService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdopterAuthController {
 
 
-    private final AdopterRegistrationService registrationService;
+    private final AdopterService registrationService;
 
     @PostMapping("/register")
     public AuthenticationResponse register(@RequestBody @Valid AdopterRegistrationRequest request) {
