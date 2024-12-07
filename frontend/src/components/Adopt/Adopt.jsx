@@ -1,6 +1,9 @@
 // import './Adopt.css'
+import { useParams } from 'react-router-dom'
 
 export function Adopt() {
+    const petId = useParams().petId
+
     return (
         <main id="AdoptFormContainer">
             <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle">
