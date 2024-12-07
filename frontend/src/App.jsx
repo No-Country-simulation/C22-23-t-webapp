@@ -15,6 +15,7 @@ function App() {
                 <Route path="/"           element={ <LandingPage />            } />
                 <Route path="/home"       element={ <SearchPage />             } />
                 <Route path="/pet/:petId" element={ <PetDetailsPage />         } />
+                <Route path="/adopt"      element={ <h2>{ WIP_MESSAGE }</h2>   } />
                 <Route path="/login"      element={ <LoginPage />              } />
                 <Route path="/register"   element={ <RegisterPage />           } />
                 <Route path="/about"      element={ <AboutPage />              } />
