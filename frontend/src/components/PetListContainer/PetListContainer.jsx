@@ -1,20 +1,16 @@
 import './PetListContainer.css'
 import { PetList } from '../'
 import { useEffect, useState } from 'react'
-// import { useParams } from 'react-router-dom'
 
 export function PetListContainer() {
     const [pets, setPets] = useState()
     const [loading, setLoading] = useState(true)
     const GREETING = "Espera mientras preparamos el listado de mascotas..."
     const ERROR_MESSAGE = "¡UPS! Parece que no hay mascotas para adoptar ahora..."
-    // const { categoryId } = useParams()
 
     const fetchPets = async () => {
         try {
-            const petsResponse = await fetch(("http://localhost:8080/api/pets/search"), { 
-                method: 'GET'
-            })
+            const petsResponse = await fetch("http://localhost:8080/api/pets/search")
 
             const petsData = await petsResponse.json()
 
@@ -25,10 +21,7 @@ export function PetListContainer() {
         }
     }
 
-    useEffect(() => {
-        fetchPets()
-    }, [])
-    // }, [categoryId])
+    useEffect(() => { fetchPets() }, [])
 
     return (
         <main id="PetListContainer">
