@@ -1,24 +1,41 @@
 import "./Header.css"
 import { BASENAME } from '../../config.js'
 import { Link, NavLink } from 'react-router-dom'
+import { useState } from 'react'
 
 export function Header() {
+    const [ username, setUsername ] = useState() // La implementación del login hará uso de setUsername()
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false)
+    
+    const handleMenuClick = () => { setIsMenuOpen(!isMenuOpen) }
+
     return (
-        <header className="header-container">
-            <nav className="nav-container">
-                <Link to={"/"} className="title-logo">
-                    <img src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
-                    <h1 className="nav-title">SegundasHuellas</h1>
+        <header id="Header">
+            <nav id="HeaderNavbar">
+                <Link to={"/"} id="HeaderLogo">
+                    <img id="HeaderLogoImage" src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
                 </Link>
-                <div className="input-container">
-                    <img className="search" src={`${BASENAME}/search-logo.svg`} alt="" />
-                    <input className="input" type="text" placeholder="Que desea buscar?" />
-                </div>
+                <form id="HeaderSearchContainer">
+                    <input id="HeaderSearchInput" type="text" placeholder="Estoy buscando..." />
+                    <button id="HeaderSearchSubmit" type="submit">
+                        <img id="HeaderSearchIcon" src={`${BASENAME}/search-logo.svg`} alt="Icono botón buscar" />
+                    </button>
+                </form>
+                <button id="HeaderMenuButton" onClick={ handleMenuClick }>
+                    <img id="HeaderMenuButtonIcon" src={`${BASENAME}/sh-icon-${isMenuOpen ? 'close' : 'menu'}.svg`} alt={isMenuOpen ? 'Icono cerrar menú' : 'Icono abrir menú'} />
+                </button>
             </nav>
-            <div className="btn-header">
-                <NavLink to={"/login"} className="btn-login">Iniciar Sesión</NavLink>
-                <NavLink to={"/register"} className="btn-join">Únete</NavLink>
-            </div>
+            <ul id="HeaderUserMenu" className={ isMenuOpen ? 'open' : '' }>
+                <li className="HeaderUserMenuItem">
+                    <h2>{`${username ? username : "Tu nuevo amigo te espera..."}`}</h2>
+                </li>
+                <li className="HeaderUserMenuItem">
+                    <NavLink to={"/login"} id="HeaderLoginButton" className="HeaderUserMenuLink">Iniciar Sesión</NavLink>
+                </li>
+                <li className="HeaderUserMenuItem">
+                    <NavLink to={"/register"} id="HeaderRegisterButton" className="HeaderUserMenuLink">Únete</NavLink>
+                </li>
+            </ul>
         </header>
     )
 }
