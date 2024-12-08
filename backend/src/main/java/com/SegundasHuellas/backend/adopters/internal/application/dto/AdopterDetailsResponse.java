@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.adopters.internal.application.dto;
 
 import com.SegundasHuellas.backend.adopters.internal.domain.entity.Adopter;
 import com.SegundasHuellas.backend.auth.api.dto.UserDetailsResponse;
+import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import lombok.Builder;
 
@@ -12,6 +13,7 @@ public record AdopterDetailsResponse(
         Long userId,
         String firstName,
         String lastName,
+        ImageResponse profilePhoto,
         String phoneNumber,
         String bio,
         Address address,
@@ -29,6 +31,7 @@ public record AdopterDetailsResponse(
                                      .firstName(firstName)
                                      .lastName(lastName)
                                      .phoneNumber(phoneNumber)
+                                     .profilePhoto(profilePhoto)
                                      .bio(bio)
                                      .address(address)
                                      .status(status)
@@ -46,6 +49,7 @@ public record AdopterDetailsResponse(
                                      .firstName(adopter.getFirstName())
                                      .lastName(adopter.getLastName())
                                      .phoneNumber(adopter.getPhoneNumber())
+                                     .profilePhoto(ImageResponse.from(adopter.getProfilePhoto()))
                                      .bio(adopter.getBio())
                                      .address(adopter.getAddress())
                                      .status(adopter.getStatus().getTranslation())
