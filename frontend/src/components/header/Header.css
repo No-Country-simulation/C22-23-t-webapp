@@ -18,9 +18,9 @@
 
 #HeaderLogo {
     height: 3rem;
-    width: 3rem;
     min-height: 3rem;
-    min-width: 3rem;
+    display: flex;
+    gap: 0.25rem;
 }
 
 #HeaderLogo > img {
