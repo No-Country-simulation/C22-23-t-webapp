@@ -4,35 +4,28 @@ import { Link, NavLink } from 'react-router-dom'
 import { useState } from 'react'
 
 export function Header() {
-    const [ username, setUsername ] = useState()
+    const [ username, setUsername ] = useState() // La implementación del login hará uso de setUsername()
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false)
     
+    const handleMenuClick = () => { setIsMenuOpen(!isMenuOpen) }
+
     return (
         <header id="Header">
             <nav id="HeaderNavbar">
-
                 <Link to={"/"} id="HeaderLogo">
-
                     <img id="HeaderLogoImage" src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
-
-                    <h1 id="HeaderLogoTitle">SegundasHuellas</h1>
-
                 </Link>
-
                 <form id="HeaderSearchContainer">
-
                     <input id="HeaderSearchInput" type="text" placeholder="Estoy buscando..." />
-
                     <button id="HeaderSearchSubmit" type="submit">
-                        <img id="HeaderSearchIcon" src={`${BASENAME}/search-logo.svg`} alt="" />
+                        <img id="HeaderSearchIcon" src={`${BASENAME}/search-logo.svg`} alt="Icono botón buscar" />
                     </button>
-
                 </form>
-
-                <button id="HeaderMenuButton">
-                    <img id="HeaderMenuButtonIcon" src={`${BASENAME}/sh-icon-menu.svg`} alt="" />
+                <button id="HeaderMenuButton" onClick={ handleMenuClick }>
+                    <img id="HeaderMenuButtonIcon" src={`${BASENAME}/sh-icon-${isMenuOpen ? 'close' : 'menu'}.svg`} alt={isMenuOpen ? 'Icono cerrar menú' : 'Icono abrir menú'} />
                 </button>
             </nav>
-            <ul id="HeaderUserMenu">
+            <ul id="HeaderUserMenu" className={ isMenuOpen ? 'open' : '' }>
                 <li className="HeaderUserMenuItem">
                     <h2>{`${username ? username : "Tu nuevo amigo te espera..."}`}</h2>
                 </li>

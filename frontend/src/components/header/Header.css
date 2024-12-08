@@ -1,30 +1,26 @@
 #Header {
     width: 100%;
-    height: 100%;
     padding: 0.5rem;
-    gap: 1rem;
     background-color: var(--clr-light-gray);
     color: var(--clr-primary);
     box-shadow: 0 2px 5px 0 #00000059;
     display: flex;
     flex-direction: column;
-    gap: none;
+    align-items: center;
 }
 
 #HeaderNavbar {
-    max-width: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 0.25rem;
-    
+    gap: 0.5rem;
 }
 
 #HeaderLogo {
-    display: flex;
-    align-items: center;
+    height: 3rem;
+    width: 3rem;
     min-height: 3rem;
-    gap: 0.5rem;
+    min-width: 3rem;
 }
 
 #HeaderLogo > img {
@@ -32,18 +28,20 @@
     width: 3rem;
 }
 
-#HeaderLogoTitle { display: none; }
-
 #HeaderSearchContainer {
-    flex-grow: 1;
     display: flex;
     justify-content: center;
 }
 
 #HeaderSearchInput {
-    flex-grow: 1;
     min-height: 3rem;
-    padding: 0.5rem;
+
+    width: calc(100% - 9rem - 1rem);
+    /* 9rem anchos mínimos de logo y botones del navbar */
+    /* 1rem espaciado entre elementos del navbar        */
+    
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
     background-color: var(--clr-secondary);
     color: var(--clr-primary);
     border: 1px solid var(--clr-primary);
@@ -93,6 +91,33 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
+    /* Inicialmente oculto */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; /* Evita que el contenido visible exceda el contenedor */
+    transform: translateY(-10px); /* Pequeño desplazamiento hacia arriba */
+    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+#HeaderUserMenu::before {
+    content: '';
+    display: block;
+    height: 0; /* Acts as top "padding" */
+    transition: height 0.4s ease;
+}
+
+#HeaderUserMenu::after {
+    content: '';
+    display: block;
+    height: 0; /* Acts as bottom "padding" */
+    transition: height 0.4s ease;
+}
+
+#HeaderUserMenu.open {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0); /* Retorna a su posición original */
 }
 
 .HeaderUserMenuItem { list-style: none; }
@@ -119,27 +144,10 @@
 }
 
 @media (min-width: 640px) {
-    #Header {
-        height: 100%;
-        padding: 1rem;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 2rem;
+    #HeaderSearchContainer {
+        flex-grow: 1;
+        max-width: 60rem;
     }
 
-    #HeaderNavbar {
-        display: flex;
-        flex-direction: row;
-        gap: 45px;
-    }
-
-    #HeaderUserMenu {
-        flex-direction: row;
-    }
-
-    .HeaderUserMenuLink {
-        padding: 15px 20px;
-        margin: unset;
-        border-radius: 10px;
-    }
+    #HeaderSearchInput { font-size: 1.5rem; }
 }
