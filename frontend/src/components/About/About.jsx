@@ -36,7 +36,7 @@ export function About() {
                     Ya sea adoptando, difundiendo nuestras iniciativas o colaborando como voluntario, tu apoyo es esencial para hacer realidad el sueño de un hogar para cada mascota.
                 </p>
             </section>
-            <button id="AboutCTAButton"><Link to={"/home"}>Empieza a adoptar</Link></button>
+            <button id="AboutCTAButton"><Link to={"/search"}>Empieza a adoptar</Link></button>
         </main>
     )
 }

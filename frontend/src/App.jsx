@@ -13,7 +13,7 @@ function App() {
         <BrowserRouter basename={BASENAME}>
             <Routes>
                 <Route path="/"           element={ <LandingPage />            } />
-                <Route path="/home"       element={ <SearchPage />             } />
+                <Route path="/search"     element={ <SearchPage />             } />
                 <Route path="/pet/:petId" element={ <PetDetailsPage />         } />
                 <Route path="/adopt/:petId" element={ <AdoptPage />   } />
                 <Route path="/login"      element={ <LoginPage />              } />
