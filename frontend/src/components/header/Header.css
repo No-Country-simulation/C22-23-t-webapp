@@ -1,26 +1,30 @@
 #Header {
-    padding: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    gap: 1rem;
     background-color: var(--clr-light-gray);
     color: var(--clr-primary);
     box-shadow: 0 2px 5px 0 #00000059;
+    display: flex;
+    flex-direction: column;
+    gap: none;
 }
 
 #HeaderNavbar {
+    max-width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+    
 }
 
 #HeaderLogo {
     display: flex;
     align-items: center;
-    height: 3rem;
-    gap: 5px;
+    min-height: 3rem;
+    gap: 0.5rem;
 }
 
 #HeaderLogo > img {
@@ -28,50 +32,77 @@
     width: 3rem;
 }
 
+#HeaderLogoTitle { display: none; }
+
 #HeaderSearchContainer {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
-    position: relative;
 }
 
 #HeaderSearchInput {
-    width: 260px;
-    height: 3rem;
-    text-align: start;
-    padding-left: 50px;
-    border-radius: 10px;
+    min-height: 3rem;
+    padding: 0.5rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-primary);
+    border: 1px solid var(--clr-primary);
+    border-right: none;
+    border-radius: 1rem 0 0 1rem;
+}
+
+#HeaderSearchSubmit {
+    min-height: 3rem;
+    min-width: 3rem;
     background: var(--clr-secondary);
     color: var(--clr-primary);
-    font-size: 12px;
-    letter-spacing: 2px;
     border: 1px solid var(--clr-primary);
+    border-left: none;
+    border-radius: 0 1rem 1rem 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+#HeaderSearchContainer:has(:focus) #HeaderSearchInput,
+#HeaderSearchContainer:has(:focus) #HeaderSearchSubmit {
+    outline: 0.1rem solid var(--clr-black);
 }
 
 #HeaderSearchIcon {
-    position: absolute;
     height: 2rem;
     width: 2rem;
-    bottom: 0.5rem;
-    left: 0.5rem; 
-    background: var(--clr-secondary);
+}
+
+#HeaderMenuButton {
+    min-height: 3rem;
+    min-width: 3rem;
+    border: none;
+    background: var(--clr-light-gray);
     color: var(--clr-primary);
+    display: grid;
+    place-items: center;
+}
+
+#HeaderMenuButtonIcon {
+    height: 2rem;
+    width: 2rem;
 }
 
 #HeaderUserMenu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0.5rem;
 }
 
+.HeaderUserMenuItem { list-style: none; }
+
 .HeaderUserMenuLink {
-    padding: 8px 110px;
+    text-decoration: none;
+    padding: 0.5rem;
     border: 1px solid var(--clr-primary);
     border-radius: 5px;
     background: var(--clr-secondary);
     color: var(--clr-black);
-    margin: 0 10px;
-    font-size: 12px;
-    letter-spacing: 2px;
     cursor: pointer;
 }
 
