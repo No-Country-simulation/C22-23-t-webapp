@@ -27,7 +27,7 @@ public class PetImageUploadService {
         Pet pet = getPetById(petId);
 
         // Delete existing photo if it's not the default one
-        if (!pet.getPhoto().isDefaultPhoto()) {
+        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
             storageService.delete(pet.getPhoto().extractPublicId());
         }
 
@@ -40,7 +40,7 @@ public class PetImageUploadService {
     public void deleteImage(Long petId) {
         Pet pet = getPetById(petId);
 
-        if (!pet.getPhoto().isDefaultPhoto()) {
+        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
             storageService.delete(pet.getPhoto().extractPublicId());
             pet.setPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()));
         }
