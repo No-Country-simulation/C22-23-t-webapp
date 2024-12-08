@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.application.dto.ImageMetadata;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
+import com.SegundasHuellas.backend.shared.domain.vo.ImageDefaults;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class PetImageUploadService {
 
         if (!pet.getPhoto().isDefaultPhoto()) {
             storageService.delete(pet.getPhoto().extractPublicId());
-            pet.setPhoto(Image.withDefaults());
+            pet.setPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()));
         }
 
     }
