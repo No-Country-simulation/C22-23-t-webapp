@@ -1,21 +1,26 @@
 import './PetSearchForm.css'
 import { BASENAME } from '../../config.js'
+import { useState } from 'react'
 
 export function PetSearchForm() {
+    const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
+
+    const handleFilterMenuClick = () => { setIsFilterMenuOpen(!isFilterMenuOpen) }
+
     return (
         <form id="PetSearchForm">
             <div id="PetSearchBarContainer">
-                <button id="PetSearchFilterButton" type="button">
-                    <img id="PetSearchByNameIcon" src={`${BASENAME}/sh-icon-filter-list.svg`} alt="Icono botón buscar" />
+                <button id="PetSearchFilterButton" type="button" onClick={ handleFilterMenuClick }>
+                    <img id="PetSearchFilterButtonIcon" src={`${BASENAME}/sh-icon-${isFilterMenuOpen ? 'close' : 'filter-list'}.svg`} alt={`Icono ${isFilterMenuOpen ? 'cerrar' : 'abrir'} menú de filtros`} />
                 </button>
                 <div id="PetSearchByName">
                     <input id="PetSearchByNameInput" type="text" placeholder="Buscar por nombre..." />
                     <button id="PetSearchByNameSubmit" type="submit">
-                        <img id="PetSearchByNameIcon" src={`${BASENAME}/search-logo.svg`} alt="Icono botón buscar" />
+                        <img id="PetSearchByNameIcon" src={`${BASENAME}/search-logo.svg`} alt="Icono botón buscar por nombre" />
                     </button>
                 </div>
             </div>
-            <div id="PetSearchFilterMenuContainer">
+            <div id="PetSearchFilterMenuContainer" className={ isFilterMenuOpen ? 'open' : '' }>
                 <h3 id="PetSearchFilterMenuLabel">Filtrar por:</h3>
                 <select name="" id="PetSearchFilterSpecies" className="PetSearchFilter">
                     <option value="" className="PetSearchFilterOption" disabled selected>Especie</option>
