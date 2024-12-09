@@ -11,6 +11,8 @@ import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
+import com.SegundasHuellas.backend.shared.domain.vo.Image;
+import com.SegundasHuellas.backend.shared.domain.vo.ImageDefaults;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,7 @@ public class AdopterService {
                                  .firstName(request.firstName())
                                  .lastName(request.lastName())
                                  .address(Address.withDefaults())
+                                 .profilePhoto(Image.fromUrl(ImageDefaults.getDefaultUserProfilePhoto()))
                                  .status(AdopterStatus.PENDING_VERIFICATION)
                                  .build();
 

@@ -4,11 +4,12 @@ import com.SegundasHuellas.backend.adopters.internal.domain.enums.AdopterStatus;
 import com.SegundasHuellas.backend.adopters.internal.domain.vo.PetPreference;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
+import com.SegundasHuellas.backend.shared.domain.vo.Image;
+import com.SegundasHuellas.backend.shared.domain.vo.ImageDefaults;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Formula;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +44,8 @@ public class Adopter extends BaseEntity {
     @Column(name = "bio", length = 1000)
     private String bio;
 
+    @Embedded
+    private Image profilePhoto;
 
     @Embedded
     private Address address;
@@ -114,6 +117,11 @@ public class Adopter extends BaseEntity {
         // Bio: Up to 2 points
         if (bio != null && !bio.isEmpty() && !bio.equals(DEFAULT_VALUE)) {
             score += bio.length() > 150 ? 2 : 1;
+        }
+
+        // Image: 2 points
+        if (profilePhoto != null && !ImageDefaults.isAnyDefaultPhoto(profilePhoto)) {
+            score += 2;
         }
 
         //Address : 5 points
