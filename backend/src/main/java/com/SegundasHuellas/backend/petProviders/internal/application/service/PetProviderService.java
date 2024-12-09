@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
+import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderUpdateRequest;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import org.springframework.data.domain.Pageable;
 
@@ -13,4 +14,6 @@ public interface PetProviderService {
     PageResponse<PetProviderSummaryResponse> getAllPetProviders(Pageable pageable);
 
     PetProviderDetailResponse getPetProviderDetails(Long userId);
+
+    void updatePetProvider(Long id, PetProviderUpdateRequest request);
 }

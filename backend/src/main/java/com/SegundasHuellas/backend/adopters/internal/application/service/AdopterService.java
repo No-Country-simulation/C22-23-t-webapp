@@ -66,8 +66,6 @@ public class AdopterService {
 
         updateAdopterFromRequest(adopter, request);
         adopterRepository.save(adopter);
-
-
     }
 
     private void updateAdopterFromRequest(Adopter adopter, AdopterUpdateRequest update) {

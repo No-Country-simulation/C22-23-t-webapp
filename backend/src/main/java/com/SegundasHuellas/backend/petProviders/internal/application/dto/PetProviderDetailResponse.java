@@ -10,40 +10,43 @@ import java.time.LocalDateTime;
 
 @Builder
 public record PetProviderDetailResponse(
-    Long id,
-    String name,
-    String phoneNumber,
-    PetProviderStatus status,
-    Address address,
-    LocalDateTime createdAt,
-    LocalDateTime lastModifiedAt,
-    int profileCompletionScore,
-    UserDetailsResponse userDetails
+        Long id,
+        String name,
+        String phoneNumber,
+        PetProviderStatus status,
+        String description,
+        Address address,
+        LocalDateTime createdAt,
+        LocalDateTime lastModifiedAt,
+        int profileCompletionScore,
+        UserDetailsResponse userDetails
 ) {
     public PetProviderDetailResponse withUserDetails(UserDetailsResponse userDetails) {
         return PetProviderDetailResponse.builder()
-                                       .id(id)
-                                       .name(name)
-                                       .phoneNumber(phoneNumber)
-                                       .status(status)
-                                       .address(address)
-                                       .createdAt(createdAt)
-                                       .lastModifiedAt(lastModifiedAt)
-                                       .profileCompletionScore(profileCompletionScore)
-                                       .userDetails(userDetails)
-                                       .build();
+                .id(id)
+                .name(name)
+                .phoneNumber(phoneNumber)
+                .status(status)
+                .description(description)
+                .address(address)
+                .createdAt(createdAt)
+                .lastModifiedAt(lastModifiedAt)
+                .profileCompletionScore(profileCompletionScore)
+                .userDetails(userDetails)
+                .build();
     }
 
     public static PetProviderDetailResponse from(PetProvider petProvider) {
         return PetProviderDetailResponse.builder()
-                                       .id(petProvider.getId())
-                                       .name(petProvider.getName())
-                                       .phoneNumber(petProvider.getPhoneNumber())
-                                       .status(petProvider.getStatus())
-                                       .address(petProvider.getAddress())
-                                       .createdAt(petProvider.getCreatedAt())
-                                       .lastModifiedAt(petProvider.getLastModifiedAt())
-                                       .profileCompletionScore(petProvider.getProfileCompletionScore())
-                                       .build();
+                .id(petProvider.getId())
+                .name(petProvider.getName())
+                .phoneNumber(petProvider.getPhoneNumber())
+                .status(petProvider.getStatus())
+                .description(petProvider.getDescription())
+                .address(petProvider.getAddress())
+                .createdAt(petProvider.getCreatedAt())
+                .lastModifiedAt(petProvider.getLastModifiedAt())
+                .profileCompletionScore(petProvider.getProfileCompletionScore())
+                .build();
     }
 }

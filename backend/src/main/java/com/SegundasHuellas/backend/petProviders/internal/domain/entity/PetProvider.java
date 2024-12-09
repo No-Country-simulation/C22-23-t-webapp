@@ -6,10 +6,7 @@ import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
@@ -19,6 +16,7 @@ import java.util.Set;
 @Entity
 @SuperBuilder
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "pet_providers")
@@ -37,6 +35,10 @@ public class PetProvider extends BaseEntity {
     @Embedded
     @Column(name = "address")
     private Address address;
+
+    //Descripcion
+    @Column(name = "description")
+    private String description;
 
     //Telefono
     @Column(name = "phone_number")
@@ -91,6 +93,26 @@ public class PetProvider extends BaseEntity {
         if (adoptionApplications.contains(applicationId)) {
             adoptionApplications.remove(applicationId);
         }
+    }
+
+    public void setStreet(String street) {
+        this.address.setStreet(street);
+    }
+
+    public void setCity(String city) {
+        this.address.setCity(city);
+    }
+
+    public void setState(String state) {
+        this.address.setState(state);
+    }
+
+    public void setZip(String zip) {
+        this.address.setZip(zip);
+    }
+
+    public void setCountry(String country) {
+        this.address.setCountry(country);
     }
 
     /**
