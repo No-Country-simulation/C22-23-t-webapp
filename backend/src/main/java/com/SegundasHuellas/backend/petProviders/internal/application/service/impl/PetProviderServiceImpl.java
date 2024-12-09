@@ -43,4 +43,6 @@ public class PetProviderServiceImpl implements PetProviderService {
     public PageResponse<PetProviderSummaryResponse> getAllPetProviders(Pageable pageable) {
         return PageResponse.from(petProviderRepository.findAllSummaries(pageable));
     }
+
+
 }

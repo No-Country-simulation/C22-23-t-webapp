@@ -92,4 +92,34 @@ public class PetProvider extends BaseEntity {
             adoptionApplications.remove(applicationId);
         }
     }
+
+    /**
+     * Calculate the profile completion score based on available attributes.
+     *
+     * @return the profile completion score, capped at 10
+     */
+    public int getProfileCompletionScore() {
+        int score = 0;
+
+        // Check if name is provided
+        if (name != null && !name.isEmpty()) score++;
+
+        // Check if phone number is provided
+        if (phoneNumber != null && !phoneNumber.isEmpty()) score++;
+
+        // Check address details
+        if (address != null) {
+            if (address.getStreet() != null && !address.getStreet().isEmpty()) score++;
+            if (address.getCity() != null && !address.getCity().isEmpty()) score++;
+            if (address.getState() != null && !address.getState().isEmpty()) score++;
+            if (address.getZip() != null && !address.getZip().isEmpty()) score++;
+            if (address.getCountry() != null && !address.getCountry().isEmpty()) score++;
+        }
+
+        // Check if there are any pets listed
+        if (pets != null && !pets.isEmpty()) score++;
+
+        // Return the score, ensuring it does not exceed 10
+        return Math.min(10, score);
+    }
 }
