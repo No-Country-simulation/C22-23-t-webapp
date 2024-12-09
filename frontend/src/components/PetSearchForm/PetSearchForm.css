@@ -1,0 +1,40 @@
+#HeaderSearchContainer {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#HeaderSearchInput {
+    min-height: 3rem;
+    width: 100%;
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-primary);
+    border: 1px solid var(--clr-primary);
+    border-right: none;
+    border-radius: 1rem 0 0 1rem;
+}
+
+#HeaderSearchSubmit {
+    min-height: 3rem;
+    min-width: 3rem;
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
+    border: 1px solid var(--clr-primary);
+    border-left: none;
+    border-radius: 0 1rem 1rem 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+#HeaderSearchContainer:has(:focus) #HeaderSearchInput,
+#HeaderSearchContainer:has(:focus) #HeaderSearchSubmit {
+    outline: 0.1rem solid var(--clr-black);
+}
+
+#HeaderSearchIcon {
+    height: 2rem;
+    width: 2rem;
+}

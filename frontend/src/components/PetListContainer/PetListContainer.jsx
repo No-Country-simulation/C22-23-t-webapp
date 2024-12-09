@@ -1,6 +1,7 @@
 import './PetListContainer.css'
 import { PetList } from '../'
 import { useEffect, useState } from 'react'
+import { PetSearchForm } from '../PetSearchForm/PetSearchForm'
 
 export function PetListContainer() {
     const [pets, setPets] = useState()
@@ -25,6 +26,7 @@ export function PetListContainer() {
 
     return (
         <main id="PetListContainer">
+            <PetSearchForm />
             {loading && <h2 id="SearchLoadingGreet">{GREETING}</h2>}
             {!loading && pets && <PetList pets={pets} />}
             {!loading && !pets && <h2 id="SearchErrorMessage">{ERROR_MESSAGE}</h2>}
