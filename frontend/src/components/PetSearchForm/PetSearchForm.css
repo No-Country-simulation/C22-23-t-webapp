@@ -1,12 +1,35 @@
-#HeaderSearchContainer {
-    margin: 1rem;
+#PetSearchForm {
+    margin: 0.5rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
-#HeaderSearchInput {
+#PetSearchBarContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#PetSearchFilterButton {
     min-height: 3rem;
-    width: 100%;
+    min-width: 3rem;
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
+    border: none;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+#PetSearchByName {
+    flex-grow: 1;
+    display: flex;
+    max-width: 60rem;
+}
+
+#PetSearchByNameInput {
+    min-height: 3rem;
     flex-grow: 1;
     padding: 0.5rem 1rem;
     background-color: var(--clr-secondary);
@@ -16,7 +39,7 @@
     border-radius: 1rem 0 0 1rem;
 }
 
-#HeaderSearchSubmit {
+#PetSearchByNameSubmit {
     min-height: 3rem;
     min-width: 3rem;
     background: var(--clr-secondary);
@@ -29,12 +52,53 @@
     cursor: pointer;
 }
 
-#HeaderSearchContainer:has(:focus) #HeaderSearchInput,
-#HeaderSearchContainer:has(:focus) #HeaderSearchSubmit {
+#PetSearchByName:has(:focus) #PetSearchByNameInput,
+#PetSearchByName:has(:focus) #PetSearchByNameSubmit {
     outline: 0.1rem solid var(--clr-black);
 }
 
-#HeaderSearchIcon {
+#PetSearchByNameIcon {
     height: 2rem;
     width: 2rem;
+}
+
+#PetSearchFilterMenuContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#PetSearchFilterMenuLabel {
+    color: var(--clr-black);
+}
+
+.PetSearchFilter {
+    min-height: 3rem;
+    padding: 0.5rem;
+    background-color: var(--clr-light-gray);
+    color: var(--clr-black);
+    border: 0.1rem solid var(--clr-black);
+    border-radius: 1rem;
+}
+
+@media (min-width: 640px) {
+    #PetSearchBarContainer {
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    #PetSearchFilterMenuContainer {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    #PetSearchFilterMenuLabel,
+    .PetSearchFilter {
+        width: calc(calc(100% - 4rem) / 5); /* 3rem gap total entre selects; 4 selects en total */
+        max-width: calc(60rem / 5); /* 4 selects en total */
+    }
 }
