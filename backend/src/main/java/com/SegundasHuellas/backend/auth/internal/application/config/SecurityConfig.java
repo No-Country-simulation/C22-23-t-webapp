@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .cors(corsConfigurationService::configure)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.GET, "/api/pets/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

@@ -4,6 +4,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.application.dto.ImageMetadata;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
+import com.SegundasHuellas.backend.shared.domain.vo.ImageDefaults;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import com.SegundasHuellas.backend.shared.infrastructure.storage.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class PetImageUploadService {
         Pet pet = getPetById(petId);
 
         // Delete existing photo if it's not the default one
-        if (!pet.getPhoto().isDefaultPhoto()) {
+        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
             storageService.delete(pet.getPhoto().extractPublicId());
         }
 
@@ -39,9 +40,9 @@ public class PetImageUploadService {
     public void deleteImage(Long petId) {
         Pet pet = getPetById(petId);
 
-        if (!pet.getPhoto().isDefaultPhoto()) {
+        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
             storageService.delete(pet.getPhoto().extractPublicId());
-            pet.setPhoto(Image.withDefaults());
+            pet.setPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()));
         }
 
     }

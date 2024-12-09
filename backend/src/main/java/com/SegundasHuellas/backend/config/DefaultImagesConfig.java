@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class DefaultImagesConfig {
 
     private String petPhoto;
+    private String userProfilePhoto;
 
 
     @PostConstruct
@@ -21,7 +22,10 @@ public class DefaultImagesConfig {
         if (petPhoto == null) {
             throw new IllegalStateException("Default pet photo URL not configured in application.yml");
         }
-        ImageDefaults.initialize(petPhoto);
+        if (userProfilePhoto == null) {
+            throw new IllegalStateException("Default user profile photo URL not configured in application.yml");
+        }
+        ImageDefaults.initialize(petPhoto, userProfilePhoto);
     }
 
 }

@@ -1,0 +1,22 @@
+## Docker configuration
+---
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: false
+    show-sql: false
+  error:
+    base-uri: https://api.domainplaceholder.com/errors/
+  cloudinary:
+    url: ${CLOUDINARY_URL}
+  default:
+    pet-photo: ${DEFAULT_PET_PHOTO}

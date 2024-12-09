@@ -116,8 +116,19 @@ public class GlobalExceptionHandler {
         var invalidValue = ife.getValue() != null ? ife.getValue().toString() : "null";
         var targetType = ife.getTargetType().getSimpleName();
 
-        return handleException(DATA_TYPE_MISMATCH, ife,
-                fieldError, invalidValue, targetType);
+        ProblemDetail pd = handleException(DATA_TYPE_MISMATCH, ife,
+                invalidValue, fieldError, targetType);
+
+        // if targetType is an ENUM, show the possible enum values //TODO: refactor together with onMethodArgumentTypeMismatch
+        if (ife.getTargetType().isEnum()) {
+            Object[] enumConstants = ife.getTargetType().getEnumConstants();
+            List<String> allowedValues = Arrays.stream(enumConstants)
+                                               .map(Object::toString)
+                                               .toList();
+            pd.setProperty("allowedValues", allowedValues);
+        }
+
+        return pd;
     }
 
     private boolean shouldRethrowException(Exception exception) {

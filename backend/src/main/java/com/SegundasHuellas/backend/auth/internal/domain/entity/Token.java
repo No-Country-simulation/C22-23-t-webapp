@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "tokens")
 public class Token extends BaseEntity {
 
-    @Column(name = "token", unique = true)
+    @Column(name = "token", unique = true, length = 1024)
     private String token;
     @Enumerated(EnumType.STRING)
     @Column(name = "token_type")
