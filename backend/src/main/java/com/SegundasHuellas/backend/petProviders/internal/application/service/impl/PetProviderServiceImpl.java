@@ -91,25 +91,61 @@ public class PetProviderServiceImpl implements PetProviderService {
                 .withUserDetails(userDetails);
     }
 
+    /**
+     * Updates an existing pet provider with the details provided in the update request.
+     *
+     * @param id the ID of the pet provider to be updated
+     * @param request the update request containing new pet provider details
+     * @throws DomainException if the pet provider is not found
+     */
     @Override
     public void updatePetProvider(Long id, PetProviderUpdateRequest request) {
+        // Retrieve the pet provider by ID, throw an exception if not found
         PetProvider petProvider = petProviderRepository.findById(id)
                 .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
 
+        // Update the pet provider with the new details from the request
         updatePetProviderFromRequest(petProvider, request);
+
+        // Save the updated pet provider back to the repository
         petProviderRepository.save(petProvider);
     }
 
+    /**
+     * Updates the fields of a PetProvider entity from a PetProviderUpdateRequest.
+     *
+     * @param petProvider the pet provider entity to update
+     * @param update the update request containing new values
+     */
     private void updatePetProviderFromRequest(PetProvider petProvider, PetProviderUpdateRequest update) {
+        // Update the name if present in the request
         updateIfPresent(update.name(), petProvider::setName);
+
+        // Update the phone number if present in the request
         updateIfPresent(update.phoneNumber(), petProvider::setPhoneNumber);
+
+        // Update the pet provider type if present in the request
         updateIfPresent(update.type(), petProvider::setType);
+
+        // Update the description if present in the request
         updateIfPresent(update.description(), petProvider::setDescription);
+
+        // Update the street address if present in the request
         updateIfPresent(update.street(), petProvider::setStreet);
+
+        // Update the city if present in the request
         updateIfPresent(update.city(), petProvider::setCity);
+
+        // Update the state if present in the request
         updateIfPresent(update.state(), petProvider::setState);
+
+        // Update the zip code if present in the request
         updateIfPresent(update.zip(), petProvider::setZip);
+
+        // Update the country if present in the request
         updateIfPresent(update.country(), petProvider::setCountry);
+
+        // Update the status if present in the request
         updateIfPresent(update.status(), petProvider::setStatus);
     }
 }

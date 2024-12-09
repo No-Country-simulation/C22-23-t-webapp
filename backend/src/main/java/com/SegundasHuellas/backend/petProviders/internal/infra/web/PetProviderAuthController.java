@@ -21,24 +21,50 @@ public class PetProviderAuthController {
 
     private final PetProviderService registrationService;
 
+
+    /**
+     * Registers a new pet provider.
+     *
+     * @param request the registration request
+     * @return the authentication response
+     */
     @PostMapping("/register")
-    public AuthenticationResponse registerPetProvider(PetProviderRegistrationRequest request) {
+    public AuthenticationResponse registerPetProvider(@RequestBody @Valid PetProviderRegistrationRequest request) {
         return registrationService.registerPetProvider(request);
     }
+
+    /**
+     * Retrieves a page of all pet providers.
+     *
+     * @param pageable the pagination configuration
+     * @return a page response containing the pet providers
+     */
     @GetMapping
     public PageResponse<PetProviderSummaryResponse> getAllPetProviders(Pageable pageable) {
         return registrationService.getAllPetProviders(pageable);
     }
 
+    /**
+     * Retrieves the details of a pet provider with the given user ID.
+     *
+     * @param userId the ID of the user
+     * @return the pet provider details response
+     */
     @GetMapping("/{userId}")
-    public PetProviderDetailResponse getPetProviderDetails(Long userId) {
+    public PetProviderDetailResponse getPetProviderDetails(@PathVariable(name = "userId") Long userId) {
         return registrationService.getPetProviderDetails(userId);
     }
 
+    /**
+     * Updates the details of an existing pet provider.
+     *
+     * @param id    the ID of the pet provider
+     * @param request the update request
+     */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePetProvider(@PathVariable(name = "id") Long id,
-                                   @RequestBody @Valid PetProviderUpdateRequest request) {
+                                  @RequestBody @Valid PetProviderUpdateRequest request) {
         registrationService.updatePetProvider(id, request);
     }
 }
