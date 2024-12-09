@@ -52,9 +52,12 @@ public class CloudinaryUploadConfig {
         return UploadConfig.of(options);
     }
 
-    public static UploadConfig forPet(Long petId, String petName) {
-        return forResource("pet-photos", petId, petName);
+    public static UploadConfig forPet(Long petId, String uploadId) {
+        return forResource("SH-pet-photos", petId, uploadId);
     }
 
+    public static UploadConfig forUser(Long id, String uploadId) {
+        return forResource("SH-user-photos", id, uploadId);
+    }
 
 }

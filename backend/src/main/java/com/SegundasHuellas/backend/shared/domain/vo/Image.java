@@ -31,13 +31,6 @@ public class Image {
         return adjustForLowSize(url);
     }
 
-    public static Image withDefaults() {
-        return new Image(ImageDefaults.getDefaultPetPhoto());
-    }
-
-    public boolean isDefaultPhoto() {
-        return url.equals(ImageDefaults.getDefaultPetPhoto());
-    }
 
     public String extractPublicId() {
         return url.substring(url.lastIndexOf('/') + 1)

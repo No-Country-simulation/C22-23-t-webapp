@@ -1,0 +1,36 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/segundas-huellas
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_PROFILES_ACTIVE=docker
+      - CLOUDINARY_URL=${CLOUDINARY_URL}
+      - DEFAULT_PET_PHOTO=${DEFAULT_PET_PHOTO}
+    networks:
+      - segundas-huellas-network
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=segundas-huellas
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - segundas-huellas-network
+
+volumes:
+  postgres_data:
+
+networks:
+  segundas-huellas-network:
+    driver: bridge

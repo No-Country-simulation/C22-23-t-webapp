@@ -8,6 +8,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Weight;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
+import com.SegundasHuellas.backend.shared.domain.vo.ImageDefaults;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -82,7 +83,7 @@ public class Pet extends BaseEntity {
         return Pet.builder()
                   .name(petName)
                   .gender(Gender.UNDEFINED)
-                  .photo(Image.withDefaults()) // Esto todavía no lo implemento. De momento es null.
+                  .photo(Image.fromUrl(ImageDefaults.getDefaultPetPhoto())) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))
                   .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
                   .weight(Weight.of(0))
