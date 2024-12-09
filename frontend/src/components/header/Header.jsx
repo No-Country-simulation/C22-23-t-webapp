@@ -14,15 +14,11 @@ export function Header() {
             <nav id="HeaderNavbar">
                 <Link to={"/"} id="HeaderLogo">
                     <img id="HeaderLogoImage" src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
+
+                    <h1 id="HeaderLogoTitle">SegundasHuellas</h1>
                 </Link>
-                <form id="HeaderSearchContainer">
-                    <input id="HeaderSearchInput" type="text" placeholder="Estoy buscando..." />
-                    <button id="HeaderSearchSubmit" type="submit">
-                        <img id="HeaderSearchIcon" src={`${BASENAME}/search-logo.svg`} alt="Icono botón buscar" />
-                    </button>
-                </form>
                 <button id="HeaderMenuButton" onClick={ handleMenuClick }>
-                    <img id="HeaderMenuButtonIcon" src={`${BASENAME}/sh-icon-${isMenuOpen ? 'close' : 'menu'}.svg`} alt={isMenuOpen ? 'Icono cerrar menú' : 'Icono abrir menú'} />
+                    <img id="HeaderMenuButtonIcon" src={`${BASENAME}/sh-icon-${isMenuOpen ? 'close' : 'account-circle'}.svg`} alt={isMenuOpen ? 'Icono cerrar menú' : 'Icono abrir menú'} />
                 </button>
             </nav>
             <ul id="HeaderUserMenu" className={ isMenuOpen ? 'open' : '' }>

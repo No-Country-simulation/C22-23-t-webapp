@@ -29,7 +29,7 @@ export function Pet({ petId, image, name, age, species, gender, location, status
 
     return (
         <li className='card-container'>
-            <img className='image-pet' src={ `./pet-${image > 8 ? image - 5 : image}.jpeg` } alt={ `Foto de la mascota ${image}` } />
+            <img className='image-pet' src={ image } alt={ `Foto de la mascota llamada ${name}` } />
             <div className='text-container'>
                 <h2 className='title-pet'>{ name }</h2>
                 <h3 className='age-pet'>{ convertAgeInDays(age) }</h3>

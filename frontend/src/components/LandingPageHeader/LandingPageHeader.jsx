@@ -11,7 +11,7 @@ export function LandingPageHeader() {
                 <nav>
                     <ul id="LandingPageNavList">
                         <li className="LandingPageNavItem">
-                            <NavLink to={"/home"} className="LandingPageNavLink">Home</NavLink>
+                            <NavLink to={"/search"} className="LandingPageNavLink">Buscar Mascotas</NavLink>
                         </li>
                         <li className="LandingPageNavItem">
                             <NavLink to={"/about"} className="LandingPageNavLink">Sobre Nosotros</NavLink>
