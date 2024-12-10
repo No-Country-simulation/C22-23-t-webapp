@@ -87,6 +87,10 @@ public class PetSearchQuery {
             conditions.add("p.size = :size");
             params.put("size", searchCriteria.size());
         }
+        if (searchCriteria.gender() != null) {
+            conditions.add("p.gender = :gender");
+            params.put("gender", searchCriteria.gender());
+        }
         if (searchCriteria.minAge() != null) {
             conditions.add("p.age.valueInDays >= :minAge");
             params.put("minAge", searchCriteria.minAge().getValueInDays());
