@@ -61,7 +61,7 @@ public class PetSearchQuery {
      */
     public PageResponse<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria, Pageable pageable) {
         StringBuilder queryBuilder = new StringBuilder("SELECT new com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchResult(")
-                .append("p.id, p.name, p.breed.species, p.age.valueInDays, p.gender, p.status, p.gender, p.size, p.photo) FROM Pet p");
+                .append("p.id, p.name, p.breed.species, p.age.valueInDays, p.gender, p.status, p.size, p.photo) FROM Pet p");
         StringBuilder countBuilder = new StringBuilder("SELECT COUNT(p) FROM Pet p");
         Map<String, Object> params = new HashMap<>();
         List<String> conditions = new ArrayList<>();
@@ -81,10 +81,6 @@ public class PetSearchQuery {
         if (searchCriteria.status() != null) {
             conditions.add("p.status = :status");
             params.put("status", searchCriteria.status());
-        }
-        if (searchCriteria.gender() != null) {
-            conditions.add("p.gender = :gender");
-            params.put("gender", searchCriteria.gender());
         }
         if (searchCriteria.size() != null) {
             conditions.add("p.size = :size");
