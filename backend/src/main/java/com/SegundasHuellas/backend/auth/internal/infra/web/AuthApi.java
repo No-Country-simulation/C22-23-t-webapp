@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -40,18 +39,12 @@ public interface AuthApi {
             @ApiResponse(
                     responseCode = "401",
                     description = "Invalid credentials",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ProblemDetail.class)
-                    )
+                    content = @Content
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Invalid request body",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ProblemDetail.class)
-                    )
+                    content = @Content
             )
     })
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
@@ -83,10 +76,7 @@ public interface AuthApi {
             @ApiResponse(
                     responseCode = "401",
                     description = "Invalid or expired refresh token",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProblemDetail.class)
-                    )
+                    content = @Content
             )
     })
     @PostMapping("/refresh")
