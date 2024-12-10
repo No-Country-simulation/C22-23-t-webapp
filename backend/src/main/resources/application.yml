@@ -16,7 +16,6 @@ spring:
     compose:
       lifecycle-management: start_only
       file: classpath:compose.yaml
-
 ## Application Configuration
 app:
   seeding:
@@ -44,6 +43,15 @@ app:
       refresh-token:
         expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
 
+springdoc:
+  api-docs:
+    enabled: true
+    path: /docs/api-docs
+  swagger-ui:
+    enabled: true
+    path: /docs/swagger
+    operations-sorter: method
+    tags-sorter: alpha
 
 ## Dev only configuration
 ---
