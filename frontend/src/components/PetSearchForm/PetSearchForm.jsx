@@ -1,6 +1,7 @@
 import './PetSearchForm.css'
 import { BASENAME } from '../../config.js'
 import { useState, useEffect, useRef } from 'react'
+import { PetSearchFormSpecies } from '../PetSearchFormSpecies/PetSearchFormSpecies.jsx'
 
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
@@ -69,18 +70,10 @@ export function PetSearchForm({ onSearch }) {
                 <h3 id="PetSearchFilterMenuLabel">Filtrar por:</h3>
 
                 {/* Filtro por Especie */}
-                <select
-                    name="species"
-                    id="PetSearchFilterSpecies"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.species }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Especie</option>
-                    <option value="DOG" className="PetSearchFilterOption">Perro</option>
-                    <option value="CAT" className="PetSearchFilterOption">Gato</option>
-                    <option value="OTHER" className="PetSearchFilterOption">Otros</option>
-                </select>
+                <PetSearchFormSpecies
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.species }
+                />
 
                 {/* Filtro por Raza */}
                 <select
