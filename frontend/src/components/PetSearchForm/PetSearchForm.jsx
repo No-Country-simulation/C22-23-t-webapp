@@ -1,10 +1,7 @@
 import './PetSearchForm.css'
 import { BASENAME } from '../../config.js'
 import { useState, useEffect, useRef } from 'react'
-import { PetSearchFormSpecies } from '../PetSearchFormSpecies/PetSearchFormSpecies.jsx'
-import { PetSearchFormBreed } from '../PetSearchFormBreed/PetSearchFormBreed.jsx'
-import { PetSearchFormGender } from '../PetSearchFormGender/PetSearchFormGender.jsx'
-import { PetSearchFormAge } from '../PetSearchFormAge/PetSearchFormAge.jsx'
+import { PetSearchFormSpecies, PetSearchFormBreed, PetSearchFormGender, PetSearchFormAge } from '../'
 
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
