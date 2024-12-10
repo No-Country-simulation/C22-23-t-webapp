@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.VaccinationStatus;
@@ -63,6 +64,9 @@ public class Pet extends BaseEntity {
     @Column(name = "status", nullable = false)
     private PetStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "size")
+    private Size size;
 
     /*
      🔨 Movemos la Species a la entidad Breed. De esta manera nos aseguramos que siempre que se cree una raza,

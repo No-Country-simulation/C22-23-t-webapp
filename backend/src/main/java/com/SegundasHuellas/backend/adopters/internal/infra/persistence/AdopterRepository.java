@@ -20,6 +20,7 @@ public interface AdopterRepository extends JpaRepository<Adopter, Long> {
     Optional<Adopter> findByUserId(@Param("userId") Long userId);
 
 
+
     @Query("""
             select new com.SegundasHuellas.backend.adopters.internal.application.dto.AdopterSummaryResponse(
                 a.id,

@@ -6,8 +6,12 @@ public record UpdatePetRequestDto(
         String breedName,
         Integer ageInDays,
         Boolean isCastrated,
+        String status,
         String gender,
         String healthStatus,
-        String comments,
-        String status
-) {}
+        String comments
+) {
+    public String size() {
+        return size();
+    }
+}

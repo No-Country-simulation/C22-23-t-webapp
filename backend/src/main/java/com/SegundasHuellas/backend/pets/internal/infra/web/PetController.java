@@ -3,9 +3,13 @@ package com.SegundasHuellas.backend.pets.internal.infra.web;
 import com.SegundasHuellas.backend.pets.internal.application.dto.*;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetSearchService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
+import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
+import com.SegundasHuellas.backend.shared.exception.DomainException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_AGE;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @RestController
@@ -50,10 +55,26 @@ public class PetController {
             @RequestParam(required = false, value = "species") Species species,
             @RequestParam(required = false, value = "breed") String breed,
             @RequestParam(required = false, value = "status") PetStatus status,
+            @RequestParam(required = false, value = "gender") Gender gender,
+            @RequestParam(required = false, value = "size") Size size,
+            @RequestParam(required = false, value = "minAge") Age minAge,
+            @RequestParam(required = false, value = "maxAge") Age maxAge,
             @PageableDefault(sort = "id", direction = ASC) Pageable pageable
     ) {
-        PetSearchCriteria criteria = new PetSearchCriteria(name, species, breed, status);
-        return ResponseEntity.ok(petSearchService.searchPets(criteria, pageable));
+        try {
+            // Ensure minAge is not greater than maxAge
+            if (minAge != null && maxAge != null && minAge.getValueInDays() > maxAge.getValueInDays()) {
+                // Throw an exception if minAge is greater than maxAge
+                throw new DomainException(INVALID_AGE, minAge.toString(), maxAge.toString());
+            }
+            // Create a search criteria object with the provided parameters
+            PetSearchCriteria criteria = new PetSearchCriteria(name, species, breed, status, gender, size, minAge, maxAge);
+            // Perform the search using the pet search service and return the results
+            return ResponseEntity.ok(petSearchService.searchPets(criteria, pageable));
+        } catch (Exception e) {
+            // Return a 500 Internal Server Error response in case of an exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/{petId}")

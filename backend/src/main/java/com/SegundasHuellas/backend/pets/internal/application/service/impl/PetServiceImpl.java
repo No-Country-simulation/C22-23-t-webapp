@@ -9,6 +9,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
@@ -85,6 +86,10 @@ public class PetServiceImpl implements PetService {
             existingPet.setStatus(PetStatus.valueOf(petDto.status().toUpperCase()));
         }
 
+        if (petDto.size() != null) {
+            existingPet.setSize(Size.valueOf(petDto.size().toUpperCase()));
+        }
+
         Pet updatedPet = petRepository.save(existingPet);
         return mapToPetResponseDto(updatedPet);
     }
@@ -109,7 +114,8 @@ public class PetServiceImpl implements PetService {
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados
                 pet.getHealthStatus(),
                 pet.getComments(),
-                pet.getStatus().getTranslation()
+                pet.getStatus().getTranslation(),
+                pet.getSize().getTranslation()
         );
     }
 }
