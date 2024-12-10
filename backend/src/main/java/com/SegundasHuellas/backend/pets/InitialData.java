@@ -170,6 +170,7 @@ public class InitialData {
         }
 
         randomPet.setPhotos(randomPhotos);
+        randomPet.setMainPhoto(randomPhotos.getFirst());
 
         return randomPet;
     }

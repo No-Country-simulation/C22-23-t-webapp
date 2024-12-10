@@ -62,7 +62,7 @@ public class PetSearchQuery {
     public PageResponse<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria, Pageable pageable) {
         String baseQuery = " FROM Pet p";
         StringBuilder queryBuilder = new StringBuilder("SELECT new com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchResult(")
-                .append("p.id, p.name, p.breed.species, p.age.valueInDays, p.gender, p.status, p.size, p.photo)").append(baseQuery);
+                .append("p.id, p.name, p.breed.species, p.age.valueInDays, p.gender, p.status, p.size, p.mainPhoto)").append(baseQuery);
         StringBuilder countBuilder = new StringBuilder("SELECT COUNT(p)").append(baseQuery);
         Map<String, Object> params = new HashMap<>();
         List<String> conditions = new ArrayList<>();

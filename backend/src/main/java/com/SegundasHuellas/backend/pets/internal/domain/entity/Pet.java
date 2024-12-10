@@ -41,6 +41,9 @@ public class Pet extends BaseEntity {
     )
     private List<Image> photos = new ArrayList<>();
 
+    @Embedded
+    private Image mainPhoto;
+
     @ManyToOne
     @JoinColumn(name = "breed_id")
     private Breed breed;//❓Como validar que la raza agregada pertenezca a la specie correcta.
@@ -94,7 +97,8 @@ public class Pet extends BaseEntity {
         return Pet.builder()
                   .name(petName)
                   .gender(Gender.UNDEFINED)
-                  .photos(new ArrayList<>(List.of(Image.fromUrl(ImageDefaults.getDefaultPetPhoto())))) // Esto todavía no lo implemento. De momento es null.
+                  .mainPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()))
+                  .photos(new ArrayList<>()) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))
                   .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
                   .weight(Weight.of(0))
