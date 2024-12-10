@@ -42,6 +42,11 @@ const Register = () => {
     return re.test(String(email).toLowerCase());
   };
 
+  const validatePassword = (password) => {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$/;
+    return regex.test(password);
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({
@@ -80,6 +85,7 @@ const Register = () => {
   const validateForm = () => {
     const newErrors = {};
   
+    // Validación del correo electrónico
     if (!formData.email.trim()) {
       newErrors.email = "El correo electrónico es requerido";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -90,16 +96,18 @@ const Register = () => {
       newErrors.confirmEmail = "Los correos electrónicos no coinciden";
     }
   
+    // Validación de la contraseña
     if (!formData.password.trim()) {
       newErrors.password = "La contraseña es requerida";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+    } else if (!validatePassword(formData.password)) {
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.";
     }
   
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Las contraseñas no coinciden";
     }
   
+    // Validación de tipo de usuario (refugio)
     if (formData.userType === "refugio") {
       if (!formData.refugeName.trim()) {
         newErrors.refugeName = "El nombre del refugio es requerido";
@@ -112,6 +120,7 @@ const Register = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();

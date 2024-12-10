@@ -14,6 +14,11 @@ const Login = () => {
     return re.test(String(email).toLowerCase());
   };
 
+  const validatePassword = (password) => {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$/;
+    return regex.test(password);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
@@ -28,8 +33,8 @@ const Login = () => {
       return;
     }
 
-    if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres");
+    if (!validatePassword(password)) {
+      setError("La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una minúscula, un número y un carácter especial.");
       return;
     }
 
@@ -43,6 +48,8 @@ const Login = () => {
 
       if (response.success) {
         localStorage.setItem("token", response.token);
+        navigate("/");
+        console.log("Credenciales aprobadas.");
       } else {
         setError(response.message || "Error en el inicio de sesión");
       }
@@ -58,14 +65,12 @@ const Login = () => {
       setTimeout(() => {
         if (
           credentials.email === "email@email.com" &&
-          credentials.password === "password"
+          credentials.password === "Password123!"
         ) {
           resolve({
             success: true,
             token: "fake-jwt-token",
           });
-          navigate("/");
-          console.log("Credenciales aprobadas.");
         } else {
           resolve({
             success: false,
@@ -130,5 +135,6 @@ const Login = () => {
     </main>
   );
 };
+
 
 export default Login;
