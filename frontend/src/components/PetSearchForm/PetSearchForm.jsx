@@ -78,19 +78,19 @@ export function PetSearchForm({ onSearch }) {
                 {/* Filtro por Raza */}
                 <PetSearchFormBreed
                     onInputChange={ handleInputChange }
-                    inputValue={ searchFilters.species }
+                    inputValue={ searchFilters.breed }
                 />
 
                 {/* Filtro por Sexo */}
                 <PetSearchFormGender
                     onInputChange={ handleInputChange }
-                    inputValue={ searchFilters.species }
+                    inputValue={ searchFilters.gender }
                 />
 
                 {/* Filtro por Edad */}
                 <PetSearchFormAge
                     onInputChange={ handleInputChange }
-                    inputValue={ searchFilters.species }
+                    inputValue={ searchFilters.age }
                 />
             </div>
         </form>
