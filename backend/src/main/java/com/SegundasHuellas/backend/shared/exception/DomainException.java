@@ -50,7 +50,8 @@ public class DomainException extends RuntimeException {
         DUPLICATED_DATA(CONFLICT),
         OPERATION_NOT_ALLOWED(METHOD_NOT_ALLOWED),
         INVALID_DATA(BAD_REQUEST),
-        INVALID_STATE(BAD_REQUEST);
+        INVALID_STATE(BAD_REQUEST),
+        INVALID_AGE(BAD_REQUEST);
 
         public final HttpStatus statusCode;
 

@@ -74,7 +74,7 @@ public class PetProvider extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user,
 
     public void addPet(Long petId) {
         pets.add(petId);
