@@ -2,12 +2,14 @@ package com.SegundasHuellas.backend.pets.internal.application.dto;
 
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 
+import java.util.List;
+
 public record PetResponseDto(
         Long id,
         String name,
         String species,
         String breedName,
-        ImageResponse photo,
+        List<ImageResponse> photo,
         Boolean isCastrated,
         String gender,
         Integer ageInDays,
