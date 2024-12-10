@@ -65,7 +65,7 @@ public class Pet extends BaseEntity {
     private PetStatus status;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "size", nullable = false)
+    @Column(name = "size")
     private Size size;
 
     /*

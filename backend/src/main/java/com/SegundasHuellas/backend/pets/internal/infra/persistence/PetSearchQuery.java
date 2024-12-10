@@ -60,9 +60,10 @@ public class PetSearchQuery {
      * @return A {@link PageResponse} containing the search results and pagination metadata.
      */
     public PageResponse<PetSearchResult> pageSearch(PetSearchCriteria searchCriteria, Pageable pageable) {
+        String baseQuery = " FROM Pet p";
         StringBuilder queryBuilder = new StringBuilder("SELECT new com.SegundasHuellas.backend.pets.internal.application.dto.PetSearchResult(")
-                .append("p.id, p.name, p.breed.species, p.age.valueInDays, p.gender, p.status, p.size, p.photo) FROM Pet p");
-        StringBuilder countBuilder = new StringBuilder("SELECT COUNT(p) FROM Pet p");
+                .append("p.id, p.name, p.breed.species, p.age.valueInDays, p.gender, p.status, p.size, p.photo)").append(baseQuery);
+        StringBuilder countBuilder = new StringBuilder("SELECT COUNT(p)").append(baseQuery);
         Map<String, Object> params = new HashMap<>();
         List<String> conditions = new ArrayList<>();
 
@@ -115,7 +116,7 @@ public class PetSearchQuery {
             List<PetSearchResult> results = dataJpqlQuery.getResultList();
             return PageResponse.from(new PageImpl<>(results, pageable, total));
         } catch (Exception e) {
-            log.error("Error excecuting search query", e);
+            log.error("Error executing search query", e);
             throw new DomainException(INVALID_DATA, e.getMessage());
         }
     }

@@ -13,6 +13,7 @@ public record PetResponseDto(
         Integer ageInDays,
         String healthStatus,
         String comments,
-        String status
+        String status,
+        String size
 ) {//❓Devolver birthDate? falta definir su implementación, ya que muchas veces no se sabe cuando es.
 }
