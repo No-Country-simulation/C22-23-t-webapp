@@ -20,7 +20,7 @@ public record PetSearchResult(
 
     //Constructor for JPQL
     public PetSearchResult(Long id, String name, Species species, Integer ageInDays, Gender gender, PetStatus status, Size size, Image photo) {
-        this(id, name, species.getTranslation(), ageInDays, gender.getTranslation(), status.getTranslation(),  size != null ? size.getTranslation() : null, ImageResponse.from(photo));
+        this(id, name, species.getTranslation(), ageInDays, gender.getTranslation(), status.getTranslation(),  size.getTranslation(), ImageResponse.from(photo));
     }
 
 }

@@ -5,6 +5,7 @@ import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
+import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
@@ -146,6 +147,7 @@ public class InitialData {
         randomPet.setHealthStatus(faker.lorem().sentence());
         randomPet.setComments(faker.lorem().sentence(40));
         randomPet.setStatus(faker.options().option(PetStatus.class));
+        randomPet.setSize(faker.options().option(Size.class));
 
         List<String> imagePool = IMAGE_POOLS.get(randomSpecies);
         String randomImage = imagePool.get(faker.number().numberBetween(0, imagePool.size()));
