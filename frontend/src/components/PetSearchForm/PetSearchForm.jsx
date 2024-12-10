@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { PetSearchFormSpecies } from '../PetSearchFormSpecies/PetSearchFormSpecies.jsx'
 import { PetSearchFormBreed } from '../PetSearchFormBreed/PetSearchFormBreed.jsx'
 import { PetSearchFormGender } from '../PetSearchFormGender/PetSearchFormGender.jsx'
+import { PetSearchFormAge } from '../PetSearchFormAge/PetSearchFormAge.jsx'
 
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
@@ -90,19 +91,10 @@ export function PetSearchForm({ onSearch }) {
                 />
 
                 {/* Filtro por Edad */}
-                <select
-                    name="age"
-                    id="PetSearchFilterAge"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.age }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Edad</option>
-                    <option value="" className="PetSearchFilterOption">Menos de 1 año</option>
-                    <option value="" className="PetSearchFilterOption">1 a 5 años</option>
-                    <option value="" className="PetSearchFilterOption">5 a 10 años</option>
-                    <option value="" className="PetSearchFilterOption">Más de 10 años</option>
-                </select>
+                <PetSearchFormAge
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.species }
+                />
             </div>
         </form>
     )
