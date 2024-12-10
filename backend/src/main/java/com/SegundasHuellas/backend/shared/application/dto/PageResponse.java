@@ -52,14 +52,14 @@ public class PageResponse<T> {
     @Schema(
             description = "List of items in the current page"
     )
-    public List<T> content() {
+    public List<T> getContent() {
         return content;
     }
 
     @Schema(
             description = "Pagination information and metadata"
     )
-    public PaginationMetadata pagination() {
+    public PaginationMetadata getPagination() {
         return pagination;
     }
 
