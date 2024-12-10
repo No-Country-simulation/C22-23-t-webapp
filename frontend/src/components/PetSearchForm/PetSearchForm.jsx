@@ -3,6 +3,7 @@ import { BASENAME } from '../../config.js'
 import { useState, useEffect, useRef } from 'react'
 import { PetSearchFormSpecies } from '../PetSearchFormSpecies/PetSearchFormSpecies.jsx'
 import { PetSearchFormBreed } from '../PetSearchFormBreed/PetSearchFormBreed.jsx'
+import { PetSearchFormGender } from '../PetSearchFormGender/PetSearchFormGender.jsx'
 
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
@@ -83,18 +84,10 @@ export function PetSearchForm({ onSearch }) {
                 />
 
                 {/* Filtro por Sexo */}
-                <select
-                    name="gender"
-                    id="PetSearchFilterSex"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.gender }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Sexo</option>
-                    <option value="" className="PetSearchFilterOption">Hembra</option>
-                    <option value="" className="PetSearchFilterOption">Macho</option>
-                    <option value="" className="PetSearchFilterOption">No definido</option>
-                </select>
+                <PetSearchFormGender
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.species }
+                />
 
                 {/* Filtro por Edad */}
                 <select
