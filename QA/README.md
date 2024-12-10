@@ -1,1 +1,14 @@
+# Descripcion.
+Esta rama se utilizara para subir los documentos, avances, bugs y reportes que se encuentren a lo largo del proyecto.
+
+**Plan de pruebas.**
+https://1drv.ms/w/c/3aa28a9eb8e37418/EcE9g3-RxxtHkTRodXToBaUB3A1V6dnWiNHtwqJcx8QnSQ?e=t6HtH9
+
+**Casos de prueba.**
+https://1drv.ms/x/c/3aa28a9eb8e37418/EQH7lMVJF31Ik_gpQLSjnjUBqHvGGngmnp5jKQjFTBWRDQ?e=0XcHc0
+
+
+
+
+
 
