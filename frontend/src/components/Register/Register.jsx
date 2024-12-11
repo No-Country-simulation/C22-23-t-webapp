@@ -26,13 +26,19 @@ const Register = () => {
     city:"",
     province:"",
     country:"",
-    phone:"",
+    phoneNumber:"",
     rescuerFullName:"",
     rescuerProfilePhoto:"",
     rescuerAddress:"",
     rescuerCity:"",
     rescuerCountry:"", 
     rescuerPhone:"",
+    status: "",
+    zip: "",
+    bio: "",
+    street: "",
+
+
 
   });
   const [errors, setErrors] = useState({});
@@ -68,13 +74,21 @@ const Register = () => {
       refugeCountry: value === "refugio" ? prevState.refugeCountry : "",
       refugePhone: value === "refugio" ? prevState.refugePhone : "",
       // Limpiar campos específicos de adoptante cuando no es seleccionado
+      firstName: value === "adoptante" ? prevState.firstName : "",
+      lastName: value === "adoptante" ? prevState.lastName : "",
+      phoneNumber: value === "adoptante" ? prevState.phoneNumber: "",
+      bio: value === "adoptante" ? prevState.bio: "",
+      street: value === "adoptante" ? prevState.street: "",
+      city: value === "adoptante" ? prevState.city : "",
+      state: value === "adoptante" ? prevState.state : "",
+      zip: value === "adoptante" ? prevState.zip : "",
+      acountry: value === "adoptante" ? prevState.country : "",
       adoptFullName: value === "adoptante" ? prevState.fullName : "",
+      status: value === "adoptante" ? prevState.status : "",
+
       adoptAgeage: value === "adoptante" ? prevState.age : "",
       adoptAddress: value === "adoptante" ? prevState.address : "",
-      adoptCity: value === "adoptante" ? prevState.city : "",
       adoptProvince: value === "adoptante" ? prevState.province : "",
-      adoptCountry: value === "adoptante" ? prevState.country : "",
-      adoptPhone: value === "adoptante" ? prevState.phone : "",
       // Limpiar campos específicos de rescatista cuando no es seleccionado
       rescuerFullName: value === "rescatista" ? prevState.rescuerFullName : "",
       rescuerAddress: value === "rescatista" ? prevState.rescuerAddress : "",
@@ -132,63 +146,71 @@ const Register = () => {
         setLoading(true);
         try {
             const submitData = {
+                firstName: formData.adoptFullName.split(" ")[0],
+                lastName: formData.adoptFullName.split(" ")[1] || "",
                 email: formData.email,
                 password: formData.password,
                 passwordConfirmation: formData.passwordConfirmation,
-                userType: formData.userType,
-                // Solo enviamos los datos del adoptante si es seleccionado
-                ...(formData.userType === "adoptante" && {
-                    firstName: formData.adoptFullName.split(" ")[0], // Asumiendo que el nombre está completo
-                    lastName: formData.adoptFullName.split(" ")[1] || "",
-                    phoneNumber: formData.adoptPhone,
-                    street: formData.adoptAddress,
-                    city: formData.adoptCity,
-                    state: formData.adoptProvince,
-                    country: formData.adoptCountry,
-                    bio: "N/A", // Puedes poner un valor por defecto o pedirlo como otro campo si lo necesitas
-                }),
             };
 
-            // Realizar la solicitud al backend (POST para registro de usuario)
-            const response = await fetch("http://localhost:5173/auth/adopters/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json", // Especificamos que esperamos una respuesta JSON
-                },
-                body: JSON.stringify(submitData),
-            });
+            const submitMoreData = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                phoneNumber: formData.phoneNumber,
+                bio: formData.bio,
+                street: formData.street,
+                city: formData.city,
+                state: formData.state,
+                zip: formData.zip,
+                country: formData.country,
+                status: formData.status             
+            };
+                
+                const registerResponse = await fetch("http://localhost:8080/api/auth/adopters/register", {
+                    method: "POST", 
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(submitData),
+                });
 
-            const data = await response.json();
-
-            // Si la respuesta es exitosa, manejar la respuesta
-            if (response.ok) {
-                console.log("Registro exitoso", data);
-
-                // Guardar el token en el localStorage
-                localStorage.setItem("token", data.tokens.token);
-                localStorage.setItem("refreshToken", data.tokens.refreshToken);
-                localStorage.setItem("expiresAt", data.tokens.expiresAt);
-
-                // Mostrar un mensaje de éxito y redirigir a login
-                alert("Registro completado con éxito");
-                navigate("/login");
-
-            } else {
-                console.error("Error en el registro:", data.message);
-                alert("Hubo un error en el registro. Intenta nuevamente.");
-            }
+                const registerData = await registerResponse.json();
+                // (registerData.ok) {
+                    console.log("Registro exitoso", registerData);
+                    localStorage.setItem("token", registerData.tokens.token);
+                    alert("Registro completado con éxito");
+                 
+                    // console.error("Error en el registro", registerData.message);
+                    // alert("Hubo un error en el registro");
+                
+                  const response = await fetch(`http://localhost:8080/api/auth/adopters/${registerData.userId}`, {
+                      method: "PUT",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${registerData.token}`,
+                      },
+                      body: JSON.stringify(submitMoreData),
+                  });
+  
+                  const data = await response.json();
+                  if (response.ok) {
+                    console.log("Actualización exitosa", data);
+                    alert("Actualización completada con éxito");
+                    navigate("/login");
+                } else {
+                    console.error("Error en la actualización", data.message);
+                    alert("Hubo un error en la actualización");
+                }
+            
         } catch (error) {
-            console.error("Error en el registro", error);
-            alert("Hubo un error en el registro. Intenta nuevamente.");
+            console.error("Error en el registro o actualización", error);
+            alert("Hubo un error. Intenta nuevamente.");
         } finally {
             setLoading(false);
         }
     }
 };
-
   
-
   return (
     <main className="container-register">
       <div className="register-container">
@@ -346,14 +368,28 @@ const Register = () => {
               <div className="input-group">
                 <input
                   type="text"
-                  name="adoptFullName"
-                  value={formData.adoptFullName}
+                  name="firstName"
+                  value={formData.firstName}
                   onChange={handleInputChange}
-                  placeholder="Nombre completo"
+                  placeholder="Primer nombre"
                   className="input-checks"
                 />
-                {errors.adoptFullName && (
-                  <span className="error">{errors.adoptFullName}</span>
+                {errors.firstName && (
+                  <span className="error">{errors.firstName}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Segundo nombre"
+                  className="input-checks"
+                />
+                {errors.lastName && (
+                  <span className="error">{errors.lastName}</span>
                 )}
               </div>
 
