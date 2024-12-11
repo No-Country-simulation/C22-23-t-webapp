@@ -21,11 +21,14 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -164,6 +167,7 @@ public class InitialData {
 
         return photos;
     }
+
     private void logExecutionTime(long start) {
         double executionTime = (System.currentTimeMillis() - start) / 1000.0;
         log.info("🎉🎉 Seeding data completed in {} seconds 🎉🎉", executionTime);
@@ -171,33 +175,38 @@ public class InitialData {
 
 
     private List<String> loadResourceFromClasspath(String resourceName) {
-        try {
-            ClassPathResource resource = new ClassPathResource(resourceName);
-            return Arrays.stream(Files.readString(resource.getFile().toPath())
-                                      .split("&"))
+
+        ClassPathResource resource = new ClassPathResource(resourceName);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            return Arrays.stream(reader.lines()
+                                       .collect(Collectors.joining())
+                                       .split("&"))
                          .map(String::trim)
                          .filter(s -> !s.isEmpty())
                          .toList();
 
+
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load resource from classpath", e);
+            throw new RuntimeException("Failed to load resource from classpath: " + resourceName, e);
 
         }
     }
 
+    private List<String> loadUrlsFromFile(String resourcePath) {
+        Resource resource = new ClassPathResource(resourcePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
-    private List<String> loadUrlsFromFile(String fileName) {
-        ClassPathResource resource = new ClassPathResource(fileName);
-        try {
-            return Files.readAllLines(resource.getFile().toPath())
-                        .stream()
-                        .map(String::trim)
-                        .filter(line -> !line.isEmpty())
-                        .filter(line -> line.startsWith("http"))
-                        .filter(line -> line.length() < 200)
-                        .toList();
+            return reader.lines()
+                         .map(String::trim)
+                         .filter(line -> !line.isEmpty())
+                         .filter(line -> line.startsWith("http"))
+                         .filter(line -> line.length() < 200)
+                         .toList();
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load urls from classpath", e);
+            throw new RuntimeException("Failed to load urls from classpath: " + resourcePath, e);
         }
     }
 
