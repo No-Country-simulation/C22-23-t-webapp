@@ -74,14 +74,14 @@ export function PetSearchForm({ onSearch }) {
                 <PetSearchFormSpecies
                     onInputChange={ handleInputChange }
                     inputValue={ searchFilters.species }
-                    speciesValue={ setSpeciesValue }
+                    speciesValue={ setSpeciesValue } // Nótese que es el setter del state.
                 />
 
                 {/* Filtro por Raza */}
                 <PetSearchFormBreed
                     onInputChange={ handleInputChange }
                     inputValue={ searchFilters.breed }
-                    speciesValue={ speciesValue }
+                    speciesValue={ speciesValue } // Nótese que es el state per se.
                 />
 
                 {/* Filtro por Sexo */}
