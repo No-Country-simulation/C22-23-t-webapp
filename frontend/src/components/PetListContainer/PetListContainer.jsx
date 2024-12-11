@@ -29,10 +29,7 @@ export function PetListContainer() {
                     }
                 }
                 
-                if (filteredParams.length > 0) {
-                    url += `?${filteredParams.join("&")}`
-                    console.log("URL a fetchear", url)
-                }
+                if (filteredParams.length > 0) { url += `?${filteredParams.join("&")}` }
             }
 
             const petsResponse = await fetch(url)
