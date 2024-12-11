@@ -51,6 +51,11 @@
     color: var(--clr-light-gray);
 }
 
+.footer-logo-title {
+    display: flex;
+    gap: 10px;
+}
+
 /*
     MARK: MEDIA QUERY
 */

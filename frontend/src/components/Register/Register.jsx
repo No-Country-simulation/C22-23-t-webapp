@@ -5,10 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     confirmEmail: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirmation: "",
     userType: "adoptante",
     adoptFullName: "",
     adoptAge: "",
@@ -103,8 +105,8 @@ const Register = () => {
       newErrors.password = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.";
     }
   
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    if (formData.password !== formData.passwordConfirmation) {
+      newErrors.passwordConfirmation = "Las contraseñas no coinciden";
     }
   
     // Validación de tipo de usuario (refugio)
@@ -120,39 +122,72 @@ const Register = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+   
   
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (validateForm()) {
-      setLoading(true);
-      try {
-        const submitData = {
-          email: formData.email,
-          password: formData.password,
-          userType: formData.userType,
-          ...(formData.userType === "adoptante" && {
-            adoptFullName: formData.adoptFullName,
-            adoptAge: formData.adoptAge,
-            adoptAddress: formData.adoptAddress,
-            adoptCity: formData.adoptCity,
-            adoptProvince: formData.adoptProvince,
-            adoptCountry: formData.adoptCountry,
-            adoptPhone: formData.adoptPhone
-          }),
-        };
 
-        console.log("Registro exitoso", submitData);
-        navigate("/login");
-        alert("Registro completado con éxito");
-      } catch (error) {
-        console.error("Error en el registro", error);
-        alert("Hubo un error en el registro. Intenta nuevamente.");
-      } finally {
-        setLoading(false);
-      }
+    // Validación del formulario antes de enviarlo
+    if (validateForm()) {
+        setLoading(true);
+        try {
+            const submitData = {
+                email: formData.email,
+                password: formData.password,
+                passwordConfirmation: formData.passwordConfirmation,
+                userType: formData.userType,
+                // Solo enviamos los datos del adoptante si es seleccionado
+                ...(formData.userType === "adoptante" && {
+                    firstName: formData.adoptFullName.split(" ")[0], // Asumiendo que el nombre está completo
+                    lastName: formData.adoptFullName.split(" ")[1] || "",
+                    phoneNumber: formData.adoptPhone,
+                    street: formData.adoptAddress,
+                    city: formData.adoptCity,
+                    state: formData.adoptProvince,
+                    country: formData.adoptCountry,
+                    bio: "N/A", // Puedes poner un valor por defecto o pedirlo como otro campo si lo necesitas
+                }),
+            };
+
+            // Realizar la solicitud al backend (POST para registro de usuario)
+            const response = await fetch("http://localhost:5173/auth/adopters/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json", // Especificamos que esperamos una respuesta JSON
+                },
+                body: JSON.stringify(submitData),
+            });
+
+            const data = await response.json();
+
+            // Si la respuesta es exitosa, manejar la respuesta
+            if (response.ok) {
+                console.log("Registro exitoso", data);
+
+                // Guardar el token en el localStorage
+                localStorage.setItem("token", data.tokens.token);
+                localStorage.setItem("refreshToken", data.tokens.refreshToken);
+                localStorage.setItem("expiresAt", data.tokens.expiresAt);
+
+                // Mostrar un mensaje de éxito y redirigir a login
+                alert("Registro completado con éxito");
+                navigate("/login");
+
+            } else {
+                console.error("Error en el registro:", data.message);
+                alert("Hubo un error en el registro. Intenta nuevamente.");
+            }
+        } catch (error) {
+            console.error("Error en el registro", error);
+            alert("Hubo un error en el registro. Intenta nuevamente.");
+        } finally {
+            setLoading(false);
+        }
     }
-  };
+};
+
+  
 
   return (
     <main className="container-register">
@@ -201,13 +236,13 @@ const Register = () => {
           <div className="input-group">
             <input
               type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
+              name="passwordConfirmation"
+              value={formData.passwordConfirmation}
               onChange={handleInputChange}
               placeholder="Confirmar Contraseña"
             />
-            {errors.confirmPassword && (
-              <span className="error">{errors.confirmPassword}</span>
+            {errors.passwordConfirmation && (
+              <span className="error">{errors.passwordConfirmation}</span>
               )}
           </div>
 

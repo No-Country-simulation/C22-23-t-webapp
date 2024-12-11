@@ -6,7 +6,10 @@ export function LandingPageFooter() {
         <footer id="LandingPageFooterContainer">
             <div id="LandingPageFooterContent">
                 <div className="footer-column">
+                    <div className='footer-logo-title'>
+                    <img src="sh-logo-white.svg" alt="Logo de Segundas Huellas" />
                     <h2 className="footer-title">Segundas Huellas</h2>                        
+                    </div>
                     <p className="footer-text">Conectando mascotas con hogares desde 2024.</p>
                 </div>
                 <div className="footer-column">
@@ -15,6 +18,7 @@ export function LandingPageFooter() {
                     <ul id="LandingPageFooterLinks">
                         <li><Link to={"/about"}>Sobre Nosotros</Link></li>
                         <li><Link to={"/process"}>Proceso de Adopción</Link></li>
+                        <li><Link to={"/mission"}>Adoptar es conciencia</Link></li>
                         <li><Link to={"/tips"}>Tips para el cuidado de mascotas</Link></li>
                         <li><Link to={"/contact"}>Contáctate con nosotros</Link></li>
                     </ul>
