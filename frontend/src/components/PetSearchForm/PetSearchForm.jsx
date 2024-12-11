@@ -40,7 +40,7 @@ export function PetSearchForm({ onSearch }) {
             ...previousFilters,
             [name]: value,
             ...(name === "species" && { breed: "" }), // Resetea el filtro breed si species cambia
-            ...(name === "age" && value !== "" && decodeAgeValue(value)),
+            ...(name === "age" && decodeAgeValue(value)),
         }))
     }
     
