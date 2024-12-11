@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth/adopters") // Agregamos "auth" para que no sea bloqueado por la config de seguridad
 @RequiredArgsConstructor
-public class AdopterAuthController {
+public class AdopterAuthController implements AdopterAuthApi {
 
 
     private final AdopterService registrationService;

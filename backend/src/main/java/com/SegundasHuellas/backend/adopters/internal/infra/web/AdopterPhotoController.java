@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/adopters/")
 @RequiredArgsConstructor
-public class AdopterPhotoController {
+public class AdopterPhotoController implements AdopterPhotoApi {
 
     private final AdopterPhotoUploadService uploadService;
 

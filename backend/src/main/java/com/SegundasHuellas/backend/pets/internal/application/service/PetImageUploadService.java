@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_STATE;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 import static com.SegundasHuellas.backend.shared.infrastructure.storage.config.CloudinaryUploadConfig.forPet;
 
@@ -19,6 +20,8 @@ import static com.SegundasHuellas.backend.shared.infrastructure.storage.config.C
 @Transactional
 @RequiredArgsConstructor
 public class PetImageUploadService {
+    private static final int MAX_PHOTOS = 4;
+
 
     private final StorageService storageService;
     private final PetRepository petRepository;
@@ -26,24 +29,26 @@ public class PetImageUploadService {
     public ImageMetadata uploadImage(MultipartFile file, Long petId) {
         Pet pet = getPetById(petId);
 
-        // Delete existing photo if it's not the default one
-        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
-            storageService.delete(pet.getPhoto().extractPublicId());
+        if (pet.getPhotos().size() >= MAX_PHOTOS) {
+            throw new DomainException(INVALID_STATE, "Maximum number of photos (" + MAX_PHOTOS + ") reached");
         }
 
+
         ImageMetadata uploadResults = storageService.upload(file, forPet(petId, pet.getName()));
-        pet.setPhoto(Image.fromUrl(uploadResults.url()));
+        pet.getPhotos().add(Image.fromUrl(uploadResults.url()));
 
         return uploadResults;
     }
 
     public void deleteImage(Long petId) {
-        Pet pet = getPetById(petId);
 
-        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
-            storageService.delete(pet.getPhoto().extractPublicId());
-            pet.setPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()));
-        }
+        //TODO: Fix for multiple photos
+//        Pet pet = getPetById(petId);
+//
+//        if (!ImageDefaults.isAnyDefaultPhoto(pet.getPhoto())) {
+//            storageService.delete(pet.getPhoto().extractPublicId());
+//            pet.setPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()));
+//        }
 
     }
 
