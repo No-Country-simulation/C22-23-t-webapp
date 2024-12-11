@@ -12,7 +12,7 @@ import java.util.Objects;
 @Embeddable
 public class Image {
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", length = 500)
     private String url;
 
 
