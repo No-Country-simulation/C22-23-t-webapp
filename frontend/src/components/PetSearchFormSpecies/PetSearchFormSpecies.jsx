@@ -1,10 +1,15 @@
-export function PetSearchFormSpecies({ onInputChange, inputValue }) {
+export function PetSearchFormSpecies({ onInputChange, inputValue, speciesValue }) {
+    const handleInputChange = (event) => {
+        speciesValue(event.target.value)
+        onInputChange(event)
+    }
+
     return (
         <select
             name="species"
             id="PetSearchFilterSpecies"
             className="PetSearchFilter"
-            onChange={ onInputChange }
+            onChange={ handleInputChange }
             value={ inputValue }
         >
             <option value="" className="PetSearchFilterOption" disabled>Especie</option>

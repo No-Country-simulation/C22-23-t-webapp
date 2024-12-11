@@ -1,4 +1,17 @@
-export function PetSearchFormBreed({ onInputChange, inputValue }) {
+import { useEffect, useRef } from 'react'
+
+export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) {
+    const isFirstRender = useRef(true)
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false
+            return
+        }
+        
+        console.log(speciesValue)
+    }, [speciesValue])
+
     return (
         <select
             name="breed"

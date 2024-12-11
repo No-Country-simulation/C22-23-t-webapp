@@ -5,6 +5,7 @@ import { PetSearchFormSpecies, PetSearchFormBreed, PetSearchFormGender, PetSearc
 
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
+    const [ speciesValue, setSpeciesValue ] = useState("")
     const [searchFilters, setSearchFilters] = useState({
         name: "",
         species: "",
@@ -73,12 +74,14 @@ export function PetSearchForm({ onSearch }) {
                 <PetSearchFormSpecies
                     onInputChange={ handleInputChange }
                     inputValue={ searchFilters.species }
+                    speciesValue={ setSpeciesValue }
                 />
 
                 {/* Filtro por Raza */}
                 <PetSearchFormBreed
                     onInputChange={ handleInputChange }
                     inputValue={ searchFilters.breed }
+                    speciesValue={ speciesValue }
                 />
 
                 {/* Filtro por Sexo */}
