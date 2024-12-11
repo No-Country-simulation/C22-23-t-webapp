@@ -6,7 +6,7 @@ import { PetSearchFormSpecies, PetSearchFormBreed, PetSearchFormGender, PetSearc
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
     const [ speciesValue, setSpeciesValue ] = useState("")
-    const [searchFilters, setSearchFilters] = useState({
+    const [ searchFilters, setSearchFilters ] = useState({
         name: "",
         species: "",
         breed: "",
