@@ -23,6 +23,7 @@ export function PetSearchForm({ onSearch }) {
         setSearchFilters((previousFilters) => ({
             ...previousFilters,
             [name]: value,
+            ...(name === "species" && { breed: "" }), // Resetea el filtro breed si species cambia
         }))
     }
     

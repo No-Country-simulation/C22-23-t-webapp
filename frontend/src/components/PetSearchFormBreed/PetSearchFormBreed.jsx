@@ -36,6 +36,7 @@ export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) 
             className="PetSearchFilter"
             onChange={ onInputChange }
             value={ inputValue }
+            disabled={!speciesValue || speciesValue === "OTHER"}
         >
             <option value="" className="PetSearchFilterOption" disabled>Raza</option>
             {/* <option value="" className="PetSearchFilterOption">Raza1</option> */}
