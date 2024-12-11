@@ -108,7 +108,7 @@ public class PetServiceImpl implements PetService {
                 pet.getName(),
                 pet.getBreed().getSpecies().getTranslation(),
                 pet.getBreed().getName(),
-                ImageResponse.from(pet.getPhoto()),
+                pet.getPhotos().stream().map(ImageResponse::from).toList(),
                 pet.getIsCastrated(),
                 pet.getGender().getTranslation(),
                 pet.getAge() != null ? pet.getAge().getValueInDays() : null,// ligados

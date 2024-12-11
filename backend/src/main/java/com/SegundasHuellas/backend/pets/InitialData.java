@@ -23,6 +23,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,16 @@ public class InitialData {
             "https://picsum.photos/id/237/300/300",
             "https://picsum.photos/id/1025/300/300",
             "https://picsum.photos/id/169/300/300",
-            "https://picsum.photos/id/1062/300/300"
+            "https://picsum.photos/id/1062/300/300",
+            "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
+            "https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg",
+            "https://images.pexels.com/photos/58997/pexels-photo-58997.jpeg",
+            "https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg",
+            "https://images.pexels.com/photos/551628/pexels-photo-551628.jpeg",
+            "https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg",
+            "https://images.pexels.com/photos/128817/pexels-photo-128817.jpeg",
+            "https://images.pexels.com/photos/3687770/pexels-photo-3687770.jpeg"
+
     );
     private static final List<String> CAT_IMAGES = List.of(
             "https://placecats.com/neo/300/200",
@@ -149,9 +159,18 @@ public class InitialData {
         randomPet.setStatus(faker.options().option(PetStatus.class));
         randomPet.setSize(faker.options().option(Size.class));
 
-        List<String> imagePool = IMAGE_POOLS.get(randomSpecies);
-        String randomImage = imagePool.get(faker.number().numberBetween(0, imagePool.size()));
-        randomPet.setPhoto(Image.fromUrl(randomImage));
+        List<String> imagePool = new ArrayList<>(IMAGE_POOLS.get(randomSpecies));
+        int numberOfPhotos = 4;
+
+        List<Image> randomPhotos = new ArrayList<>();
+        while (randomPhotos.size() < numberOfPhotos) {
+            int randomIndex = faker.number().numberBetween(0, imagePool.size());
+            String randomImage = imagePool.remove(randomIndex);
+            randomPhotos.add(Image.fromUrl(randomImage));
+        }
+
+        randomPet.setPhotos(randomPhotos);
+        randomPet.setMainPhoto(randomPhotos.getFirst());
 
         return randomPet;
     }

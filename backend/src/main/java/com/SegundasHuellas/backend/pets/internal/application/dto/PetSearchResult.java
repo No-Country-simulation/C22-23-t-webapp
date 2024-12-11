@@ -7,6 +7,8 @@ import com.SegundasHuellas.backend.pets.internal.domain.enums.Species;
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
 
+import java.util.ArrayList;
+
 public record PetSearchResult(
         Long id,
         String name,
@@ -19,8 +21,10 @@ public record PetSearchResult(
 ) {
 
     //Constructor for JPQL
-    public PetSearchResult(Long id, String name, Species species, Integer ageInDays, Gender gender, PetStatus status, Size size, Image photo) {
-        this(id, name, species.getTranslation(), ageInDays, gender.getTranslation(), status.getTranslation(),  size.getTranslation(), ImageResponse.from(photo));
+    public PetSearchResult(Long id, String name, Species species, Integer ageInDays,
+                           Gender gender, PetStatus status, Size size, Image mainPhoto) {
+        this(id, name, species.getTranslation(), ageInDays, gender.getTranslation(), status.getTranslation(),
+                size.getTranslation(), ImageResponse.from(mainPhoto));
     }
 
 }

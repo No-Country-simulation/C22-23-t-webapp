@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.util.Objects.requireNonNull;
 
 @Getter
@@ -31,8 +34,15 @@ public class Pet extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ElementCollection
+    @CollectionTable(
+            name = "pet_photos",
+            joinColumns = @JoinColumn(name = "pet_id")
+    )
+    private List<Image> photos = new ArrayList<>();
+
     @Embedded
-    private Image photo;
+    private Image mainPhoto;
 
     @ManyToOne
     @JoinColumn(name = "breed_id")
@@ -87,7 +97,8 @@ public class Pet extends BaseEntity {
         return Pet.builder()
                   .name(petName)
                   .gender(Gender.UNDEFINED)
-                  .photo(Image.fromUrl(ImageDefaults.getDefaultPetPhoto())) // Esto todavía no lo implemento. De momento es null.
+                  .mainPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()))
+                  .photos(new ArrayList<>()) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))
                   .vaccinationStatus(VaccinationStatus.notVaccinated()) // Sin vacunas por defecto
                   .weight(Weight.of(0))
