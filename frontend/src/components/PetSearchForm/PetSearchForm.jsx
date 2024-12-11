@@ -1,19 +1,37 @@
 import './PetSearchForm.css'
 import { BASENAME } from '../../config.js'
 import { useState, useEffect, useRef } from 'react'
+import { PetSearchFormSpecies, PetSearchFormBreed, PetSearchFormGender, PetSearchFormAge } from '../'
 
 export function PetSearchForm({ onSearch }) {
     const [ isFilterMenuOpen, setIsFilterMenuOpen ] = useState(false)
-    const [searchFilters, setSearchFilters] = useState({
+    const [ speciesValue, setSpeciesValue ] = useState("")
+    const [ searchFilters, setSearchFilters ] = useState({
         name: "",
         species: "",
         breed: "",
         gender: "",
-        age: ""
+        age: "",        // Valor codificado que simplifica PetSearchFormAge
+        minAge: "",
+        maxAge: "",
     })
 
     const isFirstRender = useRef(true)
     const previousSearchFilters = useRef(searchFilters)
+
+    const decodeAgeValue = (age) => {
+        switch (age) {
+            case "0-365": return ({ minAge: "", maxAge: "365"})
+
+            case "365-1825": return ({ minAge: "365", maxAge: "1825"})
+
+            case "1825-3650": return ({ minAge: "1825", maxAge: "3650"})
+
+            case "3650-inf": return ({ minAge: "3650", maxAge: ""})
+        
+            default: return ({ minAge: "", maxAge: ""})
+        }
+    }
 
     const handleInputChange  = (event) => {
         const { name, value } = event.target
@@ -21,6 +39,8 @@ export function PetSearchForm({ onSearch }) {
         setSearchFilters((previousFilters) => ({
             ...previousFilters,
             [name]: value,
+            ...(name === "species" && { breed: "" }), // Resetea el filtro breed si species cambia
+            ...(name === "age" && decodeAgeValue(value)),
         }))
     }
     
@@ -69,59 +89,30 @@ export function PetSearchForm({ onSearch }) {
                 <h3 id="PetSearchFilterMenuLabel">Filtrar por:</h3>
 
                 {/* Filtro por Especie */}
-                <select
-                    name="species"
-                    id="PetSearchFilterSpecies"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.species }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Especie</option>
-                    <option value="DOG" className="PetSearchFilterOption">Perro</option>
-                    <option value="CAT" className="PetSearchFilterOption">Gato</option>
-                    <option value="OTHER" className="PetSearchFilterOption">Otros</option>
-                </select>
+                <PetSearchFormSpecies
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.species }
+                    speciesValue={ setSpeciesValue } // Nótese que es el setter del state.
+                />
 
                 {/* Filtro por Raza */}
-                <select
-                    name="breed"
-                    id="PetSearchFilterBreed"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.breed }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Raza</option>
-                    <option value="" className="PetSearchFilterOption">Raza1</option>
-                </select>
+                <PetSearchFormBreed
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.breed }
+                    speciesValue={ speciesValue } // Nótese que es el state per se.
+                />
 
                 {/* Filtro por Sexo */}
-                <select
-                    name="gender"
-                    id="PetSearchFilterSex"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.gender }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Sexo</option>
-                    <option value="" className="PetSearchFilterOption">Hembra</option>
-                    <option value="" className="PetSearchFilterOption">Macho</option>
-                    <option value="" className="PetSearchFilterOption">No definido</option>
-                </select>
+                <PetSearchFormGender
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.gender }
+                />
 
                 {/* Filtro por Edad */}
-                <select
-                    name="age"
-                    id="PetSearchFilterAge"
-                    className="PetSearchFilter"
-                    onChange={ handleInputChange }
-                    value={ searchFilters.age }
-                >
-                    <option value="" className="PetSearchFilterOption" disabled>Edad</option>
-                    <option value="" className="PetSearchFilterOption">Menos de 1 año</option>
-                    <option value="" className="PetSearchFilterOption">1 a 5 años</option>
-                    <option value="" className="PetSearchFilterOption">5 a 10 años</option>
-                    <option value="" className="PetSearchFilterOption">Más de 10 años</option>
-                </select>
+                <PetSearchFormAge
+                    onInputChange={ handleInputChange }
+                    inputValue={ searchFilters.age }
+                />
             </div>
         </form>
     )

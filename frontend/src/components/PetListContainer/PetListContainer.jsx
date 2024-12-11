@@ -22,17 +22,14 @@ export function PetListContainer() {
                     if (searchParams.hasOwnProperty(key)) {
                         const value = searchParams[key]
                         
-                        // Solo parámetros con valor no vacío
-                        if (value !== "" && value !== null && value !== undefined) {
+                        // Solo parámetros con valor no vacío que además no sean "age"
+                        if (key !== "age" && value !== "" && value !== null && value !== undefined) {
                             filteredParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
                         }
                     }
                 }
                 
-                if (filteredParams.length > 0) {
-                    url += `?${filteredParams.join("&")}`
-                    console.log("URL a fetchear", url)
-                }
+                if (filteredParams.length > 0) { url += `?${filteredParams.join("&")}` }
             }
 
             const petsResponse = await fetch(url)
