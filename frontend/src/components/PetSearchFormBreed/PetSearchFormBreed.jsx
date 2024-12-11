@@ -1,7 +1,24 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) {
     const isFirstRender = useRef(true)
+    const [ breedsList, setBreedsList ] = useState([])
+
+    const fetchBreeds = async (speciesValue) => {
+        try {
+            if (speciesValue === "") return
+
+            const BASE_URL = "http://localhost:8080/api/pets/reference-data/breeds"
+ 
+            const breedsResponse = await fetch(`${BASE_URL}?species=${speciesValue}`)
+
+            const breedsData = await breedsResponse.json()
+
+            setBreedsList(breedsData)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -9,7 +26,7 @@ export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) 
             return
         }
         
-        console.log(speciesValue)
+        fetchBreeds(speciesValue)
     }, [speciesValue])
 
     return (
@@ -21,7 +38,14 @@ export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) 
             value={ inputValue }
         >
             <option value="" className="PetSearchFilterOption" disabled>Raza</option>
-            <option value="" className="PetSearchFilterOption">Raza1</option>
+            {/* <option value="" className="PetSearchFilterOption">Raza1</option> */}
+            {breedsList.map((breed) =>  <option 
+                                            key={breed.id}
+                                            value={breed.name}
+                                            className="PetSearchFilterOption"
+                                        >
+                                            {breed.name}
+                                        </option>)}
         </select>
     )
 }
