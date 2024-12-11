@@ -11,11 +11,27 @@ export function PetSearchForm({ onSearch }) {
         species: "",
         breed: "",
         gender: "",
-        age: ""
+        age: "",        // Valor codificado que simplifica PetSearchFormAge
+        minAge: "",
+        maxAge: "",
     })
 
     const isFirstRender = useRef(true)
     const previousSearchFilters = useRef(searchFilters)
+
+    const decodeAgeValue = (age) => {
+        switch (age) {
+            case "0-365": return ({ minAge: "", maxAge: "365"})
+
+            case "365-1825": return ({ minAge: "365", maxAge: "1825"})
+
+            case "1825-3650": return ({ minAge: "1825", maxAge: "3650"})
+
+            case "3650-inf": return ({ minAge: "3650", maxAge: ""})
+        
+            default: return ({ minAge: "", maxAge: ""})
+        }
+    }
 
     const handleInputChange  = (event) => {
         const { name, value } = event.target
@@ -24,6 +40,7 @@ export function PetSearchForm({ onSearch }) {
             ...previousFilters,
             [name]: value,
             ...(name === "species" && { breed: "" }), // Resetea el filtro breed si species cambia
+            ...(name === "age" && value !== "" && decodeAgeValue(value)),
         }))
     }
     

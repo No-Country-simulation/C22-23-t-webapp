@@ -22,8 +22,8 @@ export function PetListContainer() {
                     if (searchParams.hasOwnProperty(key)) {
                         const value = searchParams[key]
                         
-                        // Solo parámetros con valor no vacío
-                        if (value !== "" && value !== null && value !== undefined) {
+                        // Solo parámetros con valor no vacío que además no sean "age"
+                        if (key !== "age" && value !== "" && value !== null && value !== undefined) {
                             filteredParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
                         }
                     }
