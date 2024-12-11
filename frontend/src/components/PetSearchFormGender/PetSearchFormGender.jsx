@@ -7,7 +7,7 @@ export function PetSearchFormGender({ onInputChange, inputValue }) {
             onChange={ onInputChange }
             value={ inputValue }
         >
-            <option value="" className="PetSearchFilterOption" disabled>Sexo</option>
+            <option value="" className="PetSearchFilterOption">{ inputValue === "" ? "Sexo" : "Quitar filtro por sexo" }</option>
             <option value="FEMALE" className="PetSearchFilterOption">Hembra</option>
             <option value="MALE" className="PetSearchFilterOption">Macho</option>
             <option value="UNDEFINED" className="PetSearchFilterOption">No definido</option>
