@@ -20,9 +20,12 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,50 +39,22 @@ import java.util.stream.IntStream;
 @Slf4j
 public class InitialData {
 
-    private static final List<String> DOG_IMAGES = List.of(
-            "https://picsum.photos/id/237/300/300",
-            "https://picsum.photos/id/1025/300/300",
-            "https://picsum.photos/id/169/300/300",
-            "https://picsum.photos/id/1062/300/300",
-            "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
-            "https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg",
-            "https://images.pexels.com/photos/58997/pexels-photo-58997.jpeg",
-            "https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg",
-            "https://images.pexels.com/photos/551628/pexels-photo-551628.jpeg",
-            "https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg",
-            "https://images.pexels.com/photos/128817/pexels-photo-128817.jpeg",
-            "https://images.pexels.com/photos/3687770/pexels-photo-3687770.jpeg"
 
-    );
-    private static final List<String> CAT_IMAGES = List.of(
-            "https://placecats.com/neo/300/200",
-            "https://placecats.com/millie/300/150",
-            "https://placecats.com/millie_neo/300/200",
-            "https://placecats.com/neo_banana/300/200",
-            "https://placecats.com/neo_2/300/200",
-            "https://placecats.com/bella/300/200",
-            "https://placecats.com/poppy/300/200",
-            "https://placecats.com/louie/300/200",
-            "https://placecats.com/g/300/200"
-    );
-    private static final List<String> OTHER_IMAGES = List.of(
-            "https://picsum.photos/id/433/300/300",
-            "https://picsum.photos/id/582/300/300",
-            "https://picsum.photos/id/659/300/300",
-            "https://picsum.photos/id/783/300/300",
-            "https://picsum.photos/id/593/300/300"
-    );
-    private static final Map<Species, List<String>> IMAGE_POOLS = Map.of(
-            Species.DOG, DOG_IMAGES,
-            Species.CAT, CAT_IMAGES,
-            Species.OTHER, OTHER_IMAGES
-    );
     private final PetRepository petRepository;
     private final BreedService breedService;
     private final BreedRepository breedRepository;
     private final Faker faker;
     private final LoggerManager loggerManager;
-
+    private final List<String> catImages = loadUrlsFromFile("static/data/cat-urls.txt");
+    private final List<String> dogImages = loadUrlsFromFile("static/data/dog-urls.txt");
+    private final List<String> otherImages = loadUrlsFromFile("static/data/other-urls.txt");
+    private final Map<Species, List<String>> IMAGE_POOLS = Map.of(
+            Species.DOG, dogImages,
+            Species.CAT, catImages,
+            Species.OTHER, otherImages
+    );
+    private final List<String> randomDescriptions = loadResourceFromClasspath("static/data/pet-descriptions.txt");
+    private final List<String> randomHealthStatuses = loadResourceFromClasspath("static/data/health-statuses.txt");
     @Value("${app.seeding.enabled:false}")
     private boolean seedingEnabled;
     @Value("${app.seeding.pets.count:1000}")
@@ -143,7 +118,7 @@ public class InitialData {
 
 
     private Pet createRandomPet(Map<Species, List<Breed>> breedsBySpecies) {
-        Species randomSpecies = faker.options().option(Species.class);
+        Species randomSpecies = getWeightedRandomSpecies();
         Pet randomPet = Pet.withDefaults(faker.name().firstName(), randomSpecies);
 
 
@@ -154,31 +129,87 @@ public class InitialData {
         randomPet.setGender(faker.options().option(Gender.class));
         randomPet.setAge(Age.ofDays(faker.number().numberBetween(1, 5500)));
         randomPet.setIsCastrated(faker.options().option(true, false));
-        randomPet.setHealthStatus(faker.lorem().sentence());
-        randomPet.setComments(faker.lorem().sentence(40));
+        randomPet.setHealthStatus(randomHealthStatuses.get(faker.number().numberBetween(0, randomHealthStatuses.size())));
+        randomPet.setComments(randomDescriptions.get(faker.number().numberBetween(0, randomDescriptions.size())));
         randomPet.setStatus(faker.options().option(PetStatus.class));
         randomPet.setSize(faker.options().option(Size.class));
 
-        List<String> imagePool = new ArrayList<>(IMAGE_POOLS.get(randomSpecies));
         int numberOfPhotos = 4;
 
-        List<Image> randomPhotos = new ArrayList<>();
-        while (randomPhotos.size() < numberOfPhotos) {
-            int randomIndex = faker.number().numberBetween(0, imagePool.size());
-            String randomImage = imagePool.remove(randomIndex);
-            randomPhotos.add(Image.fromUrl(randomImage));
-        }
-
+        List<Image> randomPhotos = createRandomPhotos(randomSpecies, numberOfPhotos);
         randomPet.setPhotos(randomPhotos);
-        randomPet.setMainPhoto(randomPhotos.getFirst());
+        randomPet.setMainPhoto(randomPhotos.isEmpty() ?
+                Image.fromUrl("default-image-url") :
+                randomPhotos.getFirst());
 
         return randomPet;
     }
 
+    private List<Image> createRandomPhotos(Species species, int numberOfPhotos) {
+        List<String> imagePool = new ArrayList<>(IMAGE_POOLS.get(species));
+        if (imagePool.isEmpty()) {
+            log.warn("No images available for species {}", species);
+            return List.of(Image.fromUrl("default-image-url"));
+        }
+
+        List<Image> photos = new ArrayList<>();
+        int maxAttempts = Math.min(numberOfPhotos, imagePool.size());
+
+        for (int i = 0; i < maxAttempts; i++) {
+            if (imagePool.isEmpty()) break;
+            int randomIndex = faker.number().numberBetween(0, imagePool.size());
+            String randomImage = imagePool.remove(randomIndex);
+            photos.add(Image.fromUrl(randomImage));
+        }
+
+        return photos;
+    }
     private void logExecutionTime(long start) {
         double executionTime = (System.currentTimeMillis() - start) / 1000.0;
         log.info("🎉🎉 Seeding data completed in {} seconds 🎉🎉", executionTime);
     }
 
+
+    private List<String> loadResourceFromClasspath(String resourceName) {
+        try {
+            ClassPathResource resource = new ClassPathResource(resourceName);
+            return Arrays.stream(Files.readString(resource.getFile().toPath())
+                                      .split("&"))
+                         .map(String::trim)
+                         .filter(s -> !s.isEmpty())
+                         .toList();
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load resource from classpath", e);
+
+        }
+    }
+
+
+    private List<String> loadUrlsFromFile(String fileName) {
+        ClassPathResource resource = new ClassPathResource(fileName);
+        try {
+            return Files.readAllLines(resource.getFile().toPath())
+                        .stream()
+                        .map(String::trim)
+                        .filter(line -> !line.isEmpty())
+                        .filter(line -> line.startsWith("http"))
+                        .filter(line -> line.length() < 200)
+                        .toList();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load urls from classpath", e);
+        }
+    }
+
+    private Species getWeightedRandomSpecies() {
+        int random = faker.number().numberBetween(1, 8);
+
+        return switch (random) {
+            case 1, 2, 3 -> Species.DOG;
+            case 4, 5, 6 -> Species.CAT;
+            case 7 -> Species.OTHER;
+            default -> throw new IllegalStateException("Unexpected value: " + random);
+        };
+    }
 
 }
