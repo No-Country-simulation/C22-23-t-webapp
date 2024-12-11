@@ -1,6 +1,7 @@
 package com.SegundasHuellas.backend.petProviders.internal.application.dto;
 
 import com.SegundasHuellas.backend.auth.api.dto.AuthRegistrationRequest;
+import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderType;
 import com.SegundasHuellas.backend.shared.application.validation.StrongPassword;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
@@ -20,7 +21,10 @@ public record PetProviderRegistrationRequest(
         String password,
 
         @NotNull
-        String passwordConfirmation
+        String passwordConfirmation,
+
+        @NotNull
+        PetProviderType type
 ) {
     public AuthRegistrationRequest toAuthRequest() {
         return new AuthRegistrationRequest(email, password, UserRole.PROVIDER);

@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.petProviders.internal.application.service.im
 
 import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
+import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
@@ -9,17 +10,21 @@ import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProv
 import com.SegundasHuellas.backend.petProviders.internal.application.service.PetProviderService;
 import com.SegundasHuellas.backend.petProviders.internal.domain.entity.PetProvider;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderStatus;
+import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderType;
 import com.SegundasHuellas.backend.petProviders.internal.infra.persistence.PetProvidersRepository;
 import com.SegundasHuellas.backend.shared.application.dto.PageResponse;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.SegundasHuellas.backend.shared.domain.utils.UpdateUtils.updateIfPresent;
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_DATA;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 
 
@@ -28,30 +33,43 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 @RequiredArgsConstructor
 public class PetProviderServiceImpl implements PetProviderService {
 
-    private final PetProvidersRepository  petProviderRepository;
+    private static final Logger log = LoggerFactory.getLogger(PetProviderServiceImpl.class);
+    private final PetProvidersRepository petProviderRepository;
 
     private final RegistrationService registrationService;
 
     /**
      * Registers a new pet provider.
+     * <p>
+     * This method registers a new pet provider. It delegates the user registration to the
+     * {@link RegistrationService} and creates a new pet provider with the given name.
      *
      * @param request the registration request
      * @return the authentication response
      */
     @Override
     public AuthenticationResponse registerPetProvider(PetProviderRegistrationRequest request) {
-        // Create a new pet provider with the given name, empty address and pending verification status
-        PetProvider petProvider = PetProvider.builder()
-                .name(request.name())
-                .address(Address.withDefaults())
-                .status(PetProviderStatus.PENDING_VERIFICATION)
-                .build();
+        try {
+            PetProvider petProvider = PetProvider.builder()
+                    .name(request.name())
+                    .type(request.type())
+                    .address(Address.withDefaults())
+                    .status(PetProviderStatus.PENDING_VERIFICATION)
+                    .build();
 
-        // Save the pet provider to the database
-        petProvider = petProviderRepository.save(petProvider);
+            petProvider = petProviderRepository.save(petProvider);
 
-        // Register the user for the pet provider and return the authentication response
-        return registrationService.register(request.toAuthRequest(), petProvider.getId());
+            var registrationResults = registrationService.register(request.toAuthRequest(), petProvider.getId());
+
+            petProvider.setUserId(registrationResults.userId());
+
+            return registrationResults;
+
+        } catch (Exception e) {
+            log.error("Failed to register pet provider", e);
+            // If the user registration fails, throw a domain exception
+            throw new DomainException(INVALID_DATA, e.getMessage());
+        }
     }
 
     /**
@@ -94,7 +112,7 @@ public class PetProviderServiceImpl implements PetProviderService {
     /**
      * Updates an existing pet provider with the details provided in the update request.
      *
-     * @param id the ID of the pet provider to be updated
+     * @param id      the ID of the pet provider to be updated
      * @param request the update request containing new pet provider details
      * @throws DomainException if the pet provider is not found
      */
@@ -115,7 +133,7 @@ public class PetProviderServiceImpl implements PetProviderService {
      * Updates the fields of a PetProvider entity from a PetProviderUpdateRequest.
      *
      * @param petProvider the pet provider entity to update
-     * @param update the update request containing new values
+     * @param update      the update request containing new values
      */
     private void updatePetProviderFromRequest(PetProvider petProvider, PetProviderUpdateRequest update) {
         // Update the name if present in the request
