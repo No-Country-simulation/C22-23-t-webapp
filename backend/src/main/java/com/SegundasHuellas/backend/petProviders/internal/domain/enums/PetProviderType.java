@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum PetProviderType {
 
+    OWNER("Dueño"),
     SHELTER("Refugio"),
     RESCUER("Rescatista");
 

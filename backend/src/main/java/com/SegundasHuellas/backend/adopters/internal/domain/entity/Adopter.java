@@ -145,4 +145,6 @@ public class Adopter extends BaseEntity {
         return Math.min(10, score);
 
     }
+
+
 }

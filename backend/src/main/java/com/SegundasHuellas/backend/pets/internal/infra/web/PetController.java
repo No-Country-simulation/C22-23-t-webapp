@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.infra.web;
 
+import com.SegundasHuellas.backend.pets.internal.application.security.OwnerAccess;
 import com.SegundasHuellas.backend.pets.internal.application.dto.*;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetSearchService;
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +36,7 @@ public class PetController {
 
     @PostMapping
     public ResponseEntity<PetResponseDto> createPet(@RequestBody @Valid CreatePetRequestDto petRequestDto) {
+
         PetResponseDto petResponseDto = petService.createPet(petRequestDto);
         return new ResponseEntity<>(petResponseDto, HttpStatus.CREATED);
     }
@@ -78,6 +82,7 @@ public class PetController {
     }
 
     @PutMapping("/{petId}")
+    @OwnerAccess
     public ResponseEntity<PetResponseDto> updatePet(
             @PathVariable Long petId,
             @RequestBody UpdatePetRequestDto petDto
@@ -87,7 +92,9 @@ public class PetController {
     }
 
     @DeleteMapping("/delete/{petId}")
+    @OwnerAccess
     public ResponseEntity<Void> deletePet(@PathVariable Long petId) {
+
         petService.deletePet(petId);
         return ResponseEntity.noContent().build();
     }

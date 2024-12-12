@@ -44,14 +44,17 @@ public class PetProviderServiceImpl implements PetProviderService {
         PetProvider petProvider = PetProvider.builder()
                 .name(request.name())
                 .address(Address.withDefaults())
+                .type(request.type())
                 .status(PetProviderStatus.PENDING_VERIFICATION)
                 .build();
 
         // Save the pet provider to the database
         petProvider = petProviderRepository.save(petProvider);
+        AuthenticationResponse registrationResults = registrationService.register(request.toAuthRequest(), petProvider.getId());
 
+        petProvider.setUserId(registrationResults.userId());
         // Register the user for the pet provider and return the authentication response
-        return registrationService.register(request.toAuthRequest(), petProvider.getId());
+        return registrationResults;
     }
 
     /**

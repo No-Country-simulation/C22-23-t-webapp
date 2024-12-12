@@ -78,6 +78,10 @@ public class Pet extends BaseEntity {
     @Column(name = "size")
     private Size size;
 
+    @Column(name = "provider_id")
+    private Long providerId;
+
+
     /*
      🔨 Movemos la Species a la entidad Breed. De esta manera nos aseguramos que siempre que se cree una raza,
         se sepa a que especie pertenece y no necesitamos validaciones adicionales.
@@ -97,6 +101,7 @@ public class Pet extends BaseEntity {
         return Pet.builder()
                   .name(petName)
                   .gender(Gender.UNDEFINED)
+                  .size(Size.UNKNOWN)
                   .mainPhoto(Image.fromUrl(ImageDefaults.getDefaultPetPhoto()))
                   .photos(new ArrayList<>()) // Esto todavía no lo implemento. De momento es null.
                   .age(Age.ofDays(0))

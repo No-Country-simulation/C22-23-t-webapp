@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface PetProvidersRepository extends JpaRepository<PetProvider, Long> {
 
 
-    @Query("select p from PetProvider p where p.user.id = :userId")
+    @Query("select p from PetProvider p where p.userId = :userId")
     Optional<PetProvider> findByUserId(@Param("userId") Long userId);
 
     @Query("""

@@ -78,8 +78,13 @@ logging:
   pattern:
     console: "%d{HH:mm:ss} %clr(%-5level) [%-30.30logger{0}] %msg%n"
   level:
-    org.hibernate.stat: ERROR
-    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: ERROR
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.SegundasHuellas.backend: DEBUG
+      org.springframework.security: DEBUG
+      org.springframework.security.web: DEBUG
+      org.springframework.security.authentication: DEBUG
+      org.springframework.security.access: DEBUG
+      org.springframework.security.core: DEBUG
+#    org.hibernate.stat: ERROR
+#    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: ERROR
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#    com.SegundasHuellas.backend: DEBUG

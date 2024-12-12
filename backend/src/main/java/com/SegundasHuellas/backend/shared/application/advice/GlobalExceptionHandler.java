@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler {
 
     //Exceptions that won't be managed by the catch-all ExceptionHandler
     private final Set<Class<? extends Exception>> exceptionsToRethrow = Set.of(
-//            AccessDeniedException.class,
+            AccessDeniedException.class,
             IllegalStateException.class
 //            SecurityException.class
     );

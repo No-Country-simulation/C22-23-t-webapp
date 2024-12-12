@@ -96,6 +96,7 @@ public class InitialData {
             return;
         }
 
+
         Map<Species, Breed> defaultBreeds = Arrays.stream(Species.values())
                                                   .collect(Collectors.toMap(
                                                           species -> species,

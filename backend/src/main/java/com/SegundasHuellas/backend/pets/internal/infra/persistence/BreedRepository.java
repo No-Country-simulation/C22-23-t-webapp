@@ -30,4 +30,6 @@ public interface BreedRepository extends JpaRepository<Breed, Long> {
 
 
     List<Breed> findAllBySpecies(Species species);
+
+    Optional<Breed> findByName(String breedName);
 }

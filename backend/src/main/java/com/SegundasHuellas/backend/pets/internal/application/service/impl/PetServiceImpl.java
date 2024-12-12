@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.application.service.impl;
 
+import com.SegundasHuellas.backend.auth.api.SecurityPort;
 import com.SegundasHuellas.backend.pets.internal.application.dto.CreatePetRequestDto;
 import com.SegundasHuellas.backend.pets.internal.application.dto.PetResponseDto;
 import com.SegundasHuellas.backend.pets.internal.application.dto.UpdatePetRequestDto;
@@ -7,10 +8,8 @@ import com.SegundasHuellas.backend.pets.internal.application.service.BreedServic
 import com.SegundasHuellas.backend.pets.internal.application.service.PetService;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Breed;
 import com.SegundasHuellas.backend.pets.internal.domain.entity.Pet;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
-import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
 import com.SegundasHuellas.backend.pets.internal.domain.vo.Age;
+import com.SegundasHuellas.backend.pets.internal.infra.persistence.BreedRepository;
 import com.SegundasHuellas.backend.pets.internal.infra.persistence.PetRepository;
 import com.SegundasHuellas.backend.shared.application.dto.ImageResponse;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
@@ -19,8 +18,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.SegundasHuellas.backend.shared.domain.utils.UpdateUtils.updateIfPresent;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 
 @Service
@@ -29,9 +30,9 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 public class PetServiceImpl implements PetService {
 
     private final PetRepository petRepository;
-
+    private final SecurityPort securityPort;
     private final BreedService breedService;
-
+    private final BreedRepository breedRepository;
 
     /*
      * Repositorio         -> dto        -> dto
@@ -46,7 +47,7 @@ public class PetServiceImpl implements PetService {
 
         Pet pet = Pet.withDefaults(petDto.name(), petDto.species());
         pet.assignBreed(defaultBreedForSpecies);
-
+        pet.setProviderId(securityPort.getCurrentUserId());
         petRepository.save(pet);
         return mapToPetResponseDto(pet);
     }
@@ -54,44 +55,27 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetResponseDto> getAllPets() {
         return petRepository.findAll().stream()
-                .map(this::mapToPetResponseDto)
-                .collect(Collectors.toList());
+                            .map(this::mapToPetResponseDto)
+                            .collect(Collectors.toList());
     }
 
     @Override
     public PetResponseDto findById(Long id) {
         Pet pet = petRepository.findById(id)
-                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
+                               .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
         return mapToPetResponseDto(pet);
     }
 
 
     @Override
-    public PetResponseDto updatePet(Long id, UpdatePetRequestDto petDto) {
-        Pet existingPet = petRepository.findById(id)
-                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
+    public PetResponseDto updatePet(Long id, UpdatePetRequestDto request) {
 
-        existingPet.setName(petDto.name() != null && !petDto.name().isBlank() ? petDto.name() : existingPet.getName());
-        existingPet.setAge(petDto.ageInDays() != null ? Age.ofDays(petDto.ageInDays()) : existingPet.getAge());
-        existingPet.setIsCastrated(petDto.isCastrated() != null ? petDto.isCastrated() : existingPet.getIsCastrated());
+        Pet pet = petRepository.findById(id)
+                               .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
 
-        if (petDto.gender() != null) {
-            existingPet.setGender(Gender.valueOf(petDto.gender().toUpperCase()));
-        }
-
-        existingPet.setHealthStatus(petDto.healthStatus() != null && !petDto.healthStatus().isBlank() ? petDto.healthStatus() : existingPet.getHealthStatus());
-        existingPet.setComments(petDto.comments() != null && !petDto.comments().isBlank() ? petDto.comments() : existingPet.getComments());
-
-        if (petDto.status() != null) {
-            existingPet.setStatus(PetStatus.valueOf(petDto.status().toUpperCase()));
-        }
-
-        if (petDto.size() != null) {
-            existingPet.setSize(Size.valueOf(petDto.size().toUpperCase()));
-        }
-
-        Pet updatedPet = petRepository.save(existingPet);
-        return mapToPetResponseDto(updatedPet);
+        updatePetFromRequest(pet, request);
+        Pet updated = petRepository.save(pet);
+        return mapToPetResponseDto(updated);
     }
 
     @Override
@@ -100,6 +84,23 @@ public class PetServiceImpl implements PetService {
             throw new DomainException(RESOURCE_NOT_FOUND, id.toString());
         }
         petRepository.deleteById(id);
+    }
+
+    private void updatePetFromRequest(Pet existingPet, UpdatePetRequestDto update) {
+
+        breedRepository.findByName(update.breedName())
+                       .ifPresent(existingPet::assignBreed);
+
+        Optional.ofNullable(update.ageInDays())
+                .map(Age::ofDays)
+                .ifPresent(existingPet::setAge);
+
+        updateIfPresent(update.name(), existingPet::setName);
+        updateIfPresent(update.isCastrated(), existingPet::setIsCastrated);
+        updateIfPresent(update.status(), existingPet::setStatus);
+        updateIfPresent(update.gender(), existingPet::setGender);
+        updateIfPresent(update.healthStatus(), existingPet::setHealthStatus);
+        updateIfPresent(update.comments(), existingPet::setComments);
     }
 
     private PetResponseDto mapToPetResponseDto(Pet pet) {

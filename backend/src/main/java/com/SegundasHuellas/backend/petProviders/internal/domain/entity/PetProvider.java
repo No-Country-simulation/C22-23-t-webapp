@@ -47,7 +47,9 @@ public class PetProvider extends BaseEntity {
 
     //Enum si es rescatista o refugio
     @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private PetProviderType type;
+
 
     //Status del petProvider si esta habilitado o no.
     @Enumerated(EnumType.STRING)
@@ -72,9 +74,12 @@ public class PetProvider extends BaseEntity {
     @Column(name = "adoption_application_id")
     private Set<Long> adoptionApplications = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id")
+    private Long userId;
+
+    public void registerAdoptionApplication(Long applicationId){
+        this.adoptionApplications.add(applicationId);
+    }
 
     public void addPet(Long petId) {
         pets.add(petId);

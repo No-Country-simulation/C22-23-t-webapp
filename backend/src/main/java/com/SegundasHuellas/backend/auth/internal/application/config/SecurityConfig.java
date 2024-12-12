@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .cors(corsConfigurationService::configure)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.GET, "/api/pets/**").permitAll()
+                        .requestMatchers("/api/pets/**").hasRole("PROVIDER")
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers("/docs/**").permitAll()
                         .anyRequest().authenticated()
