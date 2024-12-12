@@ -122,8 +122,8 @@ export function PetDetails({ pet }) {
                     <p id="PetDetailsBreedLabel" className="PetDetailsLabel"><strong>Raza</strong></p>
                     <p id="PetDetailsBreed" className="PetDetailsText">{ pet.breedName }</p>
 
-                    <p id="PetDetailsSizeLabel" className="PetDetailsLabel"><strong>Género</strong></p>
-                    <p id="PetDetailsSize" className="PetDetailsText">{ pet.gender }</p>
+                    <p id="PetDetailsGenderLabel" className="PetDetailsLabel"><strong>Género</strong></p>
+                    <p id="PetDetailsGender" className="PetDetailsText">{ pet.gender }</p>
                 </div>
             </section>
 
@@ -147,8 +147,8 @@ export function PetDetails({ pet }) {
             <section id="PetDetailsExtraInfoContainer" className="PetInfoContainer">
                 <h2 id="PetDetailsExtraInfo" className="PetDetailsContainerLabel">Información adicional de la mascota</h2>
                 
-                <p id="PetDetailsSpecialNeedsLabel" className="PetDetailsLabel"><strong>Comentarios</strong></p>
-                <p id="PetDetailsSpecialNeeds" className="PetDetailsText"> { createRandomParagraph(COMMENTS, 5) } </p>
+                <p id="PetDetailsCommentsLabel" className="PetDetailsLabel"><strong>Comentarios</strong></p>
+                <p id="PetDetailsComments" className="PetDetailsText"> { createRandomParagraph(COMMENTS, 5) } </p>
             </section>
             
             <section id="PetDetailsContactContainer" className="PetInfoContainer">
