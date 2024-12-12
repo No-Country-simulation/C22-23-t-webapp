@@ -1,8 +1,6 @@
-import React from 'react'
-import Register from '../components/Register/Register'
-import { LandingPageFooter, LandingPageHeader } from '../components'
+import { LandingPageFooter, LandingPageHeader, Register } from '../components'
 
-function RegisterPage() {
+export function RegisterPage() {
   return (
     <>
     <LandingPageHeader />
@@ -11,5 +9,3 @@ function RegisterPage() {
     </>
   )
 }
-
-export default RegisterPage

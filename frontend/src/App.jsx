@@ -2,8 +2,7 @@ import './App.css'
 import { BASENAME } from './config.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
-import RegisterPage from './pages/RegisterPage'
-import { AdoptPage, LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage } from './pages/'
+import { AdoptPage, LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage, RegisterPage } from './pages/'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."

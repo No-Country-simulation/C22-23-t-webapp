@@ -48,6 +48,9 @@ const Login = () => {
 
       if (response.success) {
         localStorage.setItem("token", response.token);
+        localStorage.setItem("refreshToken", response.refreshToken);
+        localStorage.setItem("expiresAt", response.expiresAt);
+
         navigate("/");
         console.log("Credenciales aprobadas.");
       } else {
@@ -61,24 +64,37 @@ const Login = () => {
   };
 
   const loginUser = async (credentials) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (
-          credentials.email === "email@email.com" &&
-          credentials.password === "Password123!"
-        ) {
-          resolve({
-            success: true,
-            token: "fake-jwt-token",
-          });
-        } else {
-          resolve({
-            success: false,
-            message: "Credenciales inválidas",
-          });
-        }
-      }, 1000);
-    });
+    try {
+      const response = await fetch(import.meta.env.VITE_AUTH_LOGIN_URL , {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+      console.log("Respuesta del backend:", data);
+
+      if (response.ok) {
+        return {
+          success: true,
+          token: data.token,
+          refreshToken: data.refreshToken,
+          expiresAt: data.expiresAt,
+        };
+      } else {
+        return {
+          success: false,
+          message: data.message || "Credenciales inválidas",
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error de conexión. Intente nuevamente.",
+      };
+    }
   };
 
   return (
@@ -135,6 +151,5 @@ const Login = () => {
     </main>
   );
 };
-
 
 export default Login;

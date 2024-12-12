@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './LandingPageHeader.css'
+import { BASENAME } from '../../config.js'
 import { Link, NavLink } from 'react-router-dom'
 
 // export function LandingPageHeader() {
@@ -42,7 +43,7 @@ export function LandingPageHeader() {
         <header id="LandingPageHeader">
             <div id="LandingPageContainer">
                 <Link to={"/"} className="header-logo-title">
-                    <img src="sh-logo.svg" alt="Logo de Segundas Huellas" />
+                    <img src={`${BASENAME}/sh-logo.svg`} alt="Logo de Segundas Huellas" />
                     <h1 id="LandingPageTitle">Segundas Huellas</h1>
                 </Link>
                 <nav>
@@ -63,13 +64,13 @@ export function LandingPageHeader() {
                 </nav>
                 <div className="menu-icons">
                     <img
-                        src="sh-icon-menu.svg"
+                        src={`${BASENAME}/sh-icon-menu.svg`}
                         alt="Menu"
                         className={`menu-icon ${menuOpen ? 'hidden' : ''}`}
                         onClick={toggleMenu}
                     />
                     <img
-                        src="sh-icon-close.svg"
+                        src={`${BASENAME}/sh-icon-close.svg`}
                         alt="Close"
                         className={`close-icon ${menuOpen ? '' : 'hidden'}`}
                         onClick={toggleMenu}
