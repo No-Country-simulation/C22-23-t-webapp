@@ -47,9 +47,9 @@ const Login = () => {
       });
 
       if (response.success) {
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("refreshToken", response.refreshToken);
-        localStorage.setItem("expiresAt", response.expiresAt);
+        // localStorage.setItem("token", response.token);
+        // localStorage.setItem("refreshToken", response.refreshToken);
+        // localStorage.setItem("expiresAt", response.expiresAt);
 
         navigate("/");
         console.log("Credenciales aprobadas.");
@@ -77,6 +77,7 @@ const Login = () => {
       console.log("Respuesta del backend:", data);
 
       if (response.ok) {
+        localStorage.setItem("userLogin", JSON.stringify(data));
         return {
           success: true,
           token: data.token,
