@@ -8,7 +8,7 @@ export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) 
         try {
             if (speciesValue === "") return
 
-            const BASE_URL = "http://localhost:8080/api/pets/reference-data/breeds"
+            const BASE_URL = import.meta.env.VITE_PET_SEARCH_FILTER_BREED_URL
  
             const breedsResponse = await fetch(`${BASE_URL}?species=${speciesValue}`)
 

@@ -13,7 +13,7 @@ export function PetListContainer() {
 
     const fetchPets = async (searchParams = {}) => {
         try {
-            let url = "http://localhost:8080/api/pets/search"
+            let url = import.meta.env.VITE_PET_SEARCH_URL
             
             if (Object.keys(searchParams).length > 0) {
                 const filteredParams = []

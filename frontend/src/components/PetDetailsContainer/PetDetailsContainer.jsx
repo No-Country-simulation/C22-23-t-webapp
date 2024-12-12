@@ -10,12 +10,12 @@ export function PetDetailsContainer({ petId }) {
 
     const fetchPet = async () => {
         try {
-            const petResponse = await fetch((`http://localhost:8080/api/pets/${petId}`), { 
-                method: 'GET'
-            })
+            const petResponse = await fetch(import.meta.env.VITE_PET_DETAILS_URL + petId)
 
             const petData = await petResponse.json()
+            
             setPet(petData)
+            
             setLoading(false)
         } catch (error) {
             console.error(error)
