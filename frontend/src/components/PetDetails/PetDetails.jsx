@@ -9,6 +9,29 @@ export function PetDetails({ pet }) {
         email: "contacto@refugioanimal.com",
     }
 
+    const COMMENTS = [
+        "Muy cariñoso con las personas",
+        "Ideal para convivir con niños",
+        "Compatible con otros perros",
+        "Compatible con gatos",
+        "Requiere paciencia durante la adaptación",
+        "Prefiere un hogar tranquilo",
+        "Necesita un dueño experimentado",
+        "Altamente enérgico, requiere mucho ejercicio",
+        "Prefiere estar en interiores",
+        "Perfecto para espacios pequeños",
+        "Puede quedarse solo por varias horas",
+        "Le gusta socializar con otras mascotas",
+        "Requiere supervisión constante",
+        "Especialmente juguetón y activo",
+        "Tiene miedo a los ruidos fuertes",
+        "Necesita un hogar con jardín",
+        "Puede ser territorial con otros animales",
+        "Se adapta bien a la rutina familiar",
+        "Entrenado para obediencia básica",
+        "Requiere visitas frecuentes al veterinario"
+    ]
+
     function createRandomParagraph(stringArray, ammountOfLines) {
         if (ammountOfLines > stringArray.length) {
             throw new Error("La cantidad solicitada excede el número de elementos disponibles en el array.")
@@ -79,7 +102,7 @@ export function PetDetails({ pet }) {
                 <h2 id="PetDetailsExtraInfo" className="PetDetailsContainerLabel">Información adicional de la mascota</h2>
                 
                 <p id="PetDetailsSpecialNeedsLabel" className="PetDetailsLabel"><strong>Comentarios</strong></p>
-                <p id="PetDetailsSpecialNeeds" className="PetDetailsText"> { pet.comments } </p>
+                <p id="PetDetailsSpecialNeeds" className="PetDetailsText"> { createRandomParagraph(COMMENTS, 5) } </p>
             </section>
             
             <section id="PetDetailsContactContainer" className="PetInfoContainer">
