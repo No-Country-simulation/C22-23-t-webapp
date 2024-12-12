@@ -5,10 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     confirmEmail: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirmation: "",
     userType: "adoptante",
     adoptFullName: "",
     adoptAge: "",
@@ -24,13 +26,19 @@ const Register = () => {
     city:"",
     province:"",
     country:"",
-    phone:"",
+    phoneNumber:"",
     rescuerFullName:"",
     rescuerProfilePhoto:"",
     rescuerAddress:"",
     rescuerCity:"",
     rescuerCountry:"", 
     rescuerPhone:"",
+    status: "",
+    zip: "",
+    bio: "",
+    street: "",
+
+
 
   });
   const [errors, setErrors] = useState({});
@@ -40,6 +48,11 @@ const Register = () => {
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
+  };
+
+  const validatePassword = (password) => {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$/;
+    return regex.test(password);
   };
 
   const handleInputChange = (event) => {
@@ -61,13 +74,21 @@ const Register = () => {
       refugeCountry: value === "refugio" ? prevState.refugeCountry : "",
       refugePhone: value === "refugio" ? prevState.refugePhone : "",
       // Limpiar campos específicos de adoptante cuando no es seleccionado
+      firstName: value === "adoptante" ? prevState.firstName : "",
+      lastName: value === "adoptante" ? prevState.lastName : "",
+      phoneNumber: value === "adoptante" ? prevState.phoneNumber: "",
+      bio: value === "adoptante" ? prevState.bio: "",
+      street: value === "adoptante" ? prevState.street: "",
+      city: value === "adoptante" ? prevState.city : "",
+      state: value === "adoptante" ? prevState.state : "",
+      zip: value === "adoptante" ? prevState.zip : "",
+      acountry: value === "adoptante" ? prevState.country : "",
       adoptFullName: value === "adoptante" ? prevState.fullName : "",
+      status: value === "adoptante" ? prevState.status : "",
+
       adoptAgeage: value === "adoptante" ? prevState.age : "",
       adoptAddress: value === "adoptante" ? prevState.address : "",
-      adoptCity: value === "adoptante" ? prevState.city : "",
       adoptProvince: value === "adoptante" ? prevState.province : "",
-      adoptCountry: value === "adoptante" ? prevState.country : "",
-      adoptPhone: value === "adoptante" ? prevState.phone : "",
       // Limpiar campos específicos de rescatista cuando no es seleccionado
       rescuerFullName: value === "rescatista" ? prevState.rescuerFullName : "",
       rescuerAddress: value === "rescatista" ? prevState.rescuerAddress : "",
@@ -80,6 +101,7 @@ const Register = () => {
   const validateForm = () => {
     const newErrors = {};
   
+    // Validación del correo electrónico
     if (!formData.email.trim()) {
       newErrors.email = "El correo electrónico es requerido";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -90,16 +112,18 @@ const Register = () => {
       newErrors.confirmEmail = "Los correos electrónicos no coinciden";
     }
   
+    // Validación de la contraseña
     if (!formData.password.trim()) {
       newErrors.password = "La contraseña es requerida";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+    } else if (!validatePassword(formData.password)) {
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.";
     }
   
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    if (formData.password !== formData.passwordConfirmation) {
+      newErrors.passwordConfirmation = "Las contraseñas no coinciden";
     }
   
+    // Validación de tipo de usuario (refugio)
     if (formData.userType === "refugio") {
       if (!formData.refugeName.trim()) {
         newErrors.refugeName = "El nombre del refugio es requerido";
@@ -112,39 +136,81 @@ const Register = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+   
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Validación del formulario antes de enviarlo
     if (validateForm()) {
-      setLoading(true);
-      try {
-        const submitData = {
-          email: formData.email,
-          password: formData.password,
-          userType: formData.userType,
-          ...(formData.userType === "adoptante" && {
-            adoptFullName: formData.adoptFullName,
-            adoptAge: formData.adoptAge,
-            adoptAddress: formData.adoptAddress,
-            adoptCity: formData.adoptCity,
-            adoptProvince: formData.adoptProvince,
-            adoptCountry: formData.adoptCountry,
-            adoptPhone: formData.adoptPhone
-          }),
-        };
+        setLoading(true);
+        try {
+            const submitData = {
+                firstName: formData.adoptFullName.split(" ")[0],
+                lastName: formData.adoptFullName.split(" ")[1] || "",
+                email: formData.email,
+                password: formData.password,
+                passwordConfirmation: formData.passwordConfirmation,
+            };
 
-        console.log("Registro exitoso", submitData);
-        navigate("/login");
-        alert("Registro completado con éxito");
-      } catch (error) {
-        console.error("Error en el registro", error);
-        alert("Hubo un error en el registro. Intenta nuevamente.");
-      } finally {
-        setLoading(false);
-      }
+            const submitMoreData = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                phoneNumber: formData.phoneNumber,
+                bio: formData.bio,
+                street: formData.street,
+                city: formData.city,
+                state: formData.state,
+                zip: formData.zip,
+                country: formData.country,
+                status: formData.status             
+            };
+                
+                const registerResponse = await fetch("http://localhost:8080/api/auth/adopters/register", {
+                    method: "POST", 
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(submitData),
+                });
+
+                const registerData = await registerResponse.json();
+                // (registerData.ok) {
+                    console.log("Registro exitoso", registerData);
+                    localStorage.setItem("token", registerData.tokens.token);
+                    alert("Registro completado con éxito");
+                 
+                    // console.error("Error en el registro", registerData.message);
+                    // alert("Hubo un error en el registro");
+                
+                  const response = await fetch(`http://localhost:8080/api/auth/adopters/${registerData.userId}`, {
+                      method: "PUT",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${registerData.token}`,
+                      },
+                      body: JSON.stringify(submitMoreData),
+                  });
+  
+                  const data = await response.json();
+                  if (response.ok) {
+                    console.log("Actualización exitosa", data);
+                    alert("Actualización completada con éxito");
+                    navigate("/login");
+                } else {
+                    console.error("Error en la actualización", data.message);
+                    alert("Hubo un error en la actualización");
+                }
+            
+        } catch (error) {
+            console.error("Error en el registro o actualización", error);
+            alert("Hubo un error. Intenta nuevamente.");
+        } finally {
+            setLoading(false);
+        }
     }
-  };
-
+};
+  
   return (
     <main className="container-register">
       <div className="register-container">
@@ -192,13 +258,13 @@ const Register = () => {
           <div className="input-group">
             <input
               type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
+              name="passwordConfirmation"
+              value={formData.passwordConfirmation}
               onChange={handleInputChange}
               placeholder="Confirmar Contraseña"
             />
-            {errors.confirmPassword && (
-              <span className="error">{errors.confirmPassword}</span>
+            {errors.passwordConfirmation && (
+              <span className="error">{errors.passwordConfirmation}</span>
               )}
           </div>
 
@@ -302,14 +368,28 @@ const Register = () => {
               <div className="input-group">
                 <input
                   type="text"
-                  name="adoptFullName"
-                  value={formData.adoptFullName}
+                  name="firstName"
+                  value={formData.firstName}
                   onChange={handleInputChange}
-                  placeholder="Nombre completo"
+                  placeholder="Primer nombre"
                   className="input-checks"
                 />
-                {errors.adoptFullName && (
-                  <span className="error">{errors.adoptFullName}</span>
+                {errors.firstName && (
+                  <span className="error">{errors.firstName}</span>
+                )}
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Segundo nombre"
+                  className="input-checks"
+                />
+                {errors.lastName && (
+                  <span className="error">{errors.lastName}</span>
                 )}
               </div>
 
