@@ -3,6 +3,11 @@ import { PetDetailsGallery } from '../'
 import { Link } from 'react-router-dom'
 
 export function PetDetails({ pet }) {
+    const CONTACT_INFO = {
+        fullAddress: "Refugio Animal City, Ciudad XYZ",
+        phone: "+1234567890",
+        email: "contacto@refugioanimal.com",
+    }
 
     return (
         <>
@@ -62,13 +67,13 @@ export function PetDetails({ pet }) {
                 <h2 id="PetDetailsContact" className="PetDetailsContainerLabel">Información de contacto</h2>
                 <div className="PetInfoList">
                     <p id="PetDetailsLocationLabel" className="PetDetailsLabel"><strong>Ubicación</strong></p>
-                    <p id="PetDetailsLocation" className="PetDetailsText"> { pet.contactInfo.fullAddress } </p>
+                    <p id="PetDetailsLocation" className="PetDetailsText"> { CONTACT_INFO.fullAddress } </p>
 
                     <p id="PetDetailsRefugeePhoneLabel" className="PetDetailsLabel"><strong>Teléfono</strong></p>
-                    <p id="PetDetailsRefugeePhone" className="PetDetailsText"> { pet.contactInfo.phone } </p>
+                    <p id="PetDetailsRefugeePhone" className="PetDetailsText"> { CONTACT_INFO.phone } </p>
 
                     <p id="PetDetailsRefugeeEmailLabel" className="PetDetailsLabel"><strong>Email</strong></p>
-                    <p id="PetDetailsRefugeeEmail" className="PetDetailsText"><Link to={ `mailto:${pet.contactInfo.email}` }> { pet.contactInfo.email } </Link></p>
+                    <p id="PetDetailsRefugeeEmail" className="PetDetailsText"><Link to={ `mailto:${CONTACT_INFO.email}` }> { CONTACT_INFO.email } </Link></p>
                 </div>
             </section>
         </>
