@@ -2,7 +2,7 @@ import "./Register.css"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-const Register = () => {
+export function Register() {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -554,5 +554,3 @@ const Register = () => {
         </main>
     )
 }
-
-export default Register
