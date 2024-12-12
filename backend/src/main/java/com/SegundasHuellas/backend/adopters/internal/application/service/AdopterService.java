@@ -63,9 +63,9 @@ public class AdopterService {
         return PageResponse.from(adopterRepository.findAllSummaries(pageable));
     }
 
-    public void updateAdopter(Long id, AdopterUpdateRequest request) {
-        Adopter adopter = adopterRepository.findById(id)
-                                           .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString()));
+    public void updateAdopter(Long userId, AdopterUpdateRequest request) {
+        Adopter adopter = adopterRepository.findByUserId(userId)
+                                           .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, userId.toString()));
 
         updateAdopterFromRequest(adopter, request);
         adopterRepository.save(adopter);

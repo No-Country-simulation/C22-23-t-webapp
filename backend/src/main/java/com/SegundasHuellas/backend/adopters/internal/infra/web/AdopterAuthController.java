@@ -36,10 +36,11 @@ public class AdopterAuthController implements AdopterAuthApi {
         return registrationService.getAdopters(pageable);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateAdopter(@PathVariable(name = "id") Long id,
+    public void updateAdopter(@PathVariable(name = "userId") Long userId,
                               @RequestBody @Valid AdopterUpdateRequest request) {
-        registrationService.updateAdopter(id, request);
+
+        registrationService.updateAdopter(userId, request);
     }
 }
