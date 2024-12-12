@@ -1,11 +1,11 @@
-import { Header, Adopt, Footer } from '../components/'
+import { Header, Adopt, LandingPageFooter } from '../components/'
 
 export function AdoptPage() {
     return (
         <>
             <Header />
             <Adopt />
-            <Footer />
+            <LandingPageFooter />
         </>
     )
 }

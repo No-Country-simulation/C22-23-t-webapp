@@ -1,4 +1,4 @@
-import { Header, PetDetailsContainer, Footer } from '../components/'
+import { Header, PetDetailsContainer, LandingPageFooter } from '../components/'
 import { useParams } from 'react-router-dom'
 
 export function PetDetailsPage() {
@@ -6,7 +6,7 @@ export function PetDetailsPage() {
         <>
             <Header />
             <PetDetailsContainer petId={useParams().petId} />
-            <Footer />
+            <LandingPageFooter />
         </>
     )
 }
