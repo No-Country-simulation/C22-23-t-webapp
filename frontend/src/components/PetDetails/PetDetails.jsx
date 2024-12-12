@@ -104,7 +104,7 @@ export function PetDetails({ pet }) {
             </section>
 
             <section id="PetDetailsCTAContainer">
-                <button id="PetDetailsAdoptButton" className="PetDetailsCTA"><Link to={"/login"}>Solicitar Adopción</Link></button>
+                <button id="PetDetailsAdoptButton" className="PetDetailsCTA"><Link to={`/adopt/${pet.id}`}>Solicitar Adopción</Link></button>
             </section>
             
             <section id="PetDetailsInfoContainer" className="PetInfoContainer">
