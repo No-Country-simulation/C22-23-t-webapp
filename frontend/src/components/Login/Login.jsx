@@ -74,6 +74,7 @@ const Login = () => {
       });
 
       const data = await response.json();
+      console.log("Respuesta del backend:", data);
 
       if (response.ok) {
         return {
@@ -150,7 +151,5 @@ const Login = () => {
     </main>
   );
 };
-
-
 
 export default Login;
