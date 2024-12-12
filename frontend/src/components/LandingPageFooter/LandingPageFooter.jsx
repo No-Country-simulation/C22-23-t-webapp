@@ -1,4 +1,5 @@
 import './LandingPageFooter.css'
+import { BASENAME } from '../../config.js'
 import { Link } from 'react-router-dom'
 
 export function LandingPageFooter() {
@@ -7,7 +8,7 @@ export function LandingPageFooter() {
             <div id="LandingPageFooterContent">
                 <div className="footer-column">
                     <div className='footer-logo-title'>
-                    <img src="sh-logo-white.svg" alt="Logo de Segundas Huellas" />
+                    <img src={`${BASENAME}/sh-logo-white.svg`} alt="Logo de Segundas Huellas" />
                     <h2 className="footer-title">Segundas Huellas</h2>                        
                     </div>
                     <p className="footer-text">Conectando mascotas con hogares desde 2024.</p>
