@@ -9,6 +9,28 @@ export function PetDetails({ pet }) {
         email: "contacto@refugioanimal.com",
     }
 
+    const MEDICAL_CONDITIONS = [
+        "Usa silla de ruedas",
+        "Le falta un ojo",
+        "Problemas cardíacos",
+        "Displasia de cadera",
+        "Ceguera total",
+        "Sordera parcial",
+        "Epilepsia controlada",
+        "Le falta una pata",
+        "Problemas dentales",
+        "Alergias alimentarias",
+        "Enfermedad renal crónica",
+        "Leucemia felina (FeLV) positiva",
+        "Inmunodeficiencia felina (FIV) positiva",
+        "Problemas respiratorios",
+        "Diabetes (requiere insulina)",
+        "Artritis",
+        "Fractura en recuperación",
+        "Anemia controlada",
+        "Problemas de piel (dermatitis)"
+    ]
+      
     const COMMENTS = [
         "Muy cariñoso con las personas",
         "Ideal para convivir con niños",
@@ -94,7 +116,7 @@ export function PetDetails({ pet }) {
                     <p id="PetDetailsHealthStatusDewormed" className="PetDetailsText">{ pet.healthStatus.dewormed ? 'Sí' : 'No' }</p>
 
                     <p id="PetDetailsHealthStatusMedicalConditionsLabel" className="PetDetailsLabel"><strong>Condiciones médicas</strong></p>
-                    <p id="PetDetailsHealthStatusMedicalConditions" className="PetDetailsText">{ pet.healthStatus }</p>
+                    <p id="PetDetailsHealthStatusMedicalConditions" className="PetDetailsText">{ createRandomParagraph(MEDICAL_CONDITIONS, 3) }</p>
                 </div>
             </section>
 
