@@ -1,5 +1,5 @@
 import './Adopt.css'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 export function Adopt() {
@@ -8,6 +8,35 @@ export function Adopt() {
     const petId = useParams().petId
 
     const [isOpen, setIsOpen] = useState(false)
+    const [validLogin, setValidLogin] = useState(false)
+
+    const checkUserLogin = () => {
+        let USER_LOGIN
+
+        try {
+            const userLoginData = localStorage.getItem("userLogin")
+        
+            if (userLoginData) {
+                // Actualmente no estoy verificando que el JWT no haya expirado D:
+                USER_LOGIN = JSON.parse(userLoginData)
+                setValidLogin(true)
+            } else {
+                // "userLogin" no existe (null o undefined)
+                console.log("No userLogin data found in localStorage.")
+                USER_LOGIN = null // Or handle it differently as per your logic
+            }
+        } catch (error) {
+            console.error("Failed to parse userLogin data:", error)
+            USER_LOGIN = null // Fallback to null or a default value
+        }
+    }
+
+    useEffect(() => {
+        checkUserLogin()
+
+        if (!validLogin) navigateTo("/login")
+    }, [])
+    
 
     const showModal = () => setIsOpen(true)
     const closeModal = () => {
