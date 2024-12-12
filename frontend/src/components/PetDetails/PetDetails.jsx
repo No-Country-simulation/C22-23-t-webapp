@@ -3,11 +3,35 @@ import { PetDetailsGallery } from '../'
 import { Link } from 'react-router-dom'
 
 export function PetDetails({ pet }) {
-    const CONTACT_INFO = {
-        fullAddress: "Refugio Animal City, Ciudad XYZ",
-        phone: "+1234567890",
-        email: "contacto@refugioanimal.com",
+    const FULL_ADDRESS_LIST = [
+        "Refugio Animal City, Ciudad XYZ",
+        "Calle de los Animales 123, Pueblo ABC",
+        "Avenida de las Mascotas 456, Villa DEF"
+    ]
+    const PHONE_LIST = [
+        "+1234567890",
+        "+54912345678",
+        "+34678912345"
+    ]
+    const EMAIL_LIST = [
+        "contacto@refugioanimal.com",
+        "adopciones@refugioanimal.com",
+        "info@refugioanimal.com"
+    ]
+    
+    function createRandomContactInfo(adressList, phoneList, emailList) {
+      const randomFullAddress = adressList[Math.floor(Math.random() * adressList.length)]
+      const randomPhone = phoneList[Math.floor(Math.random() * phoneList.length)]
+      const randomEmail = emailList[Math.floor(Math.random() * emailList.length)]
+    
+      return {
+        fullAddress: randomFullAddress,
+        phone: randomPhone,
+        email: randomEmail
+      }
     }
+
+    const CONTACT_INFO = createRandomContactInfo(FULL_ADDRESS_LIST, PHONE_LIST, EMAIL_LIST)
 
     const MEDICAL_CONDITIONS = [
         "Usa silla de ruedas",
