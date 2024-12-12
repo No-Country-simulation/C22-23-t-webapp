@@ -58,7 +58,7 @@
 }
 
 .LandingPageNavLink:hover {
-    color: #1f2937; /* Tailwind's hover:text-gray-800 */
+    color: var(--clr-accent); /* Tailwind's hover:text-gray-800 */
 }
 
 /* Logo */

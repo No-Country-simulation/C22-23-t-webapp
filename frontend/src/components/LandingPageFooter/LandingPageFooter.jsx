@@ -30,9 +30,9 @@ export function LandingPageFooter() {
                     <p className="footer-text">¡Síguenos en redes sociales para novedades y fotos tiernas de mascotas!</p>
 
                     <ul id="LandingPageFooterSocial">
-                        <li><Link to={"https://www.twitter.com/"}>Twitter / X</Link></li>
-                        <li><Link to={"https://www.facebook.com/"}>Facebook</Link></li>
-                        <li><Link to={"https://www.instagram.com/"}>Instagram</Link></li>
+                        <li><Link to={"https://www.twitter.com/"}>Twitter / X <img className='footer-logo' src="x-logo.svg" alt="Logo de Twitter" /></Link></li>
+                        <li><Link to={"https://www.facebook.com/"}>Facebook <img className='footer-logo' src="face-logo.svg" alt="Logo de Facebook" /></Link></li>
+                        <li><Link to={"https://www.instagram.com/"}>Instagram <img className='footer-logo' src="ig-logo.svg" alt="Logo de Instagram" /></Link></li>
                     </ul>
                 </div>
             </div>
