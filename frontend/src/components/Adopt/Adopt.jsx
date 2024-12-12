@@ -1,9 +1,10 @@
 import './Adopt.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 export function Adopt() {
     const navigateTo = useNavigate()
+    const FORM_REF = useRef(null)
     const petId = useParams().petId
 
     const [isOpen, setIsOpen] = useState(false)
@@ -45,14 +46,45 @@ export function Adopt() {
     const validateForm = (email, phoneNumber) => {
         if ( !validateEmail(email) ) return false
 
-        if ( !validatePhoneNumer(phoneNumber) ) return false
-        
+        if ( !validatePhoneNumber(phoneNumber) ) return false
+
         return true
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        const EMAIL = FORM_REF.current.children[2].children[1].value
+        const NAME = FORM_REF.current.children[3].children[1].value
+        const AGE = FORM_REF.current.children[4].children[1].value
+        const ADDRESS = FORM_REF.current.children[5].children[1].value
+        const CITY = FORM_REF.current.children[6].children[1].value
+        const STATE = FORM_REF.current.children[7].children[1].value
+        const COUNTRY = FORM_REF.current.children[8].children[1].value
+        const PHONE = FORM_REF.current.children[9].children[1].value
+
+        if (validateForm(EMAIL, PHONE) === false) return
+
+        const PAYLOAD = {
+            petid: petId,
+            email: EMAIL,
+            name: NAME,
+            age: AGE,
+            address: ADDRESS,
+            city: CITY,
+            state: STATE,
+            country: COUNTRY,
+            phone: PHONE,
+        }
+
+        console.log(PAYLOAD) // Acá va el fetch o lo que corresponda.
+
+        showModal()
     }
 
     return (
         <main id="AdoptFormContainer">
-            <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle">
+            <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle" ref={FORM_REF} onSubmit={ handleSubmit }>
                 <h2 id="AdoptFormTitle" className="AdoptFormTitle">Formulario de Solicitud de Adopción</h2>
                 <p className="AdoptFormDescription">Por favor, complete la información necesaria para procesar su solicitud.</p>
 
@@ -175,7 +207,6 @@ export function Adopt() {
                         type="submit" 
                         className="AdoptFormButton" 
                         aria-label="Enviar solicitud de adopción"
-                        onClick={ showModal }
                     >
                     Enviar Solicitud
                     </button>
