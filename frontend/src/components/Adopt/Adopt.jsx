@@ -1,10 +1,21 @@
 import './Adopt.css'
-import { useParams } from 'react-router-dom'
+import { useRef, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
 export function Adopt() {
+    const navigateTo = useNavigate()
+    const FORM_REF = useRef(null)
     const petId = useParams().petId
 
-    const validateEmail = () => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const showModal = () => setIsOpen(true)
+    const closeModal = () => {
+        setIsOpen(false)
+        navigateTo("/search")
+    }
+
+    const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return re.test(String(email).toLowerCase())
     }
@@ -32,15 +43,54 @@ export function Adopt() {
         return phoneRegex.test(phoneNumber)
     }
 
+    const validateForm = (email, phoneNumber) => {
+        if ( !validateEmail(email) ) return false
+
+        if ( !validatePhoneNumber(phoneNumber) ) return false
+
+        return true
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        const EMAIL = FORM_REF.current.children[2].children[1].value
+        const NAME = FORM_REF.current.children[3].children[1].value
+        const AGE = FORM_REF.current.children[4].children[1].value
+        const ADDRESS = FORM_REF.current.children[5].children[1].value
+        const CITY = FORM_REF.current.children[6].children[1].value
+        const STATE = FORM_REF.current.children[7].children[1].value
+        const COUNTRY = FORM_REF.current.children[8].children[1].value
+        const PHONE = FORM_REF.current.children[9].children[1].value
+
+        if (validateForm(EMAIL, PHONE) === false) return
+
+        const PAYLOAD = {
+            petid: petId,
+            email: EMAIL,
+            name: NAME,
+            age: AGE,
+            address: ADDRESS,
+            city: CITY,
+            state: STATE,
+            country: COUNTRY,
+            phone: PHONE,
+        }
+
+        console.log(PAYLOAD) // Acá va el fetch o lo que corresponda.
+
+        showModal()
+    }
+
     return (
         <main id="AdoptFormContainer">
-            <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle">
+            <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle" ref={FORM_REF} onSubmit={ handleSubmit }>
                 <h2 id="AdoptFormTitle" className="AdoptFormTitle">Formulario de Solicitud de Adopción</h2>
                 <p className="AdoptFormDescription">Por favor, complete la información necesaria para procesar su solicitud.</p>
 
                 {/* <!-- Campo de email --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormEmail" className="AdoptFormLabel">Correo Electrónico:</label>
+                    <label htmlFor="AdoptFormEmail" className="AdoptFormLabel">Correo Electrónico:</label>
                     <input 
                         type="email" 
                         id="AdoptFormEmail" 
@@ -54,7 +104,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de nombre completo --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormFullName" className="AdoptFormLabel">Nombre Completo:</label>
+                    <label htmlFor="AdoptFormFullName" className="AdoptFormLabel">Nombre Completo:</label>
                     <input 
                         type="text" 
                         id="AdoptFormFullName" 
@@ -68,7 +118,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de edad --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormAge" className="AdoptFormLabel">Edad:</label>
+                    <label htmlFor="AdoptFormAge" className="AdoptFormLabel">Edad:</label>
                     <input 
                         type="number" 
                         id="AdoptFormAge" 
@@ -83,7 +133,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de dirección --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormAddress" className="AdoptFormLabel">Dirección de Residencia:</label>
+                    <label htmlFor="AdoptFormAddress" className="AdoptFormLabel">Dirección de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormAddress" 
@@ -97,7 +147,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de ciudad --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormCity" className="AdoptFormLabel">Ciudad de Residencia:</label>
+                    <label htmlFor="AdoptFormCity" className="AdoptFormLabel">Ciudad de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormCity" 
@@ -111,7 +161,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de provincia/estado --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormProvince" className="AdoptFormLabel">Provincia/Estado de Residencia:</label>
+                    <label htmlFor="AdoptFormProvince" className="AdoptFormLabel">Provincia/Estado de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormProvince" 
@@ -125,7 +175,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de país --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormCountry" className="AdoptFormLabel">País de Residencia:</label>
+                    <label htmlFor="AdoptFormCountry" className="AdoptFormLabel">País de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormCountry" 
@@ -139,7 +189,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de teléfono --> */}
                 <div className="AdoptFormField">
-                    <label for="AdoptFormPhone" className="AdoptFormLabel">Teléfono:</label>
+                    <label htmlFor="AdoptFormPhone" className="AdoptFormLabel">Teléfono:</label>
                     <input 
                         type="tel" 
                         id="AdoptFormPhone" 
@@ -162,6 +212,19 @@ export function Adopt() {
                     </button>
                 </div>
             </form>
+            <div
+                id="AdoptFormModal"
+                className={`AdoptFormModal ${isOpen ? 'active' : ''}`}
+                role="dialog"
+                aria-labelledby="AdoptFormModalTitle"
+                aria-describedby="AdoptFormModalDescription"
+            >
+                <div className="AdoptFormModalContent">
+                <h2 id="AdoptFormModalTitle" className="AdoptFormModalTitle">¡Solicitud enviada!</h2>
+                <p id="AdoptFormModalDescription" className="AdoptFormModalDescription">Tu solicitud de adopción se envió exitosamente. Nos pondremos en contacto contigo pronto.</p>
+                <button id="AdoptFormModalButton" className="AdoptFormModalButton" type="button" onClick={ closeModal }>Cerrar</button>
+                </div>
+            </div>
         </main>
     )
 }
