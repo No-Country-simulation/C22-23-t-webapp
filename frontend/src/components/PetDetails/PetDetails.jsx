@@ -9,6 +9,25 @@ export function PetDetails({ pet }) {
         email: "contacto@refugioanimal.com",
     }
 
+    function createRandomParagraph(stringArray, ammountOfLines) {
+        if (ammountOfLines > stringArray.length) {
+            throw new Error("La cantidad solicitada excede el número de elementos disponibles en el array.")
+        }
+      
+        // Selecciona índices al azar sin repetición
+        const randomIndexes = []
+        while (randomIndexes.length < ammountOfLines) {
+            const index = Math.floor(Math.random() * stringArray.length)
+            if (!randomIndexes.includes(index)) {
+                randomIndexes.push(index)
+            }
+        }
+
+        // Crea un string concatenando los elementos seleccionados con ". "
+        const oraciones = randomIndexes.map(index => stringArray[index])
+        return oraciones.join(". ") + "."
+    }
+
     return (
         <>
             <section id="PetDetailsGalleryContainer">
