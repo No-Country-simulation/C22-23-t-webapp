@@ -101,3 +101,65 @@
 @media (min-width: 640px) {
     #AdoptFormContainer { padding: 2rem; }
 }
+
+/* Contenedor general del modal */
+#AdoptFormModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Contenido del modal */
+.AdoptFormModalContent {
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+/* Título del modal */
+.AdoptFormModalTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Descripción del modal */
+.AdoptFormModalDescription {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Botón del modal */
+.AdoptFormModalButton {
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.AdoptFormModalButton:hover {
+    background-color: var(--clr-accent);
+}
+
+/* Mostrar el modal */
+#AdoptFormModal.active {
+    visibility: visible;
+    opacity: 1;
+}
