@@ -14,7 +14,7 @@ export function Adopt() {
         navigateTo("/search")
     }
 
-    const validateEmail = () => {
+    const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return re.test(String(email).toLowerCase())
     }
@@ -40,6 +40,14 @@ export function Adopt() {
         const phoneRegex = /^\+?[1-9][0-9]{0,2}\s?9?[0-9]{2,4}\s?[0-9]{6,8}(\-[0-9]{1,4})?$/
       
         return phoneRegex.test(phoneNumber)
+    }
+
+    const validateForm = (email, phoneNumber) => {
+        if ( !validateEmail(email) ) return false
+
+        if ( !validatePhoneNumer(phoneNumber) ) return false
+        
+        return true
     }
 
     return (
