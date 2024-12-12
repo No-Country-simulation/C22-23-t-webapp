@@ -7,7 +7,7 @@ export function PetList({ pets }) {
             {pets.map((pet)  => <Pet 
                                     key={pet.id}
                                     petId={pet.id}
-                                    image={pet.photo.url}
+                                    image={pet.photo.thumbnailUrl}
                                     name={pet.name}
                                     age={pet.ageInDays}
                                     species={pet.species}
