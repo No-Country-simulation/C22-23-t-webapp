@@ -8,7 +8,7 @@ export function PetDetailsGallery({ images, petName }) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0)
     const scrollRef = useRef(null)
 
-    // Update the selected image based on scroll position (Mobile)
+    // Actualizar la imagen seleccionada acorde a la posición del scroll (Mobile)
     const handleScroll = () => {
         const scrollLeft = scrollRef.current.scrollLeft
         const width = scrollRef.current.offsetWidth
@@ -18,12 +18,12 @@ export function PetDetailsGallery({ images, petName }) {
 
     return (
         <div id="PetDetailsGallery" className="pet-details-gallery">
-            {/* Thumbnails (Desktop Only) */}
+            {/* Miniaturas (Desktop) */}
             <div className="thumbnails">
-                {images.map((imageId, index) => (
+                {images.map((image, index) => (
                     <img
                         key={index}
-                        src={`${BASENAME}/pet-${imageId}.jpeg`}
+                        src={image.thumbnailUrl}
                         alt={`Foto ${index + 1} de la mascota ${petName}`}
                         className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
                         onClick={() => setSelectedImageIndex(index)}
@@ -31,31 +31,31 @@ export function PetDetailsGallery({ images, petName }) {
                 ))}
             </div>
             
-            {/* Main Image */}
+            {/* Imagen principal */}
             <div className="main-image">
                 <img
-                    src={`${BASENAME}/pet-${images[selectedImageIndex]}.jpeg`}
+                    src={ images[selectedImageIndex].url }
                     alt={`Foto ${selectedImageIndex + 1} de la mascota ${petName}`}
                 />
             </div>
 
-            {/* Horizontal Scrolling for Mobile */}
+            {/* Scroll horizontal para mobile */}
             <div
                 className="mobile-gallery"
                 ref={scrollRef}
                 onScroll={handleScroll}
             >
-                {images.map((imageId, index) => (
+                {images.map((image, index) => (
                     <img
                         key={index}
-                        src={`${BASENAME}/pet-${imageId}.jpeg`}
+                        src={ image.thumbnailUrl }
                         alt={`Foto ${index + 1} de la mascota ${petName}`}
                         className="mobile-image"
                     />
                 ))}
             </div>
 
-            {/* Dots for Navigation */}
+            {/* Puntos para navegación */}
             <div className="dots">
                 {images.map((_, index) => (
                     <button

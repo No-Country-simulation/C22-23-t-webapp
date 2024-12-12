@@ -3,12 +3,11 @@ import { PetDetailsGallery } from '../'
 import { Link } from 'react-router-dom'
 
 export function PetDetails({ pet }) {
-    const IMAGES = ["1","2","3","4"]
 
     return (
         <>
             <section id="PetDetailsGalleryContainer">
-                <PetDetailsGallery images={ IMAGES } petName={ pet.name } />
+                <PetDetailsGallery images={ pet.photo } petName={ pet.name } />
             </section>
 
             <section id="PetDetailsCTAContainer">
