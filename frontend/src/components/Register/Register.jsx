@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -12,6 +11,7 @@ const Register = () => {
     password: "",
     passwordConfirmation: "",
     userType: "adoptante",
+    state: "",
     adoptFullName: "",
     adoptAge: "",
     adoptAddress: "",
@@ -33,9 +33,7 @@ const Register = () => {
     rescuerCity:"",
     rescuerCountry:"", 
     rescuerPhone:"",
-    status: "",
-    zip: "",
-    bio: "",
+    status: "VERIFIED",
     street: "",
 
 
@@ -152,21 +150,8 @@ const Register = () => {
                 password: formData.password,
                 passwordConfirmation: formData.passwordConfirmation,
             };
-
-            const submitMoreData = {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                phoneNumber: formData.phoneNumber,
-                bio: formData.bio,
-                street: formData.street,
-                city: formData.city,
-                state: formData.state,
-                zip: formData.zip,
-                country: formData.country,
-                status: formData.status             
-            };
                 
-                const registerResponse = await fetch("http://localhost:8080/api/auth/adopters/register", {
+                const registerResponse = await fetch(import.meta.env.VITE_AUTH_ADOPTER_URL + "register", {
                     method: "POST", 
                     headers: {
                         "Content-Type": "application/json",
@@ -176,31 +161,56 @@ const Register = () => {
 
                 const registerData = await registerResponse.json();
                 // (registerData.ok) {
-                    console.log("Registro exitoso", registerData);
+                    // console.log("Registro exitoso", registerData);
                     localStorage.setItem("token", registerData.tokens.token);
                     alert("Registro completado con éxito");
+                    navigate("/login");
                  
                     // console.error("Error en el registro", registerData.message);
                     // alert("Hubo un error en el registro");
                 
-                  const response = await fetch(`http://localhost:8080/api/auth/adopters/${registerData.userId}`, {
+                    const submitMoreData = {
+                      firstName: formData.firstName,
+                      lastName: formData.lastName,
+                      phoneNumber: formData.phoneNumber,
+                      street: formData.street,
+                      city: formData.city,
+                      state: formData.state, 
+                      country: formData.country,     
+                        // firstName: "John",
+                        // lastName: "Doe",
+                        // phoneNumber: "+56912345678",
+                        // bio: "Animal lover with 5 years of experience in pet care...",
+                        // street: "123 Main St",
+                        // city: "Santiago",
+                        // state: "Región Metropolitana",
+                        // zip: "7500000",
+                        // country: "Chile",
+                        // status: "VERIFIED"
+                           
+                  };
+                  console.log(submitMoreData)
+
+                  const response = await fetch(import.meta.env.VITE_AUTH_ADOPTER_URL + registerData.userId, {
                       method: "PUT",
                       headers: {
                           "Content-Type": "application/json",
-                          "Authorization": `Bearer ${registerData.token}`,
+                          "Authorization": `Bearer ${registerData.tokens.token}`,
                       },
                       body: JSON.stringify(submitMoreData),
                   });
   
-                  const data = await response.json();
-                  if (response.ok) {
-                    console.log("Actualización exitosa", data);
-                    alert("Actualización completada con éxito");
-                    navigate("/login");
-                } else {
-                    console.error("Error en la actualización", data.message);
-                    alert("Hubo un error en la actualización");
-                }
+                  const data = await response;
+                  console.log(data.status)
+                  
+                //   if (response?.ok) {
+                //     console.log("Actualización exitosa", data);
+                //     alert("Actualización completada con éxito");
+                
+                // } else {
+                //     console.error("Error en la actualización", data.message);
+                //     alert("Hubo un error en la actualización");
+                // }
             
         } catch (error) {
             console.error("Error en el registro o actualización", error);
@@ -408,67 +418,67 @@ const Register = () => {
               <div className="input-group">
                 <input
                   type="text"
-                  name="adoptAddress"
-                  value={formData.adoptAddress}
+                  name="street"
+                  value={formData.street}
                   onChange={handleInputChange}
                   placeholder="Dirección donde vives"
                   className="input-checks"
                 />
-                {errors.adoptAddress && (
-                  <span className="error">{errors.adoptAddress}</span>
+                {errors.street && (
+                  <span className="error">{errors.street}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="adoptCity"
-                  value={formData.adoptCity}
+                  name="city"
+                  value={formData.city}
                   onChange={handleInputChange}
                   placeholder="Ciudad donde vives"
                   className="input-checks"
                 />
-                {errors.adoptCity && <span className="error">{errors.adoptCity}</span>}
+                {errors.city && <span className="error">{errors.city}</span>}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="adoptProvince"
-                  value={formData.adoptProvince}
+                  name="state"
+                  value={formData.state}
                   onChange={handleInputChange}
                   placeholder="Provincia donde vives"
                   className="input-checks"
                 />
-                {errors.adoptProvince && (
-                  <span className="error">{errors.adoptProvince}</span>
+                {errors.state && (
+                  <span className="error">{errors.state}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="text"
-                  name="adoptCountry"
-                  value={formData.adoptCountry}
+                  name="country"
+                  value={formData.country}
                   onChange={handleInputChange}
                   placeholder="País donde vives"
                   className="input-checks"
                 />
-                {errors.adoptCountry && (
-                  <span className="error">{errors.adoptCountry}</span>
+                {errors.country && (
+                  <span className="error">{errors.country}</span>
                 )}
               </div>
 
               <div className="input-group">
                 <input
                   type="tel"
-                  name="adoptPhone"
-                  value={formData.adoptPhone}
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
                   onChange={handleInputChange}
                   placeholder="Teléfono de contacto"
                   className="input-checks"
                 />
-                {errors.adoptPhone && <span className="error">{errors.adoptPhone}</span>}
+                {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
               </div>
             </>
           )}
