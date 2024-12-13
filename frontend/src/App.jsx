@@ -1,8 +1,7 @@
 import './App.css'
 import { BASENAME } from './config.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LoginPage from './pages/LoginPage'
-import { AdoptPage, LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage, RegisterPage } from './pages/'
+import { LoginPage, AdoptPage, LandingPage, SearchPage, AboutPage, ContactPage, MissionPage, TipsPage, ProcessPage, PetDetailsPage, RegisterPage } from './pages/'
 
 function App() {
     const WIP_MESSAGE = "Página aún en construcción..."
@@ -18,6 +17,7 @@ function App() {
                 <Route path="/login"      element={ <LoginPage />              } />
                 <Route path="/register"   element={ <RegisterPage />           } />
                 <Route path="/about"      element={ <AboutPage />              } />
+                <Route path="/recovery"   element={ <h2>{ WIP_MESSAGE }</h2>   } />
                 <Route path="/mission"    element={ <MissionPage />            } />
                 <Route path="/contact"    element={ <ContactPage />            } />
                 <Route path="/tips"       element={ <TipsPage />               } />

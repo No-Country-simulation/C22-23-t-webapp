@@ -1,15 +1,11 @@
-import React from 'react'
-import Login from '../components/Login/Login'
-import { LandingPageFooter, LandingPageHeader } from '../components'
+import { LandingPageFooter, LandingPageHeader, Login } from '../components'
 
-function LoginPage() {
+export function LoginPage() {
   return (
     <>
-    <LandingPageHeader />
-    <Login />
-    <LandingPageFooter />
+      <LandingPageHeader />
+      <Login />
+      <LandingPageFooter />
     </>
   )
 }
-
-export default LoginPage
