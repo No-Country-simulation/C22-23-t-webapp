@@ -35,15 +35,14 @@
 #LandingPageFooterSocial > li {
     list-style: none;
 }
-#LandingPageFooterLinks > li > a,
-#LandingPageFooterSocial > li > a {
+
+#LandingPageFooterLinks > li > a {
     display: flex;
     color: var(--clr-light-gray);
     text-decoration: none;
 }
 
-#LandingPageFooterLinks > li > a:hover,
-#LandingPageFooterSocial > li > a:hover {
+#LandingPageFooterLinks > li > a:hover {
     color: var(--clr-white);
 }
 
@@ -57,16 +56,22 @@
 }
 
 #LandingPageFooterSocial {
+    margin-top: 1rem;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    
-    
+    justify-content: space-evenly;;
+}
+
+#LandingPageFooterSocial > li > a { 
+    min-width: 3rem;
+    min-height: 3rem;
+    display: grid;
+    place-items: center;
 }
 
 .footer-logo {
-    height: 30px;
-    margin-left: 15px;
+    width: 3rem;
+    height: 3rem;
 }
 
 /*
@@ -81,5 +86,10 @@
 
     .footer-column {
         width: 33%;
+    }
+
+    #LandingPageFooterSocial {
+        justify-content: start;
+        gap: 20%;
     }
 }
