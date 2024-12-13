@@ -8,35 +8,63 @@ export function Adopt() {
     const petId = useParams().petId
 
     const [isOpen, setIsOpen] = useState(false)
-    const [validLogin, setValidLogin] = useState(false)
+    const [userLogin, setUserLogin] = useState(null)
 
     const checkUserLogin = () => {
-        let USER_LOGIN
-
         try {
             const userLoginData = localStorage.getItem("userLogin")
-        
+
             if (userLoginData) {
                 // Actualmente no estoy verificando que el JWT no haya expirado D:
-                USER_LOGIN = JSON.parse(userLoginData)
-                setValidLogin(true)
+                setUserLogin( JSON.parse(userLoginData) )
+                return true
             } else {
                 // "userLogin" no existe (null o undefined)
-                console.log("No userLogin data found in localStorage.")
-                USER_LOGIN = null // Or handle it differently as per your logic
+                setUserLogin(null) // Or handle it differently as per your logic
+                return false
             }
         } catch (error) {
             console.error("Failed to parse userLogin data:", error)
-            USER_LOGIN = null // Fallback to null or a default value
+            setUserLogin(null) // Fallback to null or a default value
+            return false
         }
     }
 
     useEffect(() => {
-        checkUserLogin()
+        const isUserLoggedIn = checkUserLogin()
 
-        if (!validLogin) navigateTo("/login")
+        if (!isUserLoggedIn) navigateTo("/login")
     }, [])
-    
+
+    const autoCompleteForm = async (userId) => {
+        if (!userLogin) {
+            console.error("No userLogin data available for autoCompleteForm.");
+            return;
+        }
+        
+        try {
+            const response = await fetch(import.meta.env.VITE_AUTH_ADOPTER_URL + userLogin.userId, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${userLogin.tokens.token}` },
+            })
+
+            if (!response.ok) throw new Error(`Fetch failed: ${response.status} ${response.statusText}`)
+
+            const data = await response.json()
+            FORM_REF.current.children[2].children[1].value = data.userDetails.email
+            FORM_REF.current.children[3].children[1].value = data.firstName
+            // FORM_REF.current.children[4].children[1].value = data.lastName
+            FORM_REF.current.children[5].children[1].value = data.address.street
+            FORM_REF.current.children[6].children[1].value = data.address.city
+            FORM_REF.current.children[7].children[1].value = data.address.state
+            FORM_REF.current.children[8].children[1].value = data.address.country
+            FORM_REF.current.children[9].children[1].value = data.phoneNumber
+        } catch (error) {
+            console.error("Error al solicitar información del usuario:", error)
+        }
+    }
+
+    useEffect(() => { if (userLogin) autoCompleteForm(userLogin.userId) }, [userLogin])
 
     const showModal = () => setIsOpen(true)
     const closeModal = () => {
