@@ -1,14 +1,18 @@
 import './PetListContainer.css'
 import { PetList } from '../'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { PetSearchForm } from '../PetSearchForm/PetSearchForm'
 
 export function PetListContainer() {
+    const { pathname } = useLocation()
     const [pets, setPets] = useState()
     const [loading, setLoading] = useState(true)
     const GREETING = "Espera mientras preparamos el listado de mascotas..."
     const ERROR_MESSAGE = "¡UPS! Parece que no hay mascotas para adoptar ahora..."
 
+    useEffect(() => { window.scrollTo(0, 0) }, [ pathname ])
+    
     const handleSearchSubmit = (searchFilters) => { fetchPets(searchFilters) }
 
     const fetchPets = async (searchParams = {}) => {
