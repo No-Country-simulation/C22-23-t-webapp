@@ -6,8 +6,6 @@
     place-items: center;
 
     /* background: url(https://images.dog.ceo/breeds/labrador/n02099712_511.jpg); */
-
-    background-image: url(https://github-production-user-asset-6210df.s3.amazonaws.com/58917248/395448092-00585db8-88a5-478a-8493-c8b46ea88061.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241213T060412Z&X-Amz-Expires=300&X-Amz-Signature=7c4a1861bb8fde52817d5b93986362e6b7d45eb69778c7795b07d6aa202df139&X-Amz-SignedHeaders=host);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
