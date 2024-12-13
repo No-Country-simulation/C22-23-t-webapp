@@ -53,7 +53,7 @@ export function Adopt() {
             const data = await response.json()
             FORM_REF.current.children[2].children[1].value = data.userDetails.email
             FORM_REF.current.children[3].children[1].value = data.firstName
-            // FORM_REF.current.children[4].children[1].value = data.lastName
+            FORM_REF.current.children[4].children[1].value = data.lastName
             FORM_REF.current.children[5].children[1].value = data.address.street
             FORM_REF.current.children[6].children[1].value = data.address.city
             FORM_REF.current.children[7].children[1].value = data.address.state
@@ -161,30 +161,29 @@ export function Adopt() {
 
                 {/* <!-- Campo de nombre completo --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormFullName" className="AdoptFormLabel">Nombre Completo:</label>
+                    <label htmlFor="AdoptFormFirstName" className="AdoptFormLabel">Nombre:</label>
                     <input 
                         type="text" 
-                        id="AdoptFormFullName" 
-                        name="fullName" 
+                        id="AdoptFormFirstName" 
+                        name="firstName" 
                         className="AdoptFormInput" 
                         required 
                         aria-required="true" 
-                        placeholder="Ingrese su nombre completo" 
+                        placeholder="Ingrese su nombre" 
                     />
                 </div>
 
                 {/* <!-- Campo de edad --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormAge" className="AdoptFormLabel">Edad:</label>
+                    <label htmlFor="AdoptFormLastName" className="AdoptFormLabel">Apellido:</label>
                     <input 
-                        type="number" 
-                        id="AdoptFormAge" 
-                        name="age" 
+                        type="text" 
+                        id="AdoptFormLastName" 
+                        name="lastName" 
                         className="AdoptFormInput" 
                         required 
                         aria-required="true" 
-                        min="18" 
-                        placeholder="Ingrese su edad" 
+                        placeholder="Ingrese su apellido" 
                     />
                 </div>
 
