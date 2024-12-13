@@ -28,7 +28,7 @@
     width: 3rem;
 }
 
-#HeaderLogoTitle { color: #2235b8; }
+#HeaderLogoTitle { color: var(--clr-accent); }
 
 #HeaderMenuButton {
     min-height: 3rem;

@@ -23,7 +23,7 @@
 #LandingPageTitle {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--clr-accent);
 }
 
 /* Navigation */
