@@ -22,6 +22,9 @@ https://1drv.ms/w/c/3aa28a9eb8e37418/EcE9g3-RxxtHkTRodXToBaUB3A1V6dnWiNHtwqJcx8Q
 **Casos de prueba.**
 https://1drv.ms/x/c/3aa28a9eb8e37418/EQH7lMVJF31Ik_gpQLSjnjUBqHvGGngmnp5jKQjFTBWRDQ?e=0XcHc0
 
+**Recomendaciones y observaciones**
+https://1drv.ms/w/c/3aa28a9eb8e37418/EX0YblnJDNNPiq46GGBByDEBAMgwJlo0ghuo4FZYtzTb1A?e=evNG65
+
 
 
 
