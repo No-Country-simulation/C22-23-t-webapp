@@ -13,7 +13,7 @@ export function Header() {
         <header id="Header">
             <nav id="HeaderNavbar">
                 <Link to={"/"} id="HeaderLogo">
-                    <img id="HeaderLogoImage" src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
+                    <img id="HeaderLogoImage" src={`${BASENAME}/sh-logo.svg`} alt="Logo de Segundas Huellas" />
 
                     <h1 id="HeaderLogoTitle">SegundasHuellas</h1>
                 </Link>
