@@ -1,3 +1,4 @@
+import './PetSearchFormBreed.css'
 import { useState, useEffect, useRef } from 'react'
 
 export function PetSearchFormBreed({ onInputChange, inputValue, speciesValue }) {

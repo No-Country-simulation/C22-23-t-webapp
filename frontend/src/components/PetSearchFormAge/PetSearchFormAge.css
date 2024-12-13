@@ -1,0 +1,14 @@
+#PetSearchFilterAge {
+    min-height: 3rem;
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    border: 1px solid var(--clr-black);
+    border-radius: 1rem;
+}
+
+#PetSearchFilterAge:focus {
+    border: 1px solid var(--clr-black);
+    outline: 0.1rem solid var(--clr-black);
+}
