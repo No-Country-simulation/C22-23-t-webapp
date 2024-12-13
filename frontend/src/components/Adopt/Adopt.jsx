@@ -143,11 +143,11 @@ export function Adopt() {
         <main id="AdoptFormContainer">
             <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle" ref={FORM_REF} onSubmit={ handleSubmit }>
                 <h2 id="AdoptFormTitle" className="AdoptFormTitle">Formulario de Solicitud de Adopción</h2>
-                <p className="AdoptFormDescription">Por favor, complete la información necesaria para procesar su solicitud.</p>
+                <p className="AdoptFormDescription">Por favor, complete la información necesaria para procesar su solicitud. Notar que los campos con <span>(*)</span> son obligatorios.</p>
 
                 {/* <!-- Campo de email --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormEmail" className="AdoptFormLabel">Correo Electrónico:</label>
+                    <label htmlFor="AdoptFormEmail" className="AdoptFormLabel"><span>(*)</span> Correo Electrónico:</label>
                     <input 
                         type="email" 
                         id="AdoptFormEmail" 
@@ -161,7 +161,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de nombre completo --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormFirstName" className="AdoptFormLabel">Nombre:</label>
+                    <label htmlFor="AdoptFormFirstName" className="AdoptFormLabel"><span>(*)</span> Nombre:</label>
                     <input 
                         type="text" 
                         id="AdoptFormFirstName" 
@@ -175,7 +175,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de edad --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormLastName" className="AdoptFormLabel">Apellido:</label>
+                    <label htmlFor="AdoptFormLastName" className="AdoptFormLabel"><span>(*)</span> Apellido:</label>
                     <input 
                         type="text" 
                         id="AdoptFormLastName" 
@@ -189,7 +189,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de dirección --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormAddress" className="AdoptFormLabel">Dirección de Residencia:</label>
+                    <label htmlFor="AdoptFormAddress" className="AdoptFormLabel"><span>(*)</span> Dirección de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormAddress" 
@@ -203,7 +203,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de ciudad --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormCity" className="AdoptFormLabel">Ciudad de Residencia:</label>
+                    <label htmlFor="AdoptFormCity" className="AdoptFormLabel"><span>(*)</span> Ciudad de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormCity" 
@@ -217,7 +217,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de provincia/estado --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormProvince" className="AdoptFormLabel">Provincia/Estado de Residencia:</label>
+                    <label htmlFor="AdoptFormProvince" className="AdoptFormLabel"><span>(*)</span> Provincia/Estado de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormProvince" 
@@ -231,7 +231,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de país --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormCountry" className="AdoptFormLabel">País de Residencia:</label>
+                    <label htmlFor="AdoptFormCountry" className="AdoptFormLabel"><span>(*)</span> País de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormCountry" 
@@ -245,7 +245,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de teléfono --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormPhone" className="AdoptFormLabel">Teléfono:</label>
+                    <label htmlFor="AdoptFormPhone" className="AdoptFormLabel"><span>(*)</span> Teléfono:</label>
                     <input 
                         type="tel" 
                         id="AdoptFormPhone" 
