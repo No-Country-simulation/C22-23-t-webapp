@@ -1,0 +1,156 @@
+#AdoptFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr-light-gray);
+    padding: 0rem;
+    font-family: inherit;
+}
+
+#AdoptForm {
+    width: 100%;
+    max-width: 85ch;
+    background-color: var(--clr-secondary);
+    border-radius: 3rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.AdoptFormTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--clr-dark-gray);
+    margin-bottom: 1rem;
+}
+
+.AdoptFormDescription {
+    font-size: 1rem;
+    color: var(--clr-dark-gray);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.AdoptFormField { margin-bottom: 1.5rem; }
+
+.AdoptFormLabel {
+    display: block;
+    font-weight: 600;
+    color: var(--clr-dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.AdoptFormDescription > span,
+.AdoptFormLabel > span { color: var(--clr-red); }
+
+.AdoptFormInput {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100%;
+    min-height: 3rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    background-color: white;
+    color: var(--clr-black);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#AdoptFormAge,
+#AdoptFormPhone { width: 100%; }
+
+.AdoptFormInput:focus {
+    border: 1px solid var(--clr-black);
+    outline: solid 0.1rem var(--clr-accent);
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5); /* Usando verde para el foco */
+}
+
+.AdoptFormActions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.AdoptFormButton {
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    min-height: 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.AdoptFormButton:hover {
+    background-color: var(--clr-dark-gray);
+    transform: scale(1.05);
+}
+
+.AdoptFormButton:active {
+    background-color: var(--clr-primary);
+    transform: scale(1);
+}
+
+/* 
+    MARK: MODAL
+*/
+
+#AdoptFormModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.AdoptFormModalContent {
+    background-color: var(--clr-secondary);
+    color: var(--clr-black);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.AdoptFormModalTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.AdoptFormModalDescription {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.AdoptFormModalButton {
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.AdoptFormModalButton:hover { background-color: var(--clr-accent); }
+
+#AdoptFormModal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (min-width: 640px) { #AdoptFormContainer { padding: 2rem; } }

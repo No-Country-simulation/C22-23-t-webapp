@@ -1,0 +1,132 @@
+/* Header */
+#LandingPageHeader {
+    padding: 0.5rem;
+    background-color: var(--clr-secondary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+#LandingPageContainer {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Title (h1) */
+#LandingPageTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clr-accent);
+}
+
+/* Navigation */
+#LandingPageNavList {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    transition: max-height 0.4s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* Show menu when open */
+#LandingPageNavList.open {
+    max-height: 500px; /* Adjust to fit all menu items */
+}
+
+/* Navigation Items */
+.LandingPageNavItem {
+    min-width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+}
+
+.LandingPageNavLink {
+    color: #4b5563; /* Tailwind's text-gray-600 */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.LandingPageNavLink:hover {
+    color: var(--clr-accent); /* Tailwind's hover:text-gray-800 */
+}
+
+/* Logo */
+.header-logo-title {
+    height: 3rem;
+    min-height: 3rem;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.header-logo-title > img {
+    height: 3rem;
+    width: 3rem;
+}
+
+/* Menu Icons (Hamburger and Close) */
+.menu-icons {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.menu-icon,
+.close-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+    MARK: MEDIA QUERY
+*/
+@media (min-width: 640px) { /* Tailwind's sm breakpoint */
+    #LandingPageHeader {
+        min-height: 10svh;
+    }
+
+    #LandingPageContainer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Navigation */
+    #LandingPageNavList {
+        flex-direction: row;
+        max-height: none; /* Ensure it remains visible */
+    }
+
+    .LandingPageNavItem {
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    /* Hide the menu icons in desktop */
+    .menu-icons {
+        display: none;
+    }
+}

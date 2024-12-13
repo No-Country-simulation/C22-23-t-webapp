@@ -1,0 +1,102 @@
+#LandingPageFooterContainer {
+    background-color: var(--clr-dark-gray);
+    color: var(--clr-white);
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+#LandingPageFooterContent {
+    width: 100%;
+    max-width: 60rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+}
+
+.footer-title,
+.footer-subtitle {
+    font-weight: 800;
+}
+
+.footer-text {
+    color: var(--clr-light-gray);
+}
+
+#LandingPageFooterLinks > li,
+#LandingPageFooterSocial > li {
+    list-style: none;
+}
+
+#LandingPageFooterLinks > li > a {
+    display: flex;
+    color: var(--clr-light-gray);
+    text-decoration: none;
+}
+
+#LandingPageFooterLinks > li > a:hover {
+    color: var(--clr-white);
+}
+
+#LandingPageFooterBottom {
+    width: 100%;
+    max-width: 60rem;
+    color: var(--clr-light-gray);
+    display: grid;
+    place-items: center;
+}
+
+.footer-logo-title {
+    display: flex;
+    gap: 10px;
+}
+
+#LandingPageFooterSocial {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 20rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#LandingPageFooterSocial > li > a { 
+    min-width: 3rem;
+    min-height: 3rem;
+    display: grid;
+    place-items: center;
+}
+
+.footer-logo {
+    width: 3rem;
+    height: 3rem;
+}
+
+/*
+    MARK: MEDIA QUERY
+*/
+
+@media (min-width: 640px) { /* Tailwind's sm breakpoint */
+    #LandingPageFooterContent {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .footer-column {
+        width: 33%;
+    }
+
+    #LandingPageFooterSocial {
+        justify-content: start;
+        gap: 20%;
+    }
+}

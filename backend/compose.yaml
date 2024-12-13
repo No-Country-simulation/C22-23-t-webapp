@@ -2,8 +2,20 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - 'POSTGRES_DB=segundas-huellas'
-      - 'POSTGRES_PASSWORD=admin'
-      - 'POSTGRES_USER=admin'
+        - POSTGRES_DB=segundas-huellas
+        - POSTGRES_PASSWORD=admin
+        - POSTGRES_USER=admin
     ports:
-      - '5432'
+      - '5432:5432'
+
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CLOUDINARY_URL=${CLOUDINARY_URL}
+      - DEFAULT_PET_PHOTO=${DEFAULT_PET_PHOTO}

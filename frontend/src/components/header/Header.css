@@ -1,0 +1,111 @@
+#Header {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-primary);
+    box-shadow: 0 2px 5px 0 #00000059;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#HeaderNavbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+#HeaderLogo {
+    height: 3rem;
+    min-height: 3rem;
+    display: flex;
+    gap: 0.25rem;
+}
+
+#HeaderLogo > img {
+    height: 3rem;
+    width: 3rem;
+}
+
+#HeaderLogoTitle { color: var(--clr-accent); }
+
+#HeaderMenuButton {
+    min-height: 3rem;
+    min-width: 3rem;
+    border: none;
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
+    display: grid;
+    place-items: center;
+}
+
+#HeaderMenuButtonIcon {
+    height: 2rem;
+    width: 2rem;
+}
+
+#HeaderUserMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    /* Inicialmente oculto */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; /* Evita que el contenido visible exceda el contenedor */
+    transform: translateY(-10px); /* Pequeño desplazamiento hacia arriba */
+    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+#HeaderUserMenu::before {
+    content: '';
+    display: block;
+    height: 0; /* Acts as top "padding" */
+    transition: height 0.4s ease;
+}
+
+#HeaderUserMenu::after {
+    content: '';
+    display: block;
+    height: 0; /* Acts as bottom "padding" */
+    transition: height 0.4s ease;
+}
+
+#HeaderUserMenu.open {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0); /* Retorna a su posición original */
+}
+
+.HeaderUserMenuItem { list-style: none; }
+
+.HeaderUserMenuLink {
+    text-decoration: none;
+    padding: 0.5rem;
+    border: 1px solid var(--clr-primary);
+    border-radius: 5px;
+    background: var(--clr-secondary);
+    color: var(--clr-black);
+    cursor: pointer;
+}
+
+#HeaderLoginButton {
+    background: var(--clr-accent);
+    color: var(--clr-white);
+}
+
+#HeaderLoginButton:hover,
+#HeaderRegisterButton:hover {
+    background: var(--clr-dark-gray);
+    color: var(--clr-white);
+}
+
+@media (min-width: 640px) {
+    #HeaderSearchContainer {
+        flex-grow: 1;
+        max-width: 60rem;
+    }
+
+    #HeaderSearchInput { font-size: 1.5rem; }
+}

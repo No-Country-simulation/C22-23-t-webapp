@@ -1,0 +1,135 @@
+#PetSearchForm {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#PetSearchBarContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+#PetSearchFilterButton {
+    min-height: 3rem;
+    min-width: 3rem;
+    background: var(--clr-light-gray);
+    color: var(--clr-black);
+    border: none;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+#PetSearchFilterButtonIcon {
+    height: 2rem;
+    width: 2rem;
+}
+
+#PetSearchByName {
+    flex-grow: 1;
+    display: flex;
+    max-width: 60rem;
+}
+
+#PetSearchByNameInput {
+    min-height: 3rem;
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    background-color: var(--clr-secondary);
+    color: var(--clr-primary);
+    border: 1px solid var(--clr-primary);
+    border-right: none;
+    border-radius: 1rem 0 0 1rem;
+}
+
+#PetSearchByNameSubmit {
+    min-height: 3rem;
+    min-width: 3rem;
+    background: var(--clr-secondary);
+    color: var(--clr-primary);
+    border: 1px solid var(--clr-primary);
+    border-left: none;
+    border-radius: 0 1rem 1rem 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+#PetSearchByName:has(:focus) #PetSearchByNameInput,
+#PetSearchByName:has(:focus) #PetSearchByNameSubmit {
+    outline: 0.1rem solid var(--clr-black);
+}
+
+#PetSearchByNameIcon {
+    height: 2rem;
+    width: 2rem;
+}
+
+#PetSearchFilterMenuContainer {
+    padding: 0.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    /* Inicialmente oculto */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; /* Evita que el contenido visible exceda el contenedor */
+    transform: translateY(-10px); /* Pequeño desplazamiento hacia arriba */
+    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+#PetSearchFilterMenuContainer::before {
+    content: '';
+    display: block;
+    height: 0; /* Acts as top "padding" */
+    transition: height 0.4s ease;
+}
+
+#PetSearchFilterMenuContainer::after {
+    content: '';
+    display: block;
+    height: 0; /* Acts as bottom "padding" */
+    transition: height 0.4s ease;
+}
+
+#PetSearchFilterMenuContainer.open {
+    max-height: 20rem;
+    opacity: 1;
+    transform: translateY(0); /* Retorna a su posición original */
+}
+
+#PetSearchFilterMenuLabel {
+    color: var(--clr-black);
+}
+
+.PetSearchFilter {
+    min-height: 3rem;
+    padding: 0.5rem;
+    background-color: var(--clr-light-gray);
+    color: var(--clr-black);
+    border: 0.1rem solid var(--clr-black);
+    border-radius: 1rem;
+}
+
+@media (min-width: 640px) {
+    #PetSearchBarContainer {
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    #PetSearchFilterMenuContainer {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    #PetSearchFilterMenuLabel,
+    .PetSearchFilter {
+        width: calc(calc(100% - 4rem) / 5); /* 3rem gap total entre selects; 4 selects en total */
+        max-width: calc(60rem / 5); /* 4 selects en total */
+    }
+}
