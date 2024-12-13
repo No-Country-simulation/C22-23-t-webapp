@@ -158,7 +158,8 @@ export function Register() {
                 })
 
                 const registerData = await registerResponse.json()
-                localStorage.setItem("token", registerData.tokens.token)
+                // localStorage.setItem("token", registerData.tokens.token)
+                localStorage.setItem("userLogin", JSON.stringify(registerData))
                 
                 const submitMoreData = {
                     firstName: formData.firstName,
