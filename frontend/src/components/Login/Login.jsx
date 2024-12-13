@@ -47,9 +47,9 @@ export function Login() {
             })
 
             if (response.success) {
-                localStorage.setItem("token", response.token)
-                localStorage.setItem("refreshToken", response.refreshToken)
-                localStorage.setItem("expiresAt", response.expiresAt)
+                // localStorage.setItem("token", response.token)
+                // localStorage.setItem("refreshToken", response.refreshToken)
+                // localStorage.setItem("expiresAt", response.expiresAt)
 
                 navigate("/")
                 console.log("Credenciales aprobadas.")
@@ -74,7 +74,7 @@ export function Login() {
             })
 
             const data = await response.json()
-            console.log("Respuesta del backend:", data)
+            localStorage.setItem("userLogin", JSON.stringify(data))
 
             if (response.ok) {
                 return {
