@@ -1,5 +1,5 @@
 #PetSearchForm {
-    margin: 0.5rem;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -117,7 +117,7 @@
     #PetSearchBarContainer {
         justify-content: center;
         gap: 1rem;
-        margin-bottom: 1rem;
+        margin: 1rem 0;
     }
 
     #PetSearchFilterMenuContainer {
