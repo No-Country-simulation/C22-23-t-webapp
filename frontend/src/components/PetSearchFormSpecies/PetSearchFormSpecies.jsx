@@ -1,3 +1,5 @@
+import './PetSearchFormSpecies.css'
+
 export function PetSearchFormSpecies({ onInputChange, inputValue, speciesValue }) {
     const handleInputChange = (event) => {
         speciesValue(event.target.value)

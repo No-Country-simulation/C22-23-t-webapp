@@ -13,9 +13,9 @@ export function Header() {
         <header id="Header">
             <nav id="HeaderNavbar">
                 <Link to={"/"} id="HeaderLogo">
-                    <img id="HeaderLogoImage" src={`${BASENAME}/vite.svg`} alt="Logo de Vite.js" />
+                    <img id="HeaderLogoImage" src={`${BASENAME}/sh-logo.svg`} alt="Logo de Segundas Huellas" />
 
-                    <h1 id="HeaderLogoTitle">SegundasHuellas</h1>
+                    <h1 id="HeaderLogoTitle">Segundas Huellas</h1>
                 </Link>
                 <button id="HeaderMenuButton" onClick={ handleMenuClick }>
                     <img id="HeaderMenuButtonIcon" src={`${BASENAME}/sh-icon-${isMenuOpen ? 'close' : 'account-circle'}.svg`} alt={isMenuOpen ? 'Icono cerrar menú' : 'Icono abrir menú'} />

@@ -1,3 +1,5 @@
+import './PetSearchFormGender.css'
+
 export function PetSearchFormGender({ onInputChange, inputValue }) {
     return (
         <select

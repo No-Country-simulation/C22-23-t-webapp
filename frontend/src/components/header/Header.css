@@ -1,7 +1,7 @@
 #Header {
     width: 100%;
     padding: 0.5rem;
-    background-color: var(--clr-light-gray);
+    background-color: var(--clr-secondary);
     color: var(--clr-primary);
     box-shadow: 0 2px 5px 0 #00000059;
     display: flex;
@@ -28,11 +28,13 @@
     width: 3rem;
 }
 
+#HeaderLogoTitle { color: var(--clr-accent); }
+
 #HeaderMenuButton {
     min-height: 3rem;
     min-width: 3rem;
     border: none;
-    background: var(--clr-light-gray);
+    background: var(--clr-secondary);
     color: var(--clr-primary);
     display: grid;
     place-items: center;

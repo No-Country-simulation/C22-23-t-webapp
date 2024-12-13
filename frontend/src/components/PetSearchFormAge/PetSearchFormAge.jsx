@@ -1,3 +1,5 @@
+import './PetSearchFormAge.css'
+
 export function PetSearchFormAge({ onInputChange, inputValue }) {
     return (
         <select

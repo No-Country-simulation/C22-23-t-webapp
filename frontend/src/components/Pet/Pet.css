@@ -8,7 +8,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+#cardTitleContainer {
+    display: flex;
+    align-items: center;
     gap: 1rem;
+}
+
+#cardTitleContainer > img {
+    height: 3rem;
+    width: 3rem;
 }
 
 .image-pet {
@@ -20,13 +30,13 @@
 }
 
 .text-container {
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
 }
 
 .title-pet {
     font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .btn-pet {

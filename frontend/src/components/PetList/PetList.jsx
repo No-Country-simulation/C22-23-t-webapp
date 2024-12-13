@@ -13,6 +13,7 @@ export function PetList({ pets }) {
                                     species={pet.species}
                                     gender={pet.gender}
                                     location={pet.location}
+                                    size={pet.size}
                                     status={pet.status}
                                 />)}
         </ul>
