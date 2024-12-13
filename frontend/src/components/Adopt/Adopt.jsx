@@ -11,12 +11,46 @@ export function Adopt() {
     const [isOpen, setIsOpen] = useState(false)
     const [userLogin, setUserLogin] = useState(null)
     
+    function isDateExpired(expirationDate) {
+        const now = new Date()
+        const expiration = new Date(expirationDate)
+      
+        return now > expiration
+    }
+
+    const refreshToken = async (userTokens) => {
+        try {
+            console.log(userTokens)
+
+            const response = await fetch(import.meta.env.VITE_AUTH_REFRESH_URL, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${userTokens.tokens.refreshToken}` },
+            })
+
+            if (!response.ok) throw new Error(`Fetch failed: ${response.status} ${response.statusText}`)
+
+            const data = await response.json()
+
+            userTokens.tokens = data
+
+            localStorage.setItem("userLogin", JSON.stringify(userTokens))
+        } catch (error) {
+            console.error("Error al solicitar información del usuario:", error)
+        }
+    }
+
     const checkUserLogin = () => {
         try {
             const userLoginData = localStorage.getItem("userLogin")
-            
+
             if (userLoginData) {
-                // Actualmente no estoy verificando que el JWT no haya expirado D:
+                const isExpired = isDateExpired(JSON.parse(userLoginData).tokens.expiresAt)
+
+                if (isExpired) {
+                    refreshToken(JSON.parse(userLoginData))
+                    return true
+                }
+
                 setUserLogin( JSON.parse(userLoginData) )
                 return true
             } else {
