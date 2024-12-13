@@ -1,6 +1,11 @@
 import './Contact.css'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 export function Contact() {
+    const { pathname } = useLocation()
+    useEffect(() => { window.scrollTo(0, 0) }, [ pathname ])
+
     return (
         <main id="ContactContainer" aria-labelledby="contact-title">
             <div className="ContactFormSection" id="ContactTitleContainer">
