@@ -1,21 +1,56 @@
 import './Adopt.css'
 import { useEffect, useRef, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router-dom'
 
 export function Adopt() {
+    const { pathname } = useLocation()
     const navigateTo = useNavigate()
     const FORM_REF = useRef(null)
     const petId = useParams().petId
-
+    
     const [isOpen, setIsOpen] = useState(false)
     const [userLogin, setUserLogin] = useState(null)
+    
+    function isDateExpired(expirationDate) {
+        const now = new Date()
+        const expiration = new Date(expirationDate)
+      
+        return now > expiration
+    }
+
+    const refreshToken = async (userTokens) => {
+        try {
+            console.log(userTokens)
+
+            const response = await fetch(import.meta.env.VITE_AUTH_REFRESH_URL, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${userTokens.tokens.refreshToken}` },
+            })
+
+            if (!response.ok) throw new Error(`Fetch failed: ${response.status} ${response.statusText}`)
+
+            const data = await response.json()
+
+            userTokens.tokens = data
+
+            localStorage.setItem("userLogin", JSON.stringify(userTokens))
+        } catch (error) {
+            console.error("Error al solicitar información del usuario:", error)
+        }
+    }
 
     const checkUserLogin = () => {
         try {
             const userLoginData = localStorage.getItem("userLogin")
 
             if (userLoginData) {
-                // Actualmente no estoy verificando que el JWT no haya expirado D:
+                const isExpired = isDateExpired(JSON.parse(userLoginData).tokens.expiresAt)
+
+                if (isExpired) {
+                    refreshToken(JSON.parse(userLoginData))
+                    return true
+                }
+
                 setUserLogin( JSON.parse(userLoginData) )
                 return true
             } else {
@@ -29,12 +64,14 @@ export function Adopt() {
             return false
         }
     }
-
+    
     useEffect(() => {
         const isUserLoggedIn = checkUserLogin()
-
+        
         if (!isUserLoggedIn) navigateTo("/login")
     }, [])
+    
+    useEffect(() => { window.scrollTo(0, 0) }, [ pathname ])
 
     const autoCompleteForm = async (userId) => {
         if (!userLogin) {
@@ -53,7 +90,7 @@ export function Adopt() {
             const data = await response.json()
             FORM_REF.current.children[2].children[1].value = data.userDetails.email
             FORM_REF.current.children[3].children[1].value = data.firstName
-            // FORM_REF.current.children[4].children[1].value = data.lastName
+            FORM_REF.current.children[4].children[1].value = data.lastName
             FORM_REF.current.children[5].children[1].value = data.address.street
             FORM_REF.current.children[6].children[1].value = data.address.city
             FORM_REF.current.children[7].children[1].value = data.address.state
@@ -112,26 +149,28 @@ export function Adopt() {
         event.preventDefault()
 
         const EMAIL = FORM_REF.current.children[2].children[1].value
-        const NAME = FORM_REF.current.children[3].children[1].value
-        const AGE = FORM_REF.current.children[4].children[1].value
+        const FIRST_NAME = FORM_REF.current.children[3].children[1].value
+        const LAST_NAME = FORM_REF.current.children[4].children[1].value
         const ADDRESS = FORM_REF.current.children[5].children[1].value
         const CITY = FORM_REF.current.children[6].children[1].value
         const STATE = FORM_REF.current.children[7].children[1].value
         const COUNTRY = FORM_REF.current.children[8].children[1].value
         const PHONE = FORM_REF.current.children[9].children[1].value
 
-        if (validateForm(EMAIL, PHONE) === false) return
+        // if (validateForm(EMAIL, PHONE) === false) return
 
         const PAYLOAD = {
             petid: petId,
             email: EMAIL,
-            name: NAME,
-            age: AGE,
-            address: ADDRESS,
-            city: CITY,
-            state: STATE,
-            country: COUNTRY,
-            phone: PHONE,
+            firstName: FIRST_NAME,
+            lastName: LAST_NAME,
+            address: {
+                street: ADDRESS,
+                city: CITY,
+                state: STATE,
+                country: COUNTRY,
+            },
+            phoneNumber: PHONE,
         }
 
         console.log(PAYLOAD) // Acá va el fetch o lo que corresponda.
@@ -143,11 +182,11 @@ export function Adopt() {
         <main id="AdoptFormContainer">
             <form id="AdoptForm" className="AdoptForm" aria-labelledby="AdoptFormTitle" ref={FORM_REF} onSubmit={ handleSubmit }>
                 <h2 id="AdoptFormTitle" className="AdoptFormTitle">Formulario de Solicitud de Adopción</h2>
-                <p className="AdoptFormDescription">Por favor, complete la información necesaria para procesar su solicitud.</p>
+                <p className="AdoptFormDescription">Por favor, complete la información necesaria para procesar su solicitud. Notar que los campos con <span>(*)</span> son obligatorios.</p>
 
                 {/* <!-- Campo de email --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormEmail" className="AdoptFormLabel">Correo Electrónico:</label>
+                    <label htmlFor="AdoptFormEmail" className="AdoptFormLabel"><span>(*)</span> Correo Electrónico:</label>
                     <input 
                         type="email" 
                         id="AdoptFormEmail" 
@@ -161,36 +200,35 @@ export function Adopt() {
 
                 {/* <!-- Campo de nombre completo --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormFullName" className="AdoptFormLabel">Nombre Completo:</label>
+                    <label htmlFor="AdoptFormFirstName" className="AdoptFormLabel"><span>(*)</span> Nombre:</label>
                     <input 
                         type="text" 
-                        id="AdoptFormFullName" 
-                        name="fullName" 
+                        id="AdoptFormFirstName" 
+                        name="firstName" 
                         className="AdoptFormInput" 
                         required 
                         aria-required="true" 
-                        placeholder="Ingrese su nombre completo" 
+                        placeholder="Ingrese su nombre" 
                     />
                 </div>
 
                 {/* <!-- Campo de edad --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormAge" className="AdoptFormLabel">Edad:</label>
+                    <label htmlFor="AdoptFormLastName" className="AdoptFormLabel"><span>(*)</span> Apellido:</label>
                     <input 
-                        type="number" 
-                        id="AdoptFormAge" 
-                        name="age" 
+                        type="text" 
+                        id="AdoptFormLastName" 
+                        name="lastName" 
                         className="AdoptFormInput" 
                         required 
                         aria-required="true" 
-                        min="18" 
-                        placeholder="Ingrese su edad" 
+                        placeholder="Ingrese su apellido" 
                     />
                 </div>
 
                 {/* <!-- Campo de dirección --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormAddress" className="AdoptFormLabel">Dirección de Residencia:</label>
+                    <label htmlFor="AdoptFormAddress" className="AdoptFormLabel"><span>(*)</span> Dirección de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormAddress" 
@@ -204,7 +242,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de ciudad --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormCity" className="AdoptFormLabel">Ciudad de Residencia:</label>
+                    <label htmlFor="AdoptFormCity" className="AdoptFormLabel"><span>(*)</span> Ciudad de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormCity" 
@@ -218,7 +256,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de provincia/estado --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormProvince" className="AdoptFormLabel">Provincia/Estado de Residencia:</label>
+                    <label htmlFor="AdoptFormProvince" className="AdoptFormLabel"><span>(*)</span> Provincia/Estado de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormProvince" 
@@ -232,7 +270,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de país --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormCountry" className="AdoptFormLabel">País de Residencia:</label>
+                    <label htmlFor="AdoptFormCountry" className="AdoptFormLabel"><span>(*)</span> País de Residencia:</label>
                     <input 
                         type="text" 
                         id="AdoptFormCountry" 
@@ -246,7 +284,7 @@ export function Adopt() {
 
                 {/* <!-- Campo de teléfono --> */}
                 <div className="AdoptFormField">
-                    <label htmlFor="AdoptFormPhone" className="AdoptFormLabel">Teléfono:</label>
+                    <label htmlFor="AdoptFormPhone" className="AdoptFormLabel"><span>(*)</span> Teléfono:</label>
                     <input 
                         type="tel" 
                         id="AdoptFormPhone" 

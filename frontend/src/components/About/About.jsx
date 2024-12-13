@@ -1,7 +1,11 @@
 import './About.css'
-import { Link } from 'react-router-dom' 
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 export function About() {
+    const { pathname } = useLocation()
+    useEffect(() => { window.scrollTo(0, 0) }, [ pathname ])
+
     return (
         <main id="AboutContainer">
             <h2 id="AboutTitle">Acerca de Segundas Huellas</h2>
