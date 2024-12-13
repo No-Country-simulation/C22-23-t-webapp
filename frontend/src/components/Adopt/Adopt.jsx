@@ -112,26 +112,28 @@ export function Adopt() {
         event.preventDefault()
 
         const EMAIL = FORM_REF.current.children[2].children[1].value
-        const NAME = FORM_REF.current.children[3].children[1].value
-        const AGE = FORM_REF.current.children[4].children[1].value
+        const FIRST_NAME = FORM_REF.current.children[3].children[1].value
+        const LAST_NAME = FORM_REF.current.children[4].children[1].value
         const ADDRESS = FORM_REF.current.children[5].children[1].value
         const CITY = FORM_REF.current.children[6].children[1].value
         const STATE = FORM_REF.current.children[7].children[1].value
         const COUNTRY = FORM_REF.current.children[8].children[1].value
         const PHONE = FORM_REF.current.children[9].children[1].value
 
-        if (validateForm(EMAIL, PHONE) === false) return
+        // if (validateForm(EMAIL, PHONE) === false) return
 
         const PAYLOAD = {
             petid: petId,
             email: EMAIL,
-            name: NAME,
-            age: AGE,
-            address: ADDRESS,
-            city: CITY,
-            state: STATE,
-            country: COUNTRY,
-            phone: PHONE,
+            firstName: FIRST_NAME,
+            lastName: LAST_NAME,
+            address: {
+                street: ADDRESS,
+                city: CITY,
+                state: STATE,
+                country: COUNTRY,
+            },
+            phoneNumber: PHONE,
         }
 
         console.log(PAYLOAD) // Acá va el fetch o lo que corresponda.
