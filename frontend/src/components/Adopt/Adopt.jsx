@@ -1,19 +1,20 @@
 import './Adopt.css'
 import { useEffect, useRef, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router-dom'
 
 export function Adopt() {
+    const { pathname } = useLocation()
     const navigateTo = useNavigate()
     const FORM_REF = useRef(null)
     const petId = useParams().petId
-
+    
     const [isOpen, setIsOpen] = useState(false)
     const [userLogin, setUserLogin] = useState(null)
-
+    
     const checkUserLogin = () => {
         try {
             const userLoginData = localStorage.getItem("userLogin")
-
+            
             if (userLoginData) {
                 // Actualmente no estoy verificando que el JWT no haya expirado D:
                 setUserLogin( JSON.parse(userLoginData) )
@@ -29,12 +30,14 @@ export function Adopt() {
             return false
         }
     }
-
+    
     useEffect(() => {
         const isUserLoggedIn = checkUserLogin()
-
+        
         if (!isUserLoggedIn) navigateTo("/login")
     }, [])
+    
+    useEffect(() => { window.scrollTo(0, 0) }, [ pathname ])
 
     const autoCompleteForm = async (userId) => {
         if (!userLogin) {
