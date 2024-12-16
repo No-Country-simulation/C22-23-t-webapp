@@ -1,6 +1,3 @@
-# C22-23-t-webapp
-NoCountry | Web App | Cohorte 22
-
 # equipo-c22-23-t-webapp
 
 ## Proyecto: **SegundasHuellas**
@@ -48,4 +45,3 @@ En el repositorio, encontrarás toda la documentación técnica, la estructura d
 
 ### Nota Final
 Este proyecto fue desarrollado por un equipo multidisciplinario comprometido con la mejora de las condiciones de las mascotas en situación de calle. Cada integrante ha aportado sus habilidades y experiencia para materializar una solución eficiente y amigable, centrada en el usuario.
-
