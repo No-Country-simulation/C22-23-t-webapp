@@ -1,6 +1,6 @@
 package com.SegundasHuellas.backend.petProviders.internal.infra.web;
 
-import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailsResponse;
+import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderUpdateRequest;
@@ -35,7 +35,7 @@ public interface PetProviderAuthApi {
                     description = "Pet provider successfully registered",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = PetProviderDetailsResponse.class)
+                            schema = @Schema(implementation = PetProviderDetailResponse.class)
                     )
             ),
             @ApiResponse(
@@ -50,7 +50,7 @@ public interface PetProviderAuthApi {
             )
     })
     @PostMapping("/register")
-    public PetProviderDetailsResponse register (@RequestBody @Valid PetProviderRegistrationRequest request);
+    public PetProviderDetailResponse register (@RequestBody @Valid PetProviderRegistrationRequest request);
 
 
     @Operation(
@@ -63,7 +63,7 @@ public interface PetProviderAuthApi {
                     description = "Pet provider details retrieved successfully",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = PetProviderDetailsResponse.class)
+                            schema = @Schema(implementation = PetProviderDetailResponse.class)
                     )
             ),
             @ApiResponse(
@@ -73,7 +73,7 @@ public interface PetProviderAuthApi {
             )
     })
     @GetMapping("/{userId}")
-    public PetProviderDetailsResponse getPetProviderDetails(Long id);
+    public PetProviderDetailResponse getPetProviderDetails(Long id);
 
 
     @Operation(

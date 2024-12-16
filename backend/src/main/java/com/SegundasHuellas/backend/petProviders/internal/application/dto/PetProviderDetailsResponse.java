@@ -9,7 +9,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record PetProviderDetailResponse(
+public record PetProviderDetailsResponse(
         Long id,
         String name,
         String phoneNumber,
@@ -21,8 +21,8 @@ public record PetProviderDetailResponse(
         int profileCompletionScore,
         UserDetailsResponse userDetails
 ) {
-    public PetProviderDetailResponse withUserDetails(UserDetailsResponse userDetails) {
-        return PetProviderDetailResponse.builder()
+    public PetProviderDetailsResponse withUserDetails(UserDetailsResponse userDetails) {
+        return PetProviderDetailsResponse.builder()
                 .id(id)
                 .name(name)
                 .phoneNumber(phoneNumber)
@@ -36,8 +36,8 @@ public record PetProviderDetailResponse(
                 .build();
     }
 
-    public static PetProviderDetailResponse from(PetProvider petProvider) {
-        return PetProviderDetailResponse.builder()
+    public static PetProviderDetailsResponse from(PetProvider petProvider) {
+        return PetProviderDetailsResponse.builder()
                 .id(petProvider.getId())
                 .name(petProvider.getName())
                 .phoneNumber(petProvider.getPhoneNumber())

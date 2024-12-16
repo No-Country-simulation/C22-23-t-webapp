@@ -2,7 +2,7 @@ package com.SegundasHuellas.backend.petProviders.internal.application.service.im
 
 import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
-import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
+import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailsResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderUpdateRequest;
@@ -88,7 +88,7 @@ public class PetProviderServiceImpl implements PetProviderService {
      * @throws DomainException if the pet provider is not found
      */
     @Override
-    public PetProviderDetailResponse getPetProviderDetails(Long userId) {
+    public PetProviderDetailsResponse getPetProviderDetails(Long userId) {
         // Retrieve the user details
         var userDetails = registrationService.getUserDetails(userId);
 
@@ -97,7 +97,7 @@ public class PetProviderServiceImpl implements PetProviderService {
                 .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, userId.toString()));
 
         // Return the pet provider details response
-        return PetProviderDetailResponse
+        return PetProviderDetailsResponse
                 .from(petProviderDetails)
                 .withUserDetails(userDetails);
     }

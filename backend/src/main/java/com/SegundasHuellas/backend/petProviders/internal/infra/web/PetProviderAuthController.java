@@ -2,7 +2,7 @@ package com.SegundasHuellas.backend.petProviders.internal.infra.web;
 
 
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
-import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
+import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailsResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderUpdateRequest;
@@ -51,7 +51,7 @@ public class PetProviderAuthController {
      * @return the pet provider details response
      */
     @GetMapping("/{userId}")
-    public PetProviderDetailResponse getPetProviderDetails(@PathVariable(name = "userId") Long userId) {
+    public PetProviderDetailsResponse getPetProviderDetails(@PathVariable(name = "userId") Long userId) {
         return registrationService.getPetProviderDetails(userId);
     }
 
