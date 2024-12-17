@@ -1,5 +1,5 @@
 # Environment variables
-src/main/resources/.env
+.env
 *.env
 !.env.example
 
