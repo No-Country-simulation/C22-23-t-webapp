@@ -8,7 +8,7 @@ NoCountry | equipo-c22-23-t-webapp
 **SegundasHuellas** es una iniciativa que busca promover la adopción de mascotas en situación de calle a través de una plataforma web y móvil responsiva. Este proyecto combina diseño, funcionalidad y tecnología para brindar una experiencia intuitiva y accesible, facilitando el contacto entre quienes buscan dar un hogar a estas mascotas y las organizaciones encargadas de su cuidado.
 
 > [!NOTE]
-> Para configurar y ejecutar este proyecto en tu entorno local, sigue las instrucciones detalladas en la documentación específica del [backend](https://github.com/No-Country-simulation/C22-23-t-webapp/blob/main/backend/README.md) y del [frontend](https://github.com/No-Country-simulation/C22-23-t-webapp/blob/main/frontend/README.md).
+> Para configurar y ejecutar este proyecto en tu entorno local, sigue las instrucciones detalladas en la documentación específica del [backend](https://github.com/No-Country-simulation/C22-23-t-webapp/tree/main/backend) y del [frontend](https://github.com/No-Country-simulation/C22-23-t-webapp/tree/main/frontend).
 
 ---
 
