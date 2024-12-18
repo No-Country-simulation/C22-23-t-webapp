@@ -1,7 +1,7 @@
 # Segundas Huellas | Frontend | Guía para instalación local
 
 > [!NOTE]
-> Para poder hacer uso de la totalidad de funcionalidades de este frontend, es necesario tener instalado y corriendo el [proyecto backend de Segundas Huellas](https://github.com/No-Country-simulation/C22-23-t-webapp/tree/main/backend)._
+> Para poder hacer uso de la totalidad de funcionalidades de este frontend, es necesario tener instalado y corriendo el [proyecto backend de Segundas Huellas](https://github.com/No-Country-simulation/C22-23-t-webapp/tree/main/backend)
 
 <details>
   <summary>Instalación usando git clone 🔧</summary>
