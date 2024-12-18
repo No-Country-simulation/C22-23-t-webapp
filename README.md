@@ -65,5 +65,17 @@ En este proyecto, el equipo adquirió experiencia en las siguientes áreas:
 
 ---
 
+## Librerias:
+
+Para que el proyecto se logre realizar de una manera esperada se utlizaron las siguientes herramientas:
+
+📚 Dotenv (`npm install dotenv`)
+
+📚 React-dom (Incluido en la creación del proyeto con Vite)
+
+📚 React Router (`npm install react-router-dom`)
+
+---
+
 ### Nota Final
 Este proyecto fue desarrollado por un equipo multidisciplinario comprometido con la mejora de las condiciones de las mascotas en situación de calle. Cada integrante ha aportado sus habilidades y experiencia para materializar una solución eficiente y amigable, centrada en el usuario.
