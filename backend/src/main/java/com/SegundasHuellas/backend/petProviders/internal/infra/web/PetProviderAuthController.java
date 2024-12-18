@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/auth/pet-provider")
 @RequiredArgsConstructor
-public class PetProviderAuthController {
+public class PetProviderAuthController implements PetProviderAuthApi{
 
     private final PetProviderService registrationService;
 
@@ -28,6 +28,7 @@ public class PetProviderAuthController {
      * @param request the registration request
      * @return the authentication response
      */
+    @Override
     @PostMapping("/register")
     public AuthenticationResponse registerPetProvider(@RequestBody @Valid PetProviderRegistrationRequest request) {
         return registrationService.registerPetProvider(request);

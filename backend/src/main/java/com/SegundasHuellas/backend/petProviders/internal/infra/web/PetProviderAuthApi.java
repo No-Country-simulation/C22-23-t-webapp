@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.petProviders.internal.infra.web;
 
+import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailsResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
@@ -50,7 +51,7 @@ public interface PetProviderAuthApi {
             )
     })
     @PostMapping("/register")
-    public PetProviderDetailsResponse register (@RequestBody @Valid PetProviderRegistrationRequest request);
+    public AuthenticationResponse registerPetProvider (@RequestBody @Valid PetProviderRegistrationRequest request);
 
 
     @Operation(
