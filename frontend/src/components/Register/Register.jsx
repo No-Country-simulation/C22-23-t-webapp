@@ -222,7 +222,7 @@ export function Register() {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="Correo Electrónico"
+                        placeholder="hola@SegundasHuellas.com"
                     />
                     {errors.email && <span className="error">{errors.email}</span>}
                     </div>
@@ -234,7 +234,7 @@ export function Register() {
                         name="confirmEmail"
                         value={formData.confirmEmail}
                         onChange={handleInputChange}
-                        placeholder="Confirmar Correo Electrónico"
+                        placeholder="hola@SegundasHuellas.com"
                     />
                     {errors.confirmEmail && <span className="error">{errors.confirmEmail}</span>}
                     </div>
@@ -246,7 +246,7 @@ export function Register() {
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        placeholder="Contraseña"
+                        placeholder="Al menos 8 caracteres, con una minúscula, una mayúscula y un caracter especial"
                     />
                     {errors.password && (
                         <span className="error">{errors.password}</span>
@@ -260,7 +260,7 @@ export function Register() {
                         name="passwordConfirmation"
                         value={formData.passwordConfirmation}
                         onChange={handleInputChange}
-                        placeholder="Confirmar Contraseña"
+                        placeholder="Al menos 8 caracteres, con una minúscula, una mayúscula y un caracter especial"
                     />
                     {errors.passwordConfirmation && (
                         <span className="error">{errors.passwordConfirmation}</span>
@@ -379,7 +379,7 @@ export function Register() {
                             name="firstName"
                             value={formData.firstName}
                             onChange={handleInputChange}
-                            placeholder="Primer nombre"
+                            placeholder="Segundas"
                             className="optional-input-checks"
                         />
                         {errors.firstName && (
@@ -394,7 +394,7 @@ export function Register() {
                             name="lastName"
                             value={formData.lastName}
                             onChange={handleInputChange}
-                            placeholder="Segundo nombre"
+                            placeholder="Huellas"
                             className="optional-input-checks"
                         />
                         {errors.lastName && (
@@ -421,7 +421,7 @@ export function Register() {
                             name="street"
                             value={formData.street}
                             onChange={handleInputChange}
-                            placeholder="Dirección donde vives"
+                            placeholder="Remedios de Escalada 123"
                             className="optional-input-checks"
                         />
                         {errors.street && (
@@ -436,7 +436,7 @@ export function Register() {
                             name="city"
                             value={formData.city}
                             onChange={handleInputChange}
-                            placeholder="Ciudad donde vives"
+                            placeholder="La Plata"
                             className="optional-input-checks"
                         />
                         {errors.city && <span className="error">{errors.city}</span>}
@@ -449,7 +449,7 @@ export function Register() {
                             name="state"
                             value={formData.state}
                             onChange={handleInputChange}
-                            placeholder="Provincia donde vives"
+                            placeholder="Buenos Aires"
                             className="optional-input-checks"
                         />
                         {errors.state && (
@@ -464,7 +464,7 @@ export function Register() {
                             name="country"
                             value={formData.country}
                             onChange={handleInputChange}
-                            placeholder="País donde vives"
+                            placeholder="Argentina"
                             className="optional-input-checks"
                         />
                         {errors.country && (
@@ -480,7 +480,7 @@ export function Register() {
                             name="phoneNumber"
                             value={formData.phoneNumber}
                             onChange={handleInputChange}
-                            placeholder="Teléfono de contacto"
+                            placeholder="+54 9 11 1234-5678"
                             className="optional-input-checks"
                         />
                         {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
