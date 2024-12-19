@@ -195,7 +195,6 @@ export function Register() {
                 navigate("/search")
             } catch (error) {
                 console.error("Error en el registro o actualización", error)
-                alert("Hubo un error. Intenta nuevamente.")
             } finally {
                 setLoading(false)
             }
@@ -215,6 +214,7 @@ export function Register() {
                     className="register-form"
                 >
                     <h2>Registro de nuevos usuarios</h2>
+                    <h4><span>(*)</span>: obligatorios</h4>
                     <div className="input-group">
                     <label htmlFor="RegisterFormEmail" className="RegisterFormLabel"><span>(*)</span> Correo Electrónico:</label>
                     <input
@@ -246,7 +246,7 @@ export function Register() {
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        placeholder="Al menos 8 caracteres, con una minúscula, una mayúscula y un caracter especial"
+                        placeholder="Al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial"
                     />
                     {errors.password && (
                         <span className="error">{errors.password}</span>
@@ -260,7 +260,7 @@ export function Register() {
                         name="passwordConfirmation"
                         value={formData.passwordConfirmation}
                         onChange={handleInputChange}
-                        placeholder="Al menos 8 caracteres, con una minúscula, una mayúscula y un caracter especial"
+                        placeholder="Al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial"
                     />
                     {errors.passwordConfirmation && (
                         <span className="error">{errors.passwordConfirmation}</span>
@@ -373,7 +373,7 @@ export function Register() {
                     {formData.userType === "adoptante" && (
                     <>
                         <div className="input-group">
-                        <label htmlFor="RegisterFormFirstName" className="RegisterFormLabel">Nombre:</label>
+                        <label htmlFor="RegisterFormFirstName" className="RegisterFormLabel"><span>(*)</span> Nombre:</label>
                         <input
                             type="text"
                             name="firstName"
@@ -388,7 +388,7 @@ export function Register() {
                         </div>
 
                         <div className="input-group">
-                        <label htmlFor="RegisterFormLastName" className="RegisterFormLabel">Apellido:</label>
+                        <label htmlFor="RegisterFormLastName" className="RegisterFormLabel"><span>(*)</span> Apellido:</label>
                         <input
                             type="text"
                             name="lastName"
