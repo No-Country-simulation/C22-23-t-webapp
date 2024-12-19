@@ -141,6 +141,12 @@ export function Register() {
         MARK: handleSubmit
     */
 
+    // ERROR MODAL
+    const [isOpen, setIsOpen] = useState(false)
+
+    const showModal = () => setIsOpen(true)
+    const closeModal = () => setIsOpen(false)
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -164,8 +170,10 @@ export function Register() {
                     body: JSON.stringify(submitData),
                 })
 
+                if ( registerResponse.status === 409 ) { showModal() }
+
                 const registerData = await registerResponse.json()
-                // localStorage.setItem("token", registerData.tokens.token)
+
                 localStorage.setItem("userLogin", JSON.stringify(registerData))
                 
                 const submitMoreData = {
@@ -191,7 +199,6 @@ export function Register() {
                 console.log(data.status)
 
                 // TO-DO: AVISAR AL USUARIO QUE SE REGISTRÓ EXITOSAMENTE
-                // alert("Registro completado con éxito")
                 navigate("/search")
             } catch (error) {
                 console.error("Error en el registro o actualización", error)
@@ -599,6 +606,19 @@ export function Register() {
                 alt="Imagen de la mascota en Registro"
             />
             </figure>
+            <div
+                id="RegisterFormModal"
+                className={`RegisterFormModal ${isOpen ? 'active' : ''}`}
+                role="dialog"
+                aria-labelledby="RegisterFormModalTitle"
+                aria-describedby="RegisterFormModalDescription"
+            >
+                <div className="RegisterFormModalContent">
+                <h2 id="RegisterFormModalTitle" className="RegisterFormModalTitle">¡UPS! Hubo un error</h2>
+                <p id="RegisterFormModalDescription" className="RegisterFormModalDescription">El correo electrónico ingresado ya está asociada a una cuenta. Intenta con uno nuevo o si ya tienes una cuenta considera recuperarla.</p>
+                <button id="RegisterFormModalButton" className="RegisterFormModalButton" type="button" onClick={ closeModal }>Cerrar</button>
+                </div>
+            </div>
         </main>
     )
 }
