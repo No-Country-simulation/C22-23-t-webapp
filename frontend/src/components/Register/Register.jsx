@@ -94,6 +94,10 @@ export function Register() {
         }))
     }
 
+    /*
+        MARK: validateForm
+    */
+    
     const validateForm = () => {
         const newErrors = {}
 
@@ -133,6 +137,9 @@ export function Register() {
         return Object.keys(newErrors).length === 0
     }
 
+    /*
+        MARK: handleSubmit
+    */
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -194,6 +201,10 @@ export function Register() {
             }
         }
     }
+
+    /*
+        MARK: RETURN
+    */
 
     return (
         <main className="container-register">
@@ -271,6 +282,10 @@ export function Register() {
                     </div>
                     </div>
 
+                    {/* 
+                        MARK: REFUGIO
+                    */}
+
                     {/* Si el tipo de usuario es "refugio" */}
                     {formData.userType === "refugio" && (
                     <>
@@ -345,6 +360,10 @@ export function Register() {
                         </div>
                     </>
                     )}
+
+                    {/* 
+                        MARK: ADOPTANTE
+                    */}
 
                     {/* Si el tipo de usuario es "adoptante" */}
                     {formData.userType === "adoptante" && (
@@ -456,6 +475,10 @@ export function Register() {
                         </div>
                     </>
                     )}
+
+                    {/* 
+                        MARK: RESCATISTA
+                    */}
 
                     {/* Si el tipo de usuario es "rescatista" */}
                     {formData.userType === "rescatista" && (
