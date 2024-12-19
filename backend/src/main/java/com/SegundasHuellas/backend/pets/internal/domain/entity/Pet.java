@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
+import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;
@@ -77,6 +78,9 @@ public class Pet extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "size")
     private Size size;
+
+    @OneToMany(mappedBy = "pet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AdoptionRequest> adoptionRequests;
 
     /*
      🔨 Movemos la Species a la entidad Breed. De esta manera nos aseguramos que siempre que se cree una raza,

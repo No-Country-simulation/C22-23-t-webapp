@@ -2,6 +2,7 @@ package com.SegundasHuellas.backend.adopters.internal.domain.entity;
 
 import com.SegundasHuellas.backend.adopters.internal.domain.enums.AdopterStatus;
 import com.SegundasHuellas.backend.adopters.internal.domain.vo.PetPreference;
+import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.domain.vo.Image;
@@ -12,6 +13,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_STATE;
@@ -65,6 +67,9 @@ public class Adopter extends BaseEntity {
     )
     @Column(name = "adoption_application_id")
     private Set<Long> activeAdoptionApplicationIds = new HashSet<>();
+
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
+    private List<AdoptionRequest> adoptionRequests;
 
     public void addAdoptionApplication(Long applicationId) {
 

@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.petProviders.internal.domain.entity;
 
+import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderStatus;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderType;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
@@ -9,7 +10,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -73,6 +76,9 @@ public class PetProvider extends BaseEntity {
 
     @Column(name = "user_id")
     private Long userId;
+
+    @OneToMany(mappedBy = "petProvider", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<AdoptionRequest> adoptionRequests = new ArrayList<>();
 
     public void addPet(Long petId) {
         pets.add(petId);
