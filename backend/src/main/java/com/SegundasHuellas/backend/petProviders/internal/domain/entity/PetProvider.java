@@ -1,6 +1,5 @@
 package com.SegundasHuellas.backend.petProviders.internal.domain.entity;
 
-import com.SegundasHuellas.backend.auth.internal.domain.entity.User;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderStatus;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderType;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
@@ -72,9 +71,8 @@ public class PetProvider extends BaseEntity {
     @Column(name = "adoption_application_id")
     private Set<Long> adoptionApplications = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id")
+    private Long userId;
 
     public void addPet(Long petId) {
         pets.add(petId);

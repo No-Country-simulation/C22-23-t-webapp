@@ -2,7 +2,7 @@ package com.SegundasHuellas.backend.petProviders.internal.application.service.im
 
 import com.SegundasHuellas.backend.auth.api.RegistrationService;
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
-import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
+import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailsResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderUpdateRequest;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.SegundasHuellas.backend.shared.domain.utils.UpdateUtils.updateIfPresent;
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.INVALID_DATA;
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 
 
@@ -28,30 +29,40 @@ import static com.SegundasHuellas.backend.shared.exception.DomainException.Error
 @RequiredArgsConstructor
 public class PetProviderServiceImpl implements PetProviderService {
 
-    private final PetProvidersRepository  petProviderRepository;
+    private final PetProvidersRepository petProviderRepository;
 
     private final RegistrationService registrationService;
 
     /**
      * Registers a new pet provider.
+     * <p>
+     * This method registers a new pet provider. It delegates the user registration to the
+     * {@link RegistrationService} and creates a new pet provider with the given name.
      *
      * @param request the registration request
      * @return the authentication response
      */
     @Override
     public AuthenticationResponse registerPetProvider(PetProviderRegistrationRequest request) {
-        // Create a new pet provider with the given name, empty address and pending verification status
-        PetProvider petProvider = PetProvider.builder()
-                .name(request.name())
-                .address(Address.withDefaults())
-                .status(PetProviderStatus.PENDING_VERIFICATION)
-                .build();
+        try {
+            var petProvider = petProviderRepository.save(
+                PetProvider.builder()
+                    .name(request.name())
+                    .type(request.type())
+                    .address(Address.withDefaults())
+                    .status(PetProviderStatus.PENDING_VERIFICATION)
+                    .build()
+            );
 
-        // Save the pet provider to the database
-        petProvider = petProviderRepository.save(petProvider);
+            var registrationResults = registrationService.register(request.toAuthRequest(), petProvider.getId());
 
-        // Register the user for the pet provider and return the authentication response
-        return registrationService.register(request.toAuthRequest(), petProvider.getId());
+            petProvider.setUserId(registrationResults.userId());
+
+            return registrationResults;
+
+        } catch (Exception e) {
+            throw new DomainException(INVALID_DATA, e.getMessage());
+        }
     }
 
     /**
@@ -77,7 +88,7 @@ public class PetProviderServiceImpl implements PetProviderService {
      * @throws DomainException if the pet provider is not found
      */
     @Override
-    public PetProviderDetailResponse getPetProviderDetails(Long userId) {
+    public PetProviderDetailsResponse getPetProviderDetails(Long userId) {
         // Retrieve the user details
         var userDetails = registrationService.getUserDetails(userId);
 
@@ -86,7 +97,7 @@ public class PetProviderServiceImpl implements PetProviderService {
                 .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, userId.toString()));
 
         // Return the pet provider details response
-        return PetProviderDetailResponse
+        return PetProviderDetailsResponse
                 .from(petProviderDetails)
                 .withUserDetails(userDetails);
     }
@@ -94,7 +105,7 @@ public class PetProviderServiceImpl implements PetProviderService {
     /**
      * Updates an existing pet provider with the details provided in the update request.
      *
-     * @param id the ID of the pet provider to be updated
+     * @param id      the ID of the pet provider to be updated
      * @param request the update request containing new pet provider details
      * @throws DomainException if the pet provider is not found
      */
@@ -115,7 +126,7 @@ public class PetProviderServiceImpl implements PetProviderService {
      * Updates the fields of a PetProvider entity from a PetProviderUpdateRequest.
      *
      * @param petProvider the pet provider entity to update
-     * @param update the update request containing new values
+     * @param update      the update request containing new values
      */
     private void updatePetProviderFromRequest(PetProvider petProvider, PetProviderUpdateRequest update) {
         // Update the name if present in the request

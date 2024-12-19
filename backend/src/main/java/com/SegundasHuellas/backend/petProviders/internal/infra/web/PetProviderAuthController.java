@@ -2,7 +2,7 @@ package com.SegundasHuellas.backend.petProviders.internal.infra.web;
 
 
 import com.SegundasHuellas.backend.auth.api.dto.AuthenticationResponse;
-import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailResponse;
+import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderDetailsResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderRegistrationRequest;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderSummaryResponse;
 import com.SegundasHuellas.backend.petProviders.internal.application.dto.PetProviderUpdateRequest;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/auth/pet-provider")
 @RequiredArgsConstructor
-public class PetProviderAuthController {
+public class PetProviderAuthController implements PetProviderAuthApi{
 
     private final PetProviderService registrationService;
 
@@ -28,6 +28,7 @@ public class PetProviderAuthController {
      * @param request the registration request
      * @return the authentication response
      */
+    @Override
     @PostMapping("/register")
     public AuthenticationResponse registerPetProvider(@RequestBody @Valid PetProviderRegistrationRequest request) {
         return registrationService.registerPetProvider(request);
@@ -51,7 +52,7 @@ public class PetProviderAuthController {
      * @return the pet provider details response
      */
     @GetMapping("/{userId}")
-    public PetProviderDetailResponse getPetProviderDetails(@PathVariable(name = "userId") Long userId) {
+    public PetProviderDetailsResponse getPetProviderDetails(@PathVariable(name = "userId") Long userId) {
         return registrationService.getPetProviderDetails(userId);
     }
 
