@@ -45,6 +45,16 @@
     color: var(--clr-black);
   }
 
+.RegisterFormLabel {
+    display: block;
+    font-weight: 600;
+    color: var(--clr-dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.RegisterFormDescription > span,
+.RegisterFormLabel > span { color: var(--clr-red); }
+
   .register-button {
     width: 100%;
     padding: 13px;
@@ -137,6 +147,8 @@
   .image-container-pet {
     display: none;
   }
+
+#RegisterFormPhoneInput { width: 100%; }
 
   @media (min-width: 640px) {
     .container-register {
