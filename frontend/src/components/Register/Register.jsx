@@ -218,11 +218,13 @@ export function Register() {
                     <div className="input-group">
                     <label htmlFor="RegisterFormEmail" className="RegisterFormLabel"><span>(*)</span> Correo Electrónico:</label>
                     <input
+                        id="RegisterFormEmail"
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="hola@SegundasHuellas.com"
+                        autoComplete="true"
                     />
                     {errors.email && <span className="error">{errors.email}</span>}
                     </div>
@@ -230,6 +232,7 @@ export function Register() {
                     <div className="input-group">
                     <label htmlFor="RegisterFormConfirmEmail" className="RegisterFormLabel"><span>(*)</span> Repetir Correo Electrónico:</label>
                     <input
+                        id="RegisterFormConfirmEmail"
                         type="email"
                         name="confirmEmail"
                         value={formData.confirmEmail}
@@ -242,6 +245,7 @@ export function Register() {
                     <div className="input-group">
                     <label htmlFor="RegisterFormPassword" className="RegisterFormLabel"><span>(*)</span> Contraseña:</label>
                     <input
+                        id="RegisterFormPassword"
                         type="password"
                         name="password"
                         value={formData.password}
@@ -256,6 +260,7 @@ export function Register() {
                     <div className="input-group">
                     <label htmlFor="RegisterFormConfirmPassword" className="RegisterFormLabel"><span>(*)</span> Repetir Contraseña:</label>
                     <input
+                        id="RegisterFormConfirmPassword"
                         type="password"
                         name="passwordConfirmation"
                         value={formData.passwordConfirmation}
@@ -375,6 +380,7 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormFirstName" className="RegisterFormLabel"><span>(*)</span> Nombre:</label>
                         <input
+                            id="RegisterFormFirstName"
                             type="text"
                             name="firstName"
                             value={formData.firstName}
@@ -390,6 +396,7 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormLastName" className="RegisterFormLabel"><span>(*)</span> Apellido:</label>
                         <input
+                            id="RegisterFormLastName"
                             type="text"
                             name="lastName"
                             value={formData.lastName}
@@ -417,6 +424,7 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormAddress" className="RegisterFormLabel">Dirección de Residencia:</label>
                         <input
+                            id="RegisterFormAddress"
                             type="text"
                             name="street"
                             value={formData.street}
@@ -432,6 +440,7 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormCity" className="RegisterFormLabel">Ciudad de Residencia:</label>
                         <input
+                            id="RegisterFormCity"
                             type="text"
                             name="city"
                             value={formData.city}
@@ -445,6 +454,7 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormProvince" className="RegisterFormLabel">Provincia/Estado de Residencia:</label>
                         <input
+                            id="RegisterFormProvince"
                             type="text"
                             name="state"
                             value={formData.state}
@@ -460,12 +470,14 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormCountry" className="RegisterFormLabel">País de Residencia:</label>
                         <input
+                            id="RegisterFormCountry"
                             type="text"
                             name="country"
                             value={formData.country}
                             onChange={handleInputChange}
                             placeholder="Argentina"
                             className="optional-input-checks"
+                            autoComplete="true"
                         />
                         {errors.country && (
                             <span className="error">{errors.country}</span>
@@ -475,7 +487,7 @@ export function Register() {
                         <div className="input-group">
                         <label htmlFor="RegisterFormPhone" className="RegisterFormLabel">Teléfono:</label>
                         <input
-                            id="RegisterFormPhoneInput"
+                            id="RegisterFormPhone"
                             type="tel"
                             name="phoneNumber"
                             value={formData.phoneNumber}
