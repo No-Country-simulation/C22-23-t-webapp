@@ -57,17 +57,14 @@ public class AdoptionRequest extends BaseEntity {
     @Size(max = 500, message = "Comments cannot be longer than 500 characters")
     private String comments;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_id")
-    private Pet pet;
+    @Column(name = "pet_id")
+    private Long petId;
 
-    @ManyToOne
-    @JoinColumn(name = "adopter_id")
-    private Adopter adopter;
+    @Column(name = "adopter_id")
+    private Long adopterId;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_provider_id")
-    private PetProvider petProvider;
+    @Column(name = "pet_provider_id")
+    private Long petProviderId;
 
 
     public void setStreet(String street) {
