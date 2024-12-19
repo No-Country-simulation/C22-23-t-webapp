@@ -18,7 +18,7 @@ NoCountry | equipo-c22-23-t-webapp
 - **Javier Ccasani** - Backend ([@ccasani93](https://github.com/ccasani93))
 - **Federico Correa** - Frontend ([@Fede-Correa](https://github.com/Fede-Correa))
 - **Jefferson Curo** - Backend ([@jeffersoncuro](https://github.com/jeffersoncuro))
-- **Ale Fioque** - LEAD UX/UI ([@AlexUI-design](https://github.com/AlexUI-design))
+- **Alex Fioquetti** - LEAD UX/UI ([@AlexUI-design](https://github.com/AlexUI-design))
 - **Cristóbal Pulgar** - Backend ([@CristobalNPE](https://github.com/CristobalNPE))
 - **Ámbar Ramón** - LEAD QA ([@Lofas007](https://github.com/Lofas007))
 - **Ian Sosa** - LEAD Frontend / Project Manager ([@sosaian](https://github.com/sosaian))
