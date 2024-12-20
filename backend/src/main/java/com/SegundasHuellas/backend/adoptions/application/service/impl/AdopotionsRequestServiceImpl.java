@@ -7,11 +7,14 @@ import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.adoptions.domain.enums.AdoptionStatus;
 import com.SegundasHuellas.backend.adoptions.infra.AdoptionsRequestRepository;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
+import com.SegundasHuellas.backend.shared.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 
 @Service
 @Transactional
@@ -50,6 +53,9 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
     }
 
     @Override
+    public List<AdoptionsRequestDetailsResponse> getAllAdoptionsRequests(){return adoptionsRequestRepository.findAll().stream().map(AdoptionsRequestDetailsResponse::from).toList();}
+
+    @Override
     public List<AdoptionsRequestDetailsResponse> findAllByAdopterId(Long adopterId) {return adoptionsRequestRepository.findAllByAdopterId(adopterId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
 
     @Override
@@ -57,4 +63,7 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
 
     @Override
     public List<AdoptionsRequestDetailsResponse> findAllByPetProviderId(Long petProviderId) {return adoptionsRequestRepository.findAllByPetProviderId(petProviderId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
+
+    @Override
+    public AdoptionsRequestDetailsResponse findById(Long id) {return adoptionsRequestRepository.findById(id).map(AdoptionsRequestDetailsResponse::from).orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));}
 }
