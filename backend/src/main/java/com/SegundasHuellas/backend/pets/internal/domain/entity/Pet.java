@@ -79,9 +79,6 @@ public class Pet extends BaseEntity {
     @Column(name = "size")
     private Size size;
 
-    @OneToMany(mappedBy = "pet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AdoptionRequest> adoptionRequests;
-
     /*
      🔨 Movemos la Species a la entidad Breed. De esta manera nos aseguramos que siempre que se cree una raza,
         se sepa a que especie pertenece y no necesitamos validaciones adicionales.

@@ -68,9 +68,6 @@ public class Adopter extends BaseEntity {
     @Column(name = "adoption_application_id")
     private Set<Long> activeAdoptionApplicationIds = new HashSet<>();
 
-    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
-    private List<AdoptionRequest> adoptionRequests;
-
     public void addAdoptionApplication(Long applicationId) {
 
         if (activeAdoptionApplicationIds.size() >= MAX_ACTIVE_APPLICATIONS) {

@@ -5,7 +5,7 @@ public record CreateAdoptionsRequestDto(
         String lastName,
         String email,
         String phone,
-        String address,
+        String street,
         String city,
         String state,
         String zip,

@@ -77,9 +77,6 @@ public class PetProvider extends BaseEntity {
     @Column(name = "user_id")
     private Long userId;
 
-    @OneToMany(mappedBy = "petProvider", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<AdoptionRequest> adoptionRequests = new ArrayList<>();
-
     public void addPet(Long petId) {
         pets.add(petId);
     }
