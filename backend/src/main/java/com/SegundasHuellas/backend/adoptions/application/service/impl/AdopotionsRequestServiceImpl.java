@@ -6,7 +6,7 @@ import com.SegundasHuellas.backend.adoptions.application.dto.CreateAdoptionsRequ
 import com.SegundasHuellas.backend.adoptions.application.service.AdoptionsRequestService;
 import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.adoptions.domain.enums.AdoptionStatus;
-import com.SegundasHuellas.backend.adoptions.infra.AdoptionsRequestRepository;
+import com.SegundasHuellas.backend.adoptions.infra.persistence.AdoptionsRequestRepository;
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import lombok.RequiredArgsConstructor;

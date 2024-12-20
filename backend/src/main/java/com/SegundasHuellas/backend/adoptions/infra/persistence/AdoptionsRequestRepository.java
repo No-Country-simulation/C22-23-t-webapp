@@ -1,4 +1,4 @@
-package com.SegundasHuellas.backend.adoptions.infra;
+package com.SegundasHuellas.backend.adoptions.infra.persistence;
 
 import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
