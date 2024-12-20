@@ -1,6 +1,7 @@
 package com.SegundasHuellas.backend.adoptions.application.service;
 
 
+import com.SegundasHuellas.backend.adoptions.application.dto.AdoptionRequestsUpdateDto;
 import com.SegundasHuellas.backend.adoptions.application.dto.AdoptionsRequestDetailsResponse;
 import com.SegundasHuellas.backend.adoptions.application.dto.CreateAdoptionsRequestDto;
 
@@ -18,4 +19,8 @@ public interface AdoptionsRequestService {
     List<AdoptionsRequestDetailsResponse> findAllByPetProviderId(Long petProviderId);
 
     AdoptionsRequestDetailsResponse findById(Long id);
+
+    AdoptionsRequestDetailsResponse updateAdoptionsRequests(Long id, AdoptionRequestsUpdateDto updateDto);
+
+    void deleteAdoptionsRequest(Long id);
 }

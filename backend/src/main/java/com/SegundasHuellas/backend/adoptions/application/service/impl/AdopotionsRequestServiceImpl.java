@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.adoptions.application.service.impl;
 
+import com.SegundasHuellas.backend.adoptions.application.dto.AdoptionRequestsUpdateDto;
 import com.SegundasHuellas.backend.adoptions.application.dto.AdoptionsRequestDetailsResponse;
 import com.SegundasHuellas.backend.adoptions.application.dto.CreateAdoptionsRequestDto;
 import com.SegundasHuellas.backend.adoptions.application.service.AdoptionsRequestService;
@@ -66,4 +67,54 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
 
     @Override
     public AdoptionsRequestDetailsResponse findById(Long id) {return adoptionsRequestRepository.findById(id).map(AdoptionsRequestDetailsResponse::from).orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));}
+
+    @Override
+    public AdoptionsRequestDetailsResponse updateAdoptionsRequests(Long id, AdoptionRequestsUpdateDto updateDto) {
+        AdoptionRequest existingRequest = adoptionsRequestRepository.findById(id).orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));
+
+        // Actualizar solo los campos que no son nulos en el DTO
+        if (updateDto.adopterFirstName() != null) {
+            existingRequest.setAdopterFirstName(updateDto.adopterFirstName());
+        }
+        if (updateDto.adopterLastName() != null) {
+            existingRequest.setAdopterLastName(updateDto.adopterLastName());
+        }
+        if (updateDto.email() != null) {
+            existingRequest.setEmail(updateDto.email());
+        }
+        if (updateDto.phone() != null) {
+            existingRequest.setPhone(updateDto.phone());
+        }
+        if (updateDto.street() != null) {
+            existingRequest.setStreet(updateDto.street());
+        }
+        if (updateDto.city() != null) {
+            existingRequest.setCity(updateDto.city());
+        }
+        if (updateDto.state() != null) {
+            existingRequest.setState(updateDto.state());
+        }
+        if (updateDto.zip() != null) {
+            existingRequest.setZip(updateDto.zip());
+        }
+        if (updateDto.country() != null) {
+            existingRequest.setCountry(updateDto.country());
+        }
+        if (updateDto.comments() != null) {
+            existingRequest.setComments(updateDto.comments());
+        }
+        if (updateDto.petId() != null) {
+            existingRequest.setPetId(updateDto.petId());
+        }
+        if (updateDto.petProviderId() != null) {
+            existingRequest.setPetProviderId(updateDto.petProviderId());
+        }
+
+        adoptionsRequestRepository.save(existingRequest);
+
+        return AdoptionsRequestDetailsResponse.from(existingRequest);
+    }
+
+    @Override
+    public void deleteAdoptionsRequest(Long id) {adoptionsRequestRepository.deleteById(id);}
 }
