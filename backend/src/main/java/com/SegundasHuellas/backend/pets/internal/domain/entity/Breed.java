@@ -24,6 +24,8 @@ public class Breed extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+
+
     @Enumerated(EnumType.STRING)
     @Column(name = "species", nullable = false)
     private Species species;
