@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -18,7 +20,8 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
 
     private final AdoptionsRequestRepository adoptionsRequestRepository;
 
-    public AdoptionsRequestDetailsResponse createAdoptionsRequest (CreateAdoptionsRequestDto adoptionsRequestDto) {
+    @Override
+    public AdoptionsRequestDetailsResponse createAdoptionsRequest(CreateAdoptionsRequestDto adoptionsRequestDto) {
 
         Address address = Address.builder()
                 .street(adoptionsRequestDto.street())
@@ -46,4 +49,12 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
         return AdoptionsRequestDetailsResponse.from(newAdoptionRequest);
     }
 
+    @Override
+    public List<AdoptionsRequestDetailsResponse> findAllByAdopterId(Long adopterId) {return adoptionsRequestRepository.findAllByAdopterId(adopterId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
+
+    @Override
+    public List<AdoptionsRequestDetailsResponse> findAllByPetId(Long petId) {return adoptionsRequestRepository.findAllByPetId(petId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
+
+    @Override
+    public List<AdoptionsRequestDetailsResponse> findAllByPetProviderId(Long petProviderId) {return adoptionsRequestRepository.findAllByPetProviderId(petProviderId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
 }
