@@ -24,4 +24,5 @@ public class AdoptionsRequestController {
     @GetMapping("/{id}")
     public AdoptionsRequestDetailsResponse findById(@PathVariable(name = "id" ) Long id) {return adoptionsRequestService.findById(id);};
 
+    public
 }

@@ -12,11 +12,11 @@ public interface AdoptionsRequestService {
 
     List<AdoptionsRequestDetailsResponse> getAllAdoptionsRequests();
 
-    List<AdoptionsRequestDetailsResponse> findAllByAdopterId(Long adopterId);
+    AdoptionsRequestDetailsResponse findByAdopterId(Long adopterId);
 
-    List<AdoptionsRequestDetailsResponse> findAllByPetId(Long petId);
+    AdoptionsRequestDetailsResponse findByPetId(Long petId);
 
-    List<AdoptionsRequestDetailsResponse> findAllByPetProviderId(Long petProviderId);
+    AdoptionsRequestDetailsResponse findByPetProviderId(Long petProviderId);
 
     AdoptionsRequestDetailsResponse findById(Long id);
 

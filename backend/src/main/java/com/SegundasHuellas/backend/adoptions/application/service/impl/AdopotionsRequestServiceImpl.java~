@@ -58,9 +58,8 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
 
     @Override
     public AdoptionsRequestDetailsResponse findByAdopterId(Long adopterId) {
-        return adoptionsRequestRepository.findByAdopterId(adopterId)
-                .map(AdoptionsRequestDetailsResponse::from)
-                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));
+        AdoptionRequest newAdoptionRequest =  adoptionsRequestRepository.findByAdopterId(adopterId);
+        return AdoptionsRequestDetailsResponse.from(newAdoptionRequest);
     }
 
     @Override

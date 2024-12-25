@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface AdoptionsRequestRepository extends JpaRepository<AdoptionRequest, Long> {
 
-    List<AdoptionRequest> findAllByAdopterId(Long adopterId);
+    AdoptionRequest findByAdopterId(Long adopterId);
 
-    List<AdoptionRequest> findAllByPetId(Long petId);
+    AdoptionRequest findByPetId(Long petId);
 
-    List<AdoptionRequest> findAllByPetProviderId(Long petProviderId);
+    AdoptionRequest findByPetProviderId(Long petProviderId);
 }
