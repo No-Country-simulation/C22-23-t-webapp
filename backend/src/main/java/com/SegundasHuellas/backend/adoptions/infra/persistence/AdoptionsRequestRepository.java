@@ -5,13 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AdoptionsRequestRepository extends JpaRepository<AdoptionRequest, Long> {
 
-    AdoptionRequest findByAdopterId(Long adopterId);
+    Optional<AdoptionRequest> findByAdopterId(Long adopterId);
 
-    AdoptionRequest findByPetId(Long petId);
+    Optional<AdoptionRequest> findByPetId(Long petId);
 
-    AdoptionRequest findByPetProviderId(Long petProviderId);
+    Optional<AdoptionRequest> findByPetProviderId(Long petProviderId);
 }

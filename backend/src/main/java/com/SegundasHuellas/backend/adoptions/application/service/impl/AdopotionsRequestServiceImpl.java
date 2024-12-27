@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 
@@ -60,17 +61,29 @@ public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
     public AdoptionsRequestDetailsResponse findByAdopterId(Long adopterId) {
         return adoptionsRequestRepository.findByAdopterId(adopterId)
                 .map(AdoptionsRequestDetailsResponse::from)
-                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));
+                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, adopterId.toString()));
     }
 
     @Override
-    public AdoptionsRequestDetailsResponse findByPetId(Long petId) {return adoptionsRequestRepository.findByPetId(petId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
+    public AdoptionsRequestDetailsResponse findByPetId(Long petId) {
+        return adoptionsRequestRepository.findByPetId(petId)
+                .map(AdoptionsRequestDetailsResponse::from)
+                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, petId.toString()));
+    }
 
     @Override
-    public AdoptionsRequestDetailsResponse findByPetProviderId(Long petProviderId) {return adoptionsRequestRepository.findByPetProviderId(petProviderId).stream().map(AdoptionsRequestDetailsResponse::from).toList();}
+    public AdoptionsRequestDetailsResponse findByPetProviderId(Long petProviderId) {
+        return adoptionsRequestRepository.findByPetProviderId(petProviderId)
+                .map(AdoptionsRequestDetailsResponse::from)
+                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, petProviderId.toString()));
+    }
 
     @Override
-    public AdoptionsRequestDetailsResponse findById(Long id) {return adoptionsRequestRepository.findById(id).map(AdoptionsRequestDetailsResponse::from).orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));}
+    public AdoptionsRequestDetailsResponse findById(Long id) {
+        return adoptionsRequestRepository.findById(id)
+                .map(AdoptionsRequestDetailsResponse::from)
+                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND));
+    }
 
     @Override
     public AdoptionsRequestDetailsResponse updateAdoptionsRequests(Long id, AdoptionRequestsUpdateDto updateDto) {
