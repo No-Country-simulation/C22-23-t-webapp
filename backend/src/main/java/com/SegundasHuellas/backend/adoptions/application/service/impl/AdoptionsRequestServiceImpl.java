@@ -14,14 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.SegundasHuellas.backend.shared.exception.DomainException.ErrorCode.RESOURCE_NOT_FOUND;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AdopotionsRequestServiceImpl implements AdoptionsRequestService {
+public class AdoptionsRequestServiceImpl implements AdoptionsRequestService {
 
     private final AdoptionsRequestRepository adoptionsRequestRepository;
 
