@@ -134,6 +134,6 @@ public class AdoptionsRequestServiceImpl implements AdoptionsRequestService {
     @Override
     public void deleteAdoptionsRequest(Long id) {
         adoptionsRequestRepository.delete(adoptionsRequestRepository.findById(id)
-                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString())));
+                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND)));
     }
 }
