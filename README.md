@@ -77,5 +77,24 @@ Para que el proyecto se logre realizar de una manera esperada se utlizaron las s
 
 ---
 
+## Capturas de pantalla
+
+### Landing Page de Segundas Huellas
+![SH-Screenshot-Landing_Page](https://github.com/user-attachments/assets/b08812f7-310f-4eea-94e6-c63ae80fe643)
+
+### Página de búsqueda con filtros aplicados
+![SH-Screenshot-Search_Page](https://github.com/user-attachments/assets/84695ae7-0aec-4cfd-877d-a3a697a3f93b)
+
+### Página de búsqueda con filtros aplicados MOBILE
+![SH-Screenshot-Search_Page_MOBILE jpg](https://github.com/user-attachments/assets/f22ae103-362c-458f-92d0-dced80718669)
+
+### Página de detalles de una mascota
+![SH-Screenshot-Details_Page](https://github.com/user-attachments/assets/030845f3-cbae-4c83-98e0-725f56534f59)
+
+### Página de detalles de una mascota MOBILE
+![SH-Screenshot-Details_Page_MOBILE jpg](https://github.com/user-attachments/assets/4e22b672-4fc6-44be-897f-d17fc3d53349)
+
+---
+
 ### Nota Final
 Este proyecto fue desarrollado por un equipo multidisciplinario comprometido con la mejora de las condiciones de las mascotas en situación de calle. Cada integrante ha aportado sus habilidades y experiencia para materializar una solución eficiente y amigable, centrada en el usuario.
