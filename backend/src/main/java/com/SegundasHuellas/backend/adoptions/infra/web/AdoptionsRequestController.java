@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.adoptions.infra.web;
 
+import com.SegundasHuellas.backend.adoptions.application.dto.AdoptionRequestsUpdateDto;
 import com.SegundasHuellas.backend.adoptions.application.dto.AdoptionsRequestDetailsResponse;
 import com.SegundasHuellas.backend.adoptions.application.dto.CreateAdoptionsRequestDto;
 import com.SegundasHuellas.backend.adoptions.application.service.AdoptionsRequestService;
@@ -33,5 +34,11 @@ public class AdoptionsRequestController {
     @GetMapping("/{id}")
     public AdoptionsRequestDetailsResponse findByPetProviderID(@PathVariable (name = "id") Long id) {return adoptionsRequestService.findByPetProviderId(id);}
 
+    @PutMapping("/update/{id}")
+    public AdoptionsRequestDetailsResponse updateAdoptionsRequests(@PathVariable (name = "id") Long id, @RequestBody AdoptionRequestsUpdateDto updateDto) {
+        return adoptionsRequestService.updateAdoptionsRequests(id, updateDto);
+    }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteAdoptionRequest(@PathVariable (name = "id") Long id) {adoptionsRequestService.deleteAdoptionsRequest(id);}
 }

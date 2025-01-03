@@ -10,6 +10,7 @@ import com.SegundasHuellas.backend.adoptions.infra.persistence.AdoptionsRequestR
 import com.SegundasHuellas.backend.shared.domain.vo.Address;
 import com.SegundasHuellas.backend.shared.exception.DomainException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -133,7 +134,10 @@ public class AdoptionsRequestServiceImpl implements AdoptionsRequestService {
 
     @Override
     public void deleteAdoptionsRequest(Long id) {
-        adoptionsRequestRepository.delete(adoptionsRequestRepository.findById(id)
-                .orElseThrow(() -> new DomainException(RESOURCE_NOT_FOUND, id.toString())));
+        try {
+            adoptionsRequestRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new DomainException(RESOURCE_NOT_FOUND, "Adoption request whit ID " + id + " not found");
+        }
     }
 }
