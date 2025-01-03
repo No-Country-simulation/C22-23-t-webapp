@@ -22,6 +22,16 @@ public class AdoptionsRequestController {
     public List<AdoptionsRequestDetailsResponse> getAllAdoptionsRequests(){return adoptionsRequestService.getAllAdoptionsRequests();}
 
     @GetMapping("/{id}")
-    public AdoptionsRequestDetailsResponse findById(@PathVariable(name = "id" ) Long id) {return adoptionsRequestService.findById(id);};
+    public AdoptionsRequestDetailsResponse findById(@PathVariable(name = "id" ) Long id) {return adoptionsRequestService.findById(id);}
+
+    @GetMapping("{id}")
+    public AdoptionsRequestDetailsResponse findByAdopterId(@PathVariable(name = "id" ) Long id) {return adoptionsRequestService.findByAdopterId(id);}
+
+    @GetMapping("/{id}")
+    public AdoptionsRequestDetailsResponse findByPetId(@PathVariable (name = "id" ) Long id) {return adoptionsRequestService.findByPetId(id);}
+
+    @GetMapping("/{id}")
+    public AdoptionsRequestDetailsResponse findByPetProviderID(@PathVariable (name = "id") Long id) {return adoptionsRequestService.findByPetProviderId(id);}
+
 
 }
