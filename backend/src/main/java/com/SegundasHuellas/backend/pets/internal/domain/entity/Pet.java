@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.pets.internal.domain.entity;
 
+import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Gender;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.PetStatus;
 import com.SegundasHuellas.backend.pets.internal.domain.enums.Size;

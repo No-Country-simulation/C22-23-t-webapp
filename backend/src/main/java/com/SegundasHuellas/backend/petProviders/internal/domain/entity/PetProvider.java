@@ -1,5 +1,6 @@
 package com.SegundasHuellas.backend.petProviders.internal.domain.entity;
 
+import com.SegundasHuellas.backend.adoptions.domain.entity.AdoptionRequest;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderStatus;
 import com.SegundasHuellas.backend.petProviders.internal.domain.enums.PetProviderType;
 import com.SegundasHuellas.backend.shared.domain.base.BaseEntity;
@@ -9,7 +10,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
