@@ -25,13 +25,13 @@ public class AdoptionsRequestController {
     @GetMapping("/{id}")
     public AdoptionsRequestDetailsResponse findById(@PathVariable(name = "id" ) Long id) {return adoptionsRequestService.findById(id);}
 
-    @GetMapping("{id}")
+    @GetMapping("/adopter{id}")
     public AdoptionsRequestDetailsResponse findByAdopterId(@PathVariable(name = "id" ) Long id) {return adoptionsRequestService.findByAdopterId(id);}
 
-    @GetMapping("/{id}")
+    @GetMapping("/pet/{id}")
     public AdoptionsRequestDetailsResponse findByPetId(@PathVariable (name = "id" ) Long id) {return adoptionsRequestService.findByPetId(id);}
 
-    @GetMapping("/{id}")
+    @GetMapping("/pet-provider/{id}")
     public AdoptionsRequestDetailsResponse findByPetProviderID(@PathVariable (name = "id") Long id) {return adoptionsRequestService.findByPetProviderId(id);}
 
     @PutMapping("/update/{id}")
