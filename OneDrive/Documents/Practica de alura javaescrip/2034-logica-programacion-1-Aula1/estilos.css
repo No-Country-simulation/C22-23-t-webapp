@@ -1,0 +1,117 @@
+
+body{
+ background-image: url(../img/photo-1jndkn3675559-5046b59a5ca5.avif); 
+ background-position: center;
+ background-size: cover;
+ background-repeat: no-repeat;
+ font-size: 20px;
+ font-family: Arial, Helvetica, sans-serif;
+ background-attachment: fixed;
+}
+/*body::after {background-image: url(../img/987fb4b6e21114878003a88a97523f06.gif);
+    position: absolute;
+    background-color: blue;
+    background-position: center top;
+        background-repeat: no-repeat;
+    margin: 0;
+    background-size: cover; 
+    background-attachment: fixed;
+    animation: moverFondoSuave 5s ease-in-out infinite; 
+    
+}*/
+h1{
+color: #f3f708;
+display: flex;
+text-align: center;
+justify-content: center;
+height: auto;
+width: 1500px;
+font-size: 50px;
+}
+h2{
+ color: #f3f708;
+ display: flex;
+ justify-content: center;
+ height: auto;
+ width: 1500px;
+ font-size: 40px;
+}
+p{
+ color:#080808;
+ position: relative;
+ width: 500px;
+ height: auto;
+ justify-content: center;
+ text-align: center;
+ left: 200px;
+ border: solid #070606;
+ border-radius: 10px;
+ background-color: aliceblue;
+}
+ul{
+    position: fixed;
+    border:solid #070606;
+    border-radius: 10px;
+    background-color: rgb(232, 239, 237);
+    width: 900px;
+    height: auto;
+    left: 300px;
+}
+ol{
+    border: solid black;
+    background-color: rgb(242, 246, 246);
+    border-radius: 20px;
+    height: auto;
+    width: 500px;
+    position:relative;
+    left: 500px;
+    top: 80px;
+}
+button{
+background-color: rgb(27, 163, 163);
+border: solid black;
+    width: 100px;
+    height: 30px;
+    background: rgb(236, 27, 247);
+    transition: background 1s linear;
+  
+    &:hover {
+      background: rgb(247, 243, 20);
+    }
+  }
+#input{
+   position: relative;
+   left: 800px;
+   top: -225px;
+   border: solid black;
+   width: 200px;
+   height: 25px;
+}
+#inputName{
+    position: relative;
+   left: 800px;
+   top: -170px;
+   border: solid black;
+   width: 200px;
+   height: 25px;
+}
+#guessButton{
+    position: relative;
+    left: 800px;
+    top: -170px
+}
+#secretButton{
+        position: relative;
+        left: 800px;
+        top: -225px
+}
+@media (max-width: 1200px){
+    .body{
+        position: absolute;
+        flex-direction: column;
+        width: auto;
+    }
+
+}
+
+
